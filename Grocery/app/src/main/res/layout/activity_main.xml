@@ -4,15 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#ffffff">
 
-    <TextView
+   <TextView
+       android:id="@+id/textView01"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       android:layout_marginTop="40dp"
+       android:text="Grocery"
+       android:textSize="60sp"
+       android:textStyle="bold"
+       android:textColor="@color/green_main"/>
+
+
+    <EditText
+        android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView01"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="120dp"
+        android:ems="16"
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="24dp"
+        android:hint="Email">
+        <requestFocus></requestFocus>
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:ems="16"
+        android:inputType="textPassword"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:gravity="center_vertical"
+        android:drawablePadding="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="24dp"
+        android:hint="Mật khẩu">
+    </EditText>
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPassword"
+        android:text="Đăng nhập"
+        android:textStyle="bold"
+        android:drawableRight="@drawable/ic_baseline_login_24"
+        android:drawablePadding="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_btn_white"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:textSize="16sp"/>
+
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewForgotPassword"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+        android:text="Tạo tài khoản"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_btn_red"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/textView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/textViewForgotPassword"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
+        android:text="Quên mật khẩu? "/>
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/textView02"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="100dp"
+        android:textColor="#ff5b68"
+        android:textStyle="bold"
+        android:text="Lấy lại ở đây"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
