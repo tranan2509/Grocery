@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.grocery"
+        applicationId "hcmute.edu.vn.mssv18110249"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
