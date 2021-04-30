@@ -30,59 +30,58 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton rdoMale;
     CheckBox ckbPolicy;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        spnDay = (Spinner)findViewById(R.id.spnDay);
-        spnMonth = (Spinner)findViewById(R.id.spnMonth);
-        spnYear = (Spinner)findViewById(R.id.spnYear);
-        btnClose = (ImageButton) findViewById(R.id.btn_close);
-        btnNext = (Button)findViewById(R.id.btnNext);
-
-
-        final List<Integer> days = getDays(31);
-        ArrayAdapter<Integer> daysAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, days);
-        spnDay.setAdapter(daysAdapter);
-
-        final List<Integer> months = getMonths();
-        ArrayAdapter<Integer> monthsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, months);
-        spnMonth.setAdapter(monthsAdapter);
-
-        final List<Integer> years = getYears(2021);
-        ArrayAdapter<Integer> yearsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, years);
-        spnYear.setAdapter(yearsAdapter);
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isInvalid()){
-                    Intent intent = new Intent(getApplicationContext(), UploadAvatarActivity.class);
-                    startActivity(intent);
-                }else{
-                    
-                }
-            }
-        });
+//        spnDay = (Spinner)findViewById(R.id.spnDay);
+//        spnMonth = (Spinner)findViewById(R.id.spnMonth);
+//        spnYear = (Spinner)findViewById(R.id.spnYear);
+//        btnClose = (ImageButton) findViewById(R.id.btn_close);
+//        btnNext = (Button)findViewById(R.id.btnNext);
+//
+//
+//        final List<Integer> days = getDays(31);
+//        ArrayAdapter<Integer> daysAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, days);
+//        spnDay.setAdapter(daysAdapter);
+//
+//        final List<Integer> months = getMonths();
+//        ArrayAdapter<Integer> monthsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, months);
+//        spnMonth.setAdapter(monthsAdapter);
+//
+//        final List<Integer> years = getYears(2021);
+//        ArrayAdapter<Integer> yearsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, years);
+//        spnYear.setAdapter(yearsAdapter);
+//
+//        btnClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//
+//        btnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //if (!isInvalid()){
+//                    Intent intent = new Intent(getApplicationContext(), UploadAvatarActivity.class);
+//                    startActivity(intent);
+//                //}
+//            }
+//        });
 
     }
 
     public boolean isInvalid(){
-        if (txtName.getText().toString() == ""){
-            if (txtPhone.getText().toString() == ""){
-                if (txtEmail.getText().toString() == ""){
-                    if (txtPassword.getText().toString()== ""){
-                        if (txtConfirmPassword.getText().toString() == ""){
-                            if (!ckbPolicy.isChecked()){
-                                return false;
+        if (txtName.getText().toString() != "")
+            if (txtPhone.getText().toString() != ""){
+                if (txtEmail.getText().toString() != ""){
+                    if (txtPassword.getText().toString()!= ""){
+                        if (txtConfirmPassword.getText().toString() != ""){
+                            if (ckbPolicy.isChecked()){
+                                return true;
                             }else{
                                 Toast.makeText(getApplicationContext(), "Vui lòng chấp nhận chính sách", Toast.LENGTH_LONG).show();
                             }
@@ -97,11 +96,10 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }else{
                 Toast.makeText(getApplicationContext(), "Vui lòng nhập số điện thoại", Toast.LENGTH_LONG).show();
-            }
-        }else{
+            }else{
             Toast.makeText(getApplicationContext(), "Vui lòng nhập tên", Toast.LENGTH_LONG).show();
         }
-        return true;
+        return false;
     }
 
     public List<Integer> getDays(int maxDay){

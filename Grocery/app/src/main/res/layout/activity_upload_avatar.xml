@@ -28,28 +28,42 @@
         android:src="@drawable/ic_baseline_arrow_back_ios_24"
         android:background="#ffffff"/>
 
-    <ImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+
+    <FrameLayout
+        android:id="@+id/frameLayoutAvatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toBottomOf="@id/textView01"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView01"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/ic_baseline_person_24"
-        android:background="@drawable/bg_avatar"
-        android:padding="8dp"/>
+        android:layout_marginTop="60dp">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_baseline_person_24"
+            android:padding="8dp"
+            android:scaleType="fitCenter"/>
+
+        <ImageView
+            android:src="@drawable/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+
 
     <TextView
         android:id="@+id/txtViewUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tải ảnh lên"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textColor="@color/green_main"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgAvatar"
+        app:layout_constraintTop_toBottomOf="@id/frameLayoutAvatar"
         android:layout_marginTop="40dp"/>
 
     <TextView
@@ -69,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chụp ảnh"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textColor="@color/green_main"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -12,20 +12,20 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     EditText txtEmail, txtPassword;
-    Button btnSignIn, btnSignUp;
-    TextView txtViewForgotPassword;
+    Button btnSignIn;
+    TextView txtViewForgotPassword, btnSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtEmail = (EditText)findViewById(R.id.txtEmail);
-        txtPassword = (EditText)findViewById(R.id.txtPassword);
-        btnSignIn = (Button)findViewById(R.id.btnSignIn);
-        btnSignUp = (Button)findViewById(R.id.btnSignUp);
-        txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
-
+//        txtEmail = (EditText)findViewById(R.id.txtEmail);
+//        txtPassword = (EditText)findViewById(R.id.txtPassword);
+//        btnSignIn = (Button)findViewById(R.id.btnSignIn);
+        btnSignUp = (TextView) findViewById(R.id.btnSignUp);
+//        txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
+//
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
