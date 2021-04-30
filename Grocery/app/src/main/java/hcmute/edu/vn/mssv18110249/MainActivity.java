@@ -24,12 +24,20 @@ public class MainActivity extends AppCompatActivity {
 //        txtPassword = (EditText)findViewById(R.id.txtPassword);
 //        btnSignIn = (Button)findViewById(R.id.btnSignIn);
         btnSignUp = (TextView) findViewById(R.id.btnSignUp);
-//        txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
+        txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
 //
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        txtViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
