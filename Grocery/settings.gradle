@@ -1,2 +1,4 @@
+include ':mail'
+include ':javax.mail'
 include ':app'
 rootProject.name = "Grocery"

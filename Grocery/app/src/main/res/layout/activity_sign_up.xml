@@ -441,8 +441,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageButton
-            android:id="@+id/imgAvatar"
+        <FrameLayout
+            android:id="@+id/frameLayoutAvatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -450,10 +450,21 @@
             app:layout_constraintTop_toTopOf="@id/constraintLayout01"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout01"
             android:layout_marginLeft="200dp"
-            android:src="@drawable/ic_baseline_photo_camera_24"
-            android:padding="12dp"
-            android:background="@drawable/bg_avatar_circle"
-            android:layout_marginTop="28dp"/>
+            android:layout_marginTop="60dp">
+
+            <Provider.CircleImage
+                android:id="@+id/imgAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/camera_circle"/>
+
+            <ImageView
+                android:src="@drawable/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

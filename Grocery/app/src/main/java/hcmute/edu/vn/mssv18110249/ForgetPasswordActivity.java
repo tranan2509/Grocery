@@ -2,17 +2,26 @@ package hcmute.edu.vn.mssv18110249;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
-
+import java.util.Properties;
 import java.util.Random;
+
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import Provider.EmailValidator;
 
@@ -48,6 +57,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     return;
                 }
                 if (isEmail){
+//                    Toast.makeText(getApplicationContext(), "Network: " + isOnline().toString(), Toast.LENGTH_LONG).show();
                     //Check email exists
                     //
                     //
@@ -57,34 +67,33 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             String fromEmail = "antran2509@gmail.com";
                             String fromPassword = "01692889894";
                             String toEmail = email;
-                            BackgroundMail.newBuilder(ForgetPasswordActivity.this)
-                                    .withUsername(fromEmail)
-                                    .withPassword(fromPassword)
-                                    .withMailto(toEmail)
-                                    .withType(BackgroundMail.TYPE_PLAIN)
-                                    .withSubject("this is the subject")
-                                    .withBody("this is the body")
-                                    .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            //do some magic
-                                            Toast.makeText(getApplicationContext(), "Email Success", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(getApplicationContext(), ConfirmCodePasswordActivity.class);
-                                            intent.putExtra("email", email);
-                                            intent.putExtra("code", code);
-                                            startActivity(intent);
 
-                                        }
-                                    })
-                                    .withOnFailCallback(new BackgroundMail.OnFailCallback() {
-                                        @Override
-                                        public void onFail() {
-                                            //do some magic
-                                            Toast.makeText(getApplicationContext(), "Email Fail", Toast.LENGTH_LONG).show();
-                                        }
-                                    })
-                                    .send();
+                            Properties props = new Properties();
+                            props.put("mail.transport.protocol", "smtps");
+                            props.put("mail.smtps.host", "smtp.gmail.com");
+                            props.put("mail.smtps.port", 465);
+                            props.put("mail.smtps.auth", "true");
+                            props.put("mail.smtps.quitwait", "false");
+                            Session session = Session.getDefaultInstance(props);
+                            session.setDebug(true);
 
+                            Message message = new MimeMessage(session);
+                            message.setSubject("subject");
+                            message.setText("text");
+
+                            Address fromAddress = new InternetAddress(fromEmail);
+                            Address toAddress = new InternetAddress(toEmail);
+                            message.setFrom(fromAddress);
+                            message.setRecipient(Message.RecipientType.TO, toAddress);
+
+                            Transport transport = session.getTransport();
+                            transport.connect(fromEmail, fromPassword);
+                            transport.sendMessage(message, message.getAllRecipients());
+                            transport.close();
+
+//                            GMailSender sender = new GMailSender(fromEmail, fromPassword);
+//                            sender.sendMail("This is Subject", "This is Body", fromEmail, toEmail);
+                            Toast.makeText(getApplicationContext(), "Email success", Toast.LENGTH_LONG).show();
                         }catch (Exception x){
                             Toast.makeText(getApplicationContext(), "Email failed", Toast.LENGTH_LONG).show();
                         }
@@ -97,11 +106,22 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }
             }
         });
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     public String createCode(){
         Random random = new Random();
         int value = random.nextInt((999999 - 111111) + 1) + 111111;
         return String.valueOf(value);
+    }
+
+    private Boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni != null && ni.isConnected()) {
+            return true;
+        }
+        return false;
     }
 }

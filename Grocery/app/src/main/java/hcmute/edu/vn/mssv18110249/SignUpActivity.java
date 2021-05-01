@@ -1,77 +1,105 @@
 package hcmute.edu.vn.mssv18110249;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListPopupWindow;
+import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
+import Provider.CircleImage;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    Spinner spnDay, spnMonth, spnYear;
-    ImageButton btnClose;
-    Button btnNext;
-    EditText txtName, txtPhone, txtEmail, txtPassword, txtConfirmPassword;
+    TextView txtViewSignIn;
+    Button btnSignUp;
+    EditText txtName, txtPhone, txtEmail, txtPassword, txtConfirmPassword, txtDob, txtAddress;
     RadioButton rdoMale;
     CheckBox ckbPolicy;
+    CircleImage imgAvatar;
 
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-//        spnDay = (Spinner)findViewById(R.id.spnDay);
-//        spnMonth = (Spinner)findViewById(R.id.spnMonth);
-//        spnYear = (Spinner)findViewById(R.id.spnYear);
-//        btnClose = (ImageButton) findViewById(R.id.btn_close);
-//        btnNext = (Button)findViewById(R.id.btnNext);
-//
-//
-//        final List<Integer> days = getDays(31);
-//        ArrayAdapter<Integer> daysAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, days);
-//        spnDay.setAdapter(daysAdapter);
-//
-//        final List<Integer> months = getMonths();
-//        ArrayAdapter<Integer> monthsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, months);
-//        spnMonth.setAdapter(monthsAdapter);
-//
-//        final List<Integer> years = getYears(2021);
-//        ArrayAdapter<Integer> yearsAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, years);
-//        spnYear.setAdapter(yearsAdapter);
-//
-//        btnClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//
-//        btnNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //if (!isInvalid()){
-//                    Intent intent = new Intent(getApplicationContext(), UploadAvatarActivity.class);
-//                    startActivity(intent);
-//                //}
-//            }
-//        });
+        btnSignUp = (Button)findViewById(R.id.btnSignUp);
+        txtViewSignIn = (TextView)findViewById(R.id.btnSignIn);
+        txtName = (EditText)findViewById(R.id.txtName);
+        txtEmail = (EditText)findViewById(R.id.txtEmail);
+        txtPhone = (EditText)findViewById(R.id.txtPhone);
+        txtDob = (EditText)findViewById(R.id.txtDob);
+        txtAddress = (EditText)findViewById(R.id.txtAddress);
+        txtPassword = (EditText)findViewById(R.id.txtPassword);
+        txtConfirmPassword = (EditText)findViewById(R.id.txtConfirmPassword);
+        rdoMale = (RadioButton)findViewById(R.id.rdoMale);
+        ckbPolicy = (CheckBox)findViewById(R.id.ckbPolicy);
+        imgAvatar = (CircleImage)findViewById(R.id.imgAvatar);
 
+        imgAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                }
+                else
+                {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
+
+        txtViewSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                imgAvatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            else
+            {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imgAvatar.setImageBitmap(photo);
+        }
     }
 
     public boolean isInvalid(){
@@ -102,24 +130,4 @@ public class SignUpActivity extends AppCompatActivity {
         return false;
     }
 
-    public List<Integer> getDays(int maxDay){
-        List<Integer> days = new ArrayList<Integer>();
-        for (int day = 1; day <= maxDay; day++)
-            days.add(day);
-        return days;
-    }
-
-    public List<Integer> getMonths(){
-        List<Integer> months = new ArrayList<Integer>();
-        for (int month = 1; month <= 12; month++)
-            months.add(month);
-        return months;
-    }
-
-    public List<Integer> getYears(int now){
-        List<Integer> years = new ArrayList<Integer>();
-        for (int year = now - 40; year <= now; year++)
-            years.add(year);
-        return years;
-    }
 }
