@@ -21,7 +21,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:background="@drawable/fruit_and_vegetables"
-            android:scaleType="fitCenter"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textViewGrocery"
@@ -287,18 +287,6 @@
                 android:hint="Your password"
                 android:ems="18"
                 android:textSize="16sp"
-                android:letterSpacing="0.06"/>
-
-            <ImageButton
-                android:id="@+id/btnShow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_remove_red_eye_24"
-                android:background="#ffffff"
-                app:layout_constraintTop_toTopOf="@id/txtPassword"
-                app:layout_constraintBottom_toBottomOf="@id/txtPassword"
-                app:layout_constraintEnd_toEndOf="@id/txtPassword"
-                android:layout_margin="8dp"
                 android:letterSpacing="0.06"/>
 
             <TextView
