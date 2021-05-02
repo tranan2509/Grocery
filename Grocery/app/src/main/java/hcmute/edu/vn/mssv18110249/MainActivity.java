@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
         imgBtnShow = (ImageButton)findViewById(R.id.btnShow);
 
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         imgBtnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
