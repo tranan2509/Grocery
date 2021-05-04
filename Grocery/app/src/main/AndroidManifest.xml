@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Grocery"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".AccountActivity" />
         <activity android:name=".HomePageActivity" />
 
         <uses-library

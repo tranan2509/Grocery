@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
     android:background="@color/white"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -444,7 +445,8 @@
                 android:id="@+id/imgAvatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/camera_circle"/>
+                android:background="@drawable/camera_circle"
+                android:scaleType="centerCrop"/>
 
             <ImageView
                 android:src="@drawable/frame"

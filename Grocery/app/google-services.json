@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "186485858401",
+    "project_id": "grocery-b2cbd",
+    "storage_bucket": "grocery-b2cbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186485858401:android:41e175979dbce0cfccca20",
+        "android_client_info": {
+          "package_name": "hcmute.edu.vn.mssv18110249"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186485858401-18p6po1iekrc177f815vhmlv86hqjtkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hcmute.edu.vn.mssv18110249",
+            "certificate_hash": "661eaae10d7d5d03a03b9cb0f8272327a1d597e2"
+          }
+        },
+        {
+          "client_id": "186485858401-e9ni6argluil3vaggk6mu3j6mrlsu22e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuy90O2AWwmsfmnRNGdlgy0T1_eTlKAQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186485858401-e9ni6argluil3vaggk6mu3j6mrlsu22e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
