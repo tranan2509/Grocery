@@ -1,37 +1,454 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePageActivity"
-    android:background="@color/white"
-    android:scrollbars="none"
-    android:fillViewport="true">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHead"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
-        <TextView
+        <Button
+            android:id="@+id/btnLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home Page"
-            android:textSize="50sp"
+            android:text="Hồ Chí Minh"
+            android:textAllCaps="false"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            style="?android:attr/borderlessButtonStyle"
+            android:drawableLeft="@drawable/ic_baseline_location_on_light_blue_24"
+            android:drawableRight="@drawable/ic_baseline_navigate_next_24"
+            android:drawablePadding="4dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/btnLocation"
+            app:layout_constraintBottom_toBottomOf="@id/btnLocation"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_baseline_shopping_cart_24"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLocation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:itemBackground="@color/white"
-            app:itemTextColor="@drawable/selector"
-            app:itemIconTint="@drawable/selector"
-            app:menu="@menu/menu_navigation"/>
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/bg_btn_search"
+            android:drawableLeft="@drawable/ic_baseline_search_24"
+            android:drawablePadding="4dp"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp"
+            android:text="Search the Grocery app"
+            android:textColor="#909090"
+            android:textAllCaps="false"
+            android:letterSpacing="0.06"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#f0f0f0"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    <ScrollView
+        android:id="@+id/scrollViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/layoutHead">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="4dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewBanner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
+
+                <ImageView
+                    android:id="@+id/imgPromotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fruit_and_vegetables"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:id="@+id/view02"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/cardViewBanner"
+                android:background="#f0f0f0"
+                android:layout_marginTop="12dp"/>
+
+            <ImageButton
+                android:id="@+id/btnMarket"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/market"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view02"
+                app:layout_constraintRight_toLeftOf="@id/btnHotDeal"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txtViewMarket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Market"
+                app:layout_constraintTop_toBottomOf="@id/btnMarket"
+                app:layout_constraintLeft_toLeftOf="@id/btnMarket"
+                app:layout_constraintRight_toRightOf="@id/btnMarket"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnHotDeal"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/market"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view02"
+                app:layout_constraintLeft_toRightOf="@id/btnMarket"
+                app:layout_constraintRight_toLeftOf="@id/btnComboDish"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hot deal"
+                app:layout_constraintTop_toBottomOf="@id/btnHotDeal"
+                app:layout_constraintLeft_toLeftOf="@id/btnHotDeal"
+                app:layout_constraintRight_toRightOf="@id/btnHotDeal"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnComboDish"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/market"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view02"
+                app:layout_constraintLeft_toRightOf="@id/btnHotDeal"
+                app:layout_constraintRight_toLeftOf="@id/btnCopperPrice"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Combo"
+                app:layout_constraintTop_toBottomOf="@id/btnComboDish"
+                app:layout_constraintLeft_toLeftOf="@id/btnComboDish"
+                app:layout_constraintRight_toRightOf="@id/btnComboDish"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnCopperPrice"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/market"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view02"
+                app:layout_constraintLeft_toRightOf="@id/btnComboDish"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copper price"
+                app:layout_constraintTop_toBottomOf="@id/btnCopperPrice"
+                app:layout_constraintLeft_toLeftOf="@id/btnCopperPrice"
+                app:layout_constraintRight_toRightOf="@id/btnCopperPrice"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:id="@+id/view03"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewMarket"
+                android:background="#f0f0f0"
+                android:layout_marginTop="8dp"/>
+
+            <ImageButton
+                android:id="@+id/btnOrganic"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/organic"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view03"
+                app:layout_constraintRight_toLeftOf="@id/btnHotDeal"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txtViewOrganic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Organic"
+                app:layout_constraintTop_toBottomOf="@id/btnOrganic"
+                app:layout_constraintLeft_toLeftOf="@id/btnOrganic"
+                app:layout_constraintRight_toRightOf="@id/btnOrganic"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnImport"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/import_food"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view03"
+                app:layout_constraintLeft_toRightOf="@id/btnOrganic"
+                app:layout_constraintRight_toLeftOf="@id/btnFreshFood"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Import"
+                app:layout_constraintTop_toBottomOf="@id/btnImport"
+                app:layout_constraintLeft_toLeftOf="@id/btnImport"
+                app:layout_constraintRight_toRightOf="@id/btnImport"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnFreshFood"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/fresh_food"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view03"
+                app:layout_constraintLeft_toRightOf="@id/btnImport"
+                app:layout_constraintRight_toLeftOf="@id/btnFruit"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fresh Food"
+                app:layout_constraintTop_toBottomOf="@id/btnFreshFood"
+                app:layout_constraintLeft_toLeftOf="@id/btnFreshFood"
+                app:layout_constraintRight_toRightOf="@id/btnFreshFood"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnFruit"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/fruit"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view03"
+                app:layout_constraintLeft_toRightOf="@id/btnFreshFood"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fruit"
+                app:layout_constraintTop_toBottomOf="@id/btnFruit"
+                app:layout_constraintLeft_toLeftOf="@id/btnFruit"
+                app:layout_constraintRight_toRightOf="@id/btnFruit"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:id="@+id/view04"
+                android:layout_width="match_parent"
+                android:layout_height="0.75dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewOrganic"
+                android:background="#f0f0f0"
+                android:layout_marginTop="8dp"/>
+
+            <ImageButton
+                android:id="@+id/btnChildren"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/child"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view04"
+                app:layout_constraintRight_toLeftOf="@id/btnRecipe"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txtViewChildren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Children"
+                app:layout_constraintTop_toBottomOf="@id/btnChildren"
+                app:layout_constraintLeft_toLeftOf="@id/btnChildren"
+                app:layout_constraintRight_toRightOf="@id/btnChildren"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnRecipe"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/recipe"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view04"
+                app:layout_constraintLeft_toRightOf="@id/btnChildren"
+                app:layout_constraintRight_toLeftOf="@id/btnVideo"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recipe"
+                app:layout_constraintTop_toBottomOf="@id/btnRecipe"
+                app:layout_constraintLeft_toLeftOf="@id/btnRecipe"
+                app:layout_constraintRight_toRightOf="@id/btnRecipe"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnVideo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/video"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view04"
+                app:layout_constraintLeft_toRightOf="@id/btnRecipe"
+                app:layout_constraintRight_toLeftOf="@id/btnTopical"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Video"
+                app:layout_constraintTop_toBottomOf="@id/btnVideo"
+                app:layout_constraintLeft_toLeftOf="@id/btnVideo"
+                app:layout_constraintRight_toRightOf="@id/btnVideo"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <ImageButton
+                android:id="@+id/btnTopical"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/topical"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view04"
+                app:layout_constraintLeft_toRightOf="@id/btnVideo"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Topical"
+                app:layout_constraintTop_toBottomOf="@id/btnTopical"
+                app:layout_constraintLeft_toLeftOf="@id/btnTopical"
+                app:layout_constraintRight_toRightOf="@id/btnTopical"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:id="@+id/view05"
+                android:layout_width="match_parent"
+                android:layout_height="0.75dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewChildren"
+                android:background="#f0f0f0"
+                android:layout_marginTop="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemBackground="@color/white"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu_navigation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

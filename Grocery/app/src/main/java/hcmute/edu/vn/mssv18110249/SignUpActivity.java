@@ -98,7 +98,11 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imgAvatar.setImageBitmap(photo);
+            int width = photo.getWidth() < photo.getHeight() ? photo.getWidth() : photo.getHeight();
+            int x = Integer.valueOf((photo.getWidth() - width)/2 );
+            int y = Integer.valueOf((photo.getHeight() - width)/2 );
+            Bitmap avatar = Bitmap.createBitmap(photo, x, y, width, width);
+            imgAvatar.setImageBitmap(avatar);
         }
     }
 
