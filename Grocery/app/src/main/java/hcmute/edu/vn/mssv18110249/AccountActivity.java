@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.w3c.dom.Text;
+
 public class AccountActivity extends AppCompatActivity {
 
     private GoogleApiClient mGoogleApiClient;
@@ -25,10 +28,24 @@ public class AccountActivity extends AppCompatActivity {
 
     Button btnLogout;
 
+    TextView txtViewInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
+
+
+        txtViewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.account);

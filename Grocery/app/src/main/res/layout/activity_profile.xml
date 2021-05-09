@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/green_main"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/txtViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Information"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="@id/txtViewProfile"
+            app:layout_constraintBottom_toBottomOf="@id/txtViewProfile"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/ic_baseline_arrow_back_white"
+            android:background="@color/green_main"
+            android:layout_marginLeft="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layoutHead"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="1000dp">
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/camera_circle"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tran Van An"
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/cardViewAvatar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="12dp"
+                android:letterSpacing="0.03"/>
+
+            <View
+                android:id="@+id/view01"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="#eeeeee"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewName"/>
+
+            <TextView
+                android:id="@+id/txtViewIntroduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Introduce"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/view01"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txtViewEditIntroduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textSize="16sp"
+                android:textColor="#0000ff"
+                app:layout_constraintTop_toTopOf="@id/txtViewIntroduce"
+                app:layout_constraintBottom_toBottomOf="@id/txtViewIntroduce"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="12dp"/>
+
+            <TextView
+                android:id="@+id/tvLivingIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Living in "
+                android:drawableLeft="@drawable/ic_baseline_location_on_black"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewIntroduce"
+                app:layout_constraintLeft_toLeftOf="@id/txtViewIntroduce"
+                android:textSize="16sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewLivingIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvLivingIn"
+                app:layout_constraintBottom_toBottomOf="@id/tvLivingIn"
+                app:layout_constraintLeft_toRightOf="@id/tvLivingIn"
+                android:text="Ho Chi Minh City"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/tvDob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of birth "
+                android:drawableLeft="@drawable/ic_baseline_card_giftcard_24"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tvLivingIn"
+                app:layout_constraintLeft_toLeftOf="@id/tvLivingIn"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewDob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvDob"
+                app:layout_constraintBottom_toBottomOf="@id/tvDob"
+                app:layout_constraintLeft_toRightOf="@id/tvDob"
+                android:text="25/09/2000"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender "
+                android:drawableLeft="@drawable/ic_baseline_gender_24"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tvDob"
+                app:layout_constraintLeft_toLeftOf="@id/tvDob"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvGender"
+                app:layout_constraintBottom_toBottomOf="@id/tvGender"
+                app:layout_constraintLeft_toRightOf="@id/tvGender"
+                android:text="Male"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+            <View
+                android:id="@+id/viewContactInfo"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="#eeeeee"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvGender"/>
+
+            <TextView
+                android:id="@+id/txtViewContactInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Information"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/viewContactInfo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/txtViewEditContactInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textSize="16sp"
+                android:textColor="#0000ff"
+                app:layout_constraintTop_toTopOf="@id/txtViewContactInfo"
+                app:layout_constraintBottom_toBottomOf="@id/txtViewContactInfo"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="12dp"/>
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:drawableLeft="@drawable/ic_baseline_location_on_black"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewContactInfo"
+                app:layout_constraintLeft_toLeftOf="@id/txtViewContactInfo"
+                android:textSize="16sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvAddress"
+                app:layout_constraintBottom_toBottomOf="@id/tvAddress"
+                app:layout_constraintLeft_toRightOf="@id/tvAddress"
+                android:text="9 Trinh Hoai Duc, Hiep Phu,\nDistrict 9, Ho Chi Minh City"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tvAddress"
+                app:layout_constraintLeft_toLeftOf="@id/tvAddress"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvEmail"
+                app:layout_constraintBottom_toBottomOf="@id/tvEmail"
+                app:layout_constraintLeft_toRightOf="@id/tvEmail"
+                android:text="tranan2509@gmail.com"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone: "
+                android:drawableLeft="@drawable/ic_baseline_phone_24"
+                android:drawablePadding="4dp"
+                app:layout_constraintTop_toBottomOf="@id/tvEmail"
+                app:layout_constraintLeft_toLeftOf="@id/tvEmail"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:letterSpacing="0.03"/>
+
+            <TextView
+                android:id="@+id/txtViewPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/tvPhone"
+                app:layout_constraintBottom_toBottomOf="@id/tvPhone"
+                app:layout_constraintLeft_toRightOf="@id/tvPhone"
+                android:text="0392889894"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:letterSpacing="0.03"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
