@@ -316,8 +316,6 @@
                 android:textColor="@color/black"
                 android:letterSpacing="0.03"/>
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

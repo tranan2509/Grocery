@@ -26,7 +26,7 @@ public class AccountActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    Button btnLogout;
+    Button btnLogout, btnSetting;
 
     TextView txtViewInfo;
 
@@ -36,6 +36,15 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
+        btnSetting = (Button)findViewById(R.id.btnSetting);
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         txtViewInfo.setOnClickListener(new View.OnClickListener() {
