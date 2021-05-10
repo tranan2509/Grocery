@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +25,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         intent = getIntent();
         customer = (Customer)intent.getExtras().getSerializable("customer");
-
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.history);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

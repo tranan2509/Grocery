@@ -17,6 +17,7 @@ public class AccountDB extends DatabaseHandler{
     private static final String KEY_ID = "id";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_IS_EMAIL = "isEmail";
     private static final String KEY_ROLE = "role";
     private static final String KEY_STATE = "state";
 
@@ -30,6 +31,7 @@ public class AccountDB extends DatabaseHandler{
         values.put(KEY_ID, account.getId());
         values.put(KEY_EMAIL, account.getEmail());
         values.put(KEY_PASSWORD, account.getPassword());
+        values.put(KEY_IS_EMAIL, account.isEmail());
         values.put(KEY_ROLE, account.getRole());
         values.put(KEY_STATE, account.isState());
         db.insert(TABLE_ACCOUNT, null, values);
@@ -38,10 +40,13 @@ public class AccountDB extends DatabaseHandler{
 
     public Account getAccount(String id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_ACCOUNT, new String[]{ KEY_ID, KEY_EMAIL, KEY_PASSWORD, KEY_ROLE, KEY_STATE },
+        Cursor cursor = db.query(TABLE_ACCOUNT, new String[]{ KEY_ID, KEY_EMAIL, KEY_PASSWORD, KEY_IS_EMAIL, KEY_ROLE, KEY_STATE },
                 KEY_ID + "=?", new String[]{ id }, null, null, null, null);
-        if (cursor != null)
+
+        if (cursor != null && cursor.getCount() > 0)
             cursor.moveToFirst();
+        else
+            return null;
         Account account = new Account(cursor);
         return account;
     }
@@ -66,7 +71,9 @@ public class AccountDB extends DatabaseHandler{
         values.put(KEY_ID, account.getId());
         values.put(KEY_EMAIL, account.getEmail());
         values.put(KEY_PASSWORD, account.getPassword());
+        values.put(KEY_IS_EMAIL, account.isEmail());
         values.put(KEY_ROLE, account.getRole());
+        values.put(KEY_STATE, account.isState());
         return db.update(TABLE_ACCOUNT, values, KEY_ID + "=?", new String[]{account.getId()});
     }
 

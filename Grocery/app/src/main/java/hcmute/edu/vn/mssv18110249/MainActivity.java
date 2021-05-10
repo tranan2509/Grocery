@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +27,11 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import org.w3c.dom.Text;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import DBUtil.*;
 import Model.*;
@@ -183,15 +189,17 @@ public class MainActivity extends AppCompatActivity implements
             Account account = accountDB.getAccount(acct.getId());
 
             if (account == null){
-                account = new Account(acct.getId(), acct.getEmail(), "", 1, true);
-                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", null, true);
+                account = new Account(acct.getId(), acct.getEmail(), "", true, 1, true);
+                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", "2000/09/25", true);
                 accountDB.addAccount(account);
                 customerDB.addCustomer(customer);
-                Log.d(TAG,"Create new an account");
             }
-            Customer customer = customerDB.getCustomer(account.getId(), true);
+            Customer customer = customerDB.getCustomer(acct.getId());
             intent.putExtra("customer", customer);
-            startActivity(intent);
+            if (customer != null)
+                startActivity(intent);
+            else
+                Toast.makeText(getApplicationContext(), "Not found you information!", Toast.LENGTH_LONG).show();
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);

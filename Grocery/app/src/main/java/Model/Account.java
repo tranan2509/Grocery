@@ -10,24 +10,27 @@ public class Account implements Serializable {
     private String password;
     private int role;
     private boolean state;
+    private boolean isEmail;
 
     public Account() {
     }
 
-    public Account(final String id, final String email, final String password, final int role, final boolean state) {
+    public Account(final String id, final String email, final String password, final boolean isEmail, final int role, final boolean state) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.isEmail= isEmail;
         this.role = role;
         this.state = state;
     }
 
     public Account(Cursor cursor){
-        this.id = String.valueOf(cursor.getColumnIndex("id"));
-        this.email = String.valueOf(cursor.getColumnIndex("email"));
-        this.password = String.valueOf(cursor.getColumnIndex("password"));
-        this.role = Integer.valueOf(cursor.getColumnIndex("role"));
-        this.state = String.valueOf(cursor.getColumnIndex("state")) == "1";
+        this.id = cursor.getString(cursor.getColumnIndex("id"));
+        this.email = cursor.getString(cursor.getColumnIndex("email"));
+        this.password = cursor.getString(cursor.getColumnIndex("password"));
+        this.isEmail = cursor.getString(cursor.getColumnIndex("isEmail")).equals("1");
+        this.role = Integer.valueOf(cursor.getString(cursor.getColumnIndex("role")));
+        this.state = cursor.getString(cursor.getColumnIndex("state")).equals("1");
     }
 
     public String getId() {
@@ -52,6 +55,14 @@ public class Account implements Serializable {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public boolean isEmail() {
+        return this.isEmail;
+    }
+
+    public void setEmail(final boolean email) {
+        this.isEmail = email;
     }
 
     public int getRole() {

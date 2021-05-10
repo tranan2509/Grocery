@@ -18,6 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "id TEXT PRIMARY KEY," +
                 "email TEXT, " +
                 "password TEXT, " +
+                "isEmail NUMERIC," +
                 "role INT," +
                 "state NUMERIC)";
         db.execSQL(CREATE_ACCOUNT_TABLE);

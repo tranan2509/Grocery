@@ -50,6 +50,14 @@ public class SignUpActivity extends AppCompatActivity {
         ckbPolicy = (CheckBox)findViewById(R.id.ckbPolicy);
         imgAvatar = (CircleImage)findViewById(R.id.imgAvatar);
 
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

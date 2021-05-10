@@ -3,6 +3,7 @@ package hcmute.edu.vn.mssv18110249;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,7 @@ public class AccountActivity extends AppCompatActivity {
 
         intent = getIntent();
         customer = (Customer) intent.getExtras().getSerializable("customer");
-
+        Log.d("Name ACCOUNT ", customer.getName());
         txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
         btnSetting = (Button)findViewById(R.id.btnSetting);
 
@@ -49,15 +50,16 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), SettingActivity.class);
+                intentNext.putExtra("customer", customer);
                 startActivity(intentNext);
             }
         });
-
 
         txtViewInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
+                intentNext.putExtra("customer", customer);
                 startActivity(intentNext);
             }
         });
