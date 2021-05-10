@@ -27,6 +27,9 @@ import com.google.android.gms.common.api.Status;
 
 import org.w3c.dom.Text;
 
+import DBUtil.*;
+import Model.*;
+
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -43,11 +46,16 @@ public class MainActivity extends AppCompatActivity implements
     TextView btnSignUp, txtViewForgotPassword;
     EditText txtPassword;
     private boolean isShow;
+    CustomerDB customerDB;
+    AccountDB accountDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        customerDB = new CustomerDB(this);
+        accountDB = new AccountDB(this);
 
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
         btnSignUp = (TextView)findViewById(R.id.btnSignUp);
@@ -172,6 +180,17 @@ public class MainActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             updateUI(true);
             Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+            Account account = accountDB.getAccount(acct.getId());
+
+            if (account == null){
+                account = new Account(acct.getId(), acct.getEmail(), "", 1, true);
+                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", null, true);
+                accountDB.addAccount(account);
+                customerDB.addCustomer(customer);
+                Log.d(TAG,"Create new an account");
+            }
+            Customer customer = customerDB.getCustomer(account.getId(), true);
+            intent.putExtra("customer", customer);
             startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.

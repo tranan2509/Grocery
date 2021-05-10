@@ -160,7 +160,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="24dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Day of birth"
+                android:text="Date of birth"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -177,7 +177,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
                 android:paddingBottom="12dp"
-                android:hint="Your day of birth"
+                android:hint="Your date of birth"
                 android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>

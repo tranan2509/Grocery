@@ -9,14 +9,21 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import Model.Customer;
+
 public class HistoryActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    Intent intent, intentNext;
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        intent = getIntent();
+        customer = (Customer)intent.getExtras().getSerializable("customer");
 
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.history);
@@ -27,11 +34,15 @@ public class HistoryActivity extends AppCompatActivity {
                     case R.id.history:
                         return true;
                     case R.id.account:
-                        startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                        intentNext = new Intent(getApplicationContext(), AccountActivity.class);
+                        intentNext.putExtra("customer", customer);
+                        startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                        intentNext = new Intent(getApplicationContext(), HomePageActivity.class);
+                        intentNext.putExtra("customer", customer);
+                        startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                 }

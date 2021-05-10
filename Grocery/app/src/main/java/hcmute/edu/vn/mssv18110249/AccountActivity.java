@@ -1,5 +1,6 @@
 package hcmute.edu.vn.mssv18110249;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,20 +21,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
 
+import Model.Customer;
+
 public class AccountActivity extends AppCompatActivity {
 
     private GoogleApiClient mGoogleApiClient;
 
     BottomNavigationView bottomNavigationView;
-
     Button btnLogout, btnSetting;
-
     TextView txtViewInfo;
+    Intent intent, intentNext;
+    Customer customer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        intent = getIntent();
+        customer = (Customer) intent.getExtras().getSerializable("customer");
 
         txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
         btnSetting = (Button)findViewById(R.id.btnSetting);
@@ -41,8 +48,8 @@ public class AccountActivity extends AppCompatActivity {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
-                startActivity(intent);
+                intentNext = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intentNext);
             }
         });
 
@@ -50,8 +57,8 @@ public class AccountActivity extends AppCompatActivity {
         txtViewInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(intent);
+                intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intentNext);
             }
         });
 
@@ -65,11 +72,15 @@ public class AccountActivity extends AppCompatActivity {
                     case R.id.account:
                         return true;
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                        intentNext = new Intent(getApplicationContext(), HomePageActivity.class);
+                        intentNext.putExtra("customer", customer);
+                        startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.history:
-                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                        intentNext = new Intent(getApplicationContext(), HistoryActivity.class);
+                        intentNext.putExtra("customer", customer);
+                        startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                 }
