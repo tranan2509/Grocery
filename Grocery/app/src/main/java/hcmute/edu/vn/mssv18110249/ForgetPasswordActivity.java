@@ -23,7 +23,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import Provider.EmailValidator;
+import Provider.Validator;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
@@ -51,7 +51,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = txtEmail.getText().toString();
-                Boolean isEmail = EmailValidator.validate2(email);
+                Boolean isEmail = Validator.validateEmail(email);
                 if (email.equals("")){
                     Toast.makeText(getApplicationContext(), "Email cannot be left blank", Toast.LENGTH_LONG).show();
                     return;

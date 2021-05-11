@@ -177,7 +177,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
                 android:paddingBottom="12dp"
-                android:hint="Your date of birth"
+                android:hint="dd/mm/yyyy"
                 android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>

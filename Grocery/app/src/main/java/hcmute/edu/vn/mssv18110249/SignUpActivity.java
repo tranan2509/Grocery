@@ -26,6 +26,7 @@ import Model.Account;
 import Model.Customer;
 import Provider.BitmapConvert;
 import Provider.CircleImage;
+import Provider.Validator;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -71,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (verify()){
+                if (verify() && isValidate()){
                     String name = txtName.getText().toString();
                     String email = txtEmail.getText().toString();
                     String phone = txtPhone.getText().toString();
@@ -80,6 +81,12 @@ public class SignUpActivity extends AppCompatActivity {
                     boolean gender = rdoMale.isChecked();
                     String password = txtPassword.getText().toString();
                     String confirmPassword = txtConfirmPassword.getText().toString();
+
+                    account = accountDB.getAccountByEmail(email);
+                    if (account != null){
+                        Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
                     if (password.equals(confirmPassword)){
                         UUID uuid = UUID.randomUUID();
@@ -160,6 +167,27 @@ public class SignUpActivity extends AppCompatActivity {
             avatarStr = BitmapConvert.BitMapToString(avatar);
             imgAvatar.setImageBitmap(avatar);
         }
+    }
+
+    public boolean isValidate(){
+        if (Validator.validateEmail(txtEmail.getText().toString())){
+            if (Validator.validatePhone(txtPhone.getText().toString())){
+                if (Validator.validateDob(txtDob.getText().toString())){
+                    if (Validator.validatePassword(txtPassword.getText().toString())) {
+                        return true;
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Password at least 6 characters", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Date of birth must be formatted in dd/mm/yyyy", Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Toast.makeText(getApplicationContext(), "Invalid phone", Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_LONG).show();
+        }
+        return false;
     }
 
     public boolean verify(){

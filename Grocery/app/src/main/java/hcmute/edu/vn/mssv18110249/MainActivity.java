@@ -201,10 +201,15 @@ public class MainActivity extends AppCompatActivity implements
             Account account = accountDB.getAccount(acct.getId());
 
             if (account == null){
-                account = new Account(acct.getId(), acct.getEmail(), "", true, 1, true);
-                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", "", true);
-                accountDB.add(account);
-                customerDB.add(customer);
+                if (accountDB.getAccountByEmail(acct.getEmail()) == null) {
+                    account = new Account(acct.getId(), acct.getEmail(), "", true, 1, true);
+                    Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(), "", "", "", true);
+                    accountDB.add(account);
+                    customerDB.add(customer);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
             Customer customer = customerDB.getCustomer(acct.getId());
             intent.putExtra("customer", customer);
