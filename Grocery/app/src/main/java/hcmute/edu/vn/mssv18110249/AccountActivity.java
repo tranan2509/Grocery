@@ -1,12 +1,16 @@
 package hcmute.edu.vn.mssv18110249;
 
-import android.accounts.Account;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
 
-import Model.Customer;
+import java.io.InputStream;
+
+import DBUtil.AccountDB;
+import Model.*;
+import Provider.BitmapConvert;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -30,21 +38,39 @@ public class AccountActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Button btnLogout, btnSetting;
-    TextView txtViewInfo;
+    ImageView imgAvatar;
+    TextView txtViewInfo, txtViewName;
     Intent intent, intentNext;
     Customer customer;
-
+    Account account;
+    Account accountModel;
+    AccountDB accountDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        accountDB = new AccountDB(this);
+
         intent = getIntent();
         customer = (Customer) intent.getExtras().getSerializable("customer");
-        Log.d("Name ACCOUNT ", customer.getName());
+        account = accountDB.getAccount(customer.getAccountId());
+
         txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
         btnSetting = (Button)findViewById(R.id.btnSetting);
+        imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
+        txtViewName = (TextView)findViewById(R.id.txtViewName);
+
+        accountModel = accountDB.getAccount(customer.getAccountId());
+        if (accountModel.isEmail()){
+            new AccountActivity.DownloadImageTask(imgAvatar)
+                    .execute(customer.getAvatar());
+        }else{
+            imgAvatar.setImageBitmap(BitmapConvert.StringToBitMap(customer.getAvatar()));
+        }
+
+        txtViewName.setText(customer.getName());
 
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,12 +133,37 @@ public class AccountActivity extends AppCompatActivity {
                             @Override
                             public void onResult(Status status) {
                                 // ...
-                                Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
                                 Intent i =new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(i);
                             }
                         });
             }
         });
+
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

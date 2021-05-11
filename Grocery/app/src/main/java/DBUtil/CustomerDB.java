@@ -28,7 +28,7 @@ public class CustomerDB extends DatabaseHandler{
         super(context);
     }
 
-    public void addCustomer(Customer customer){
+    public void add(Customer customer){
         SQLiteDatabase db = this.getWritableDatabase();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");

@@ -18,11 +18,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import DBUtil.AccountDB;
 import DBUtil.CustomerDB;
 import Model.Account;
 import Model.Customer;
+import Provider.BitmapConvert;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -31,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageView imgAvatar;
     ImageButton btnBack;
-    TextView txtViewName, txtViewLiving, txtViewDob, txtViewGender, txtViewEmail, txtViewPhone;
+    TextView txtViewName, txtViewLiving, txtViewDob, txtViewGender, txtViewEmail, txtViewPhone, txtViewAddress;
 
     Intent intent, intentNext;
     Customer customer;
@@ -54,16 +58,24 @@ public class ProfileActivity extends AppCompatActivity {
         txtViewGender = (TextView)findViewById(R.id.txtViewGender);
         txtViewEmail = (TextView)findViewById(R.id.txtViewEmail);
         txtViewPhone = (TextView)findViewById(R.id.txtViewPhone);
+        txtViewAddress = (TextView)findViewById(R.id.txtViewAddress);
         imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
 
         txtViewName.setText(customer.getName());
         txtViewDob.setText(customer.getDob());
+        List<String> partAddresses = new ArrayList<String>();
+        partAddresses = Arrays.asList(customer.getAddress().split(","));
+        String city = partAddresses.size() > 0 ? partAddresses.get(partAddresses.size() - 1) : "";
+        txtViewLiving.setText(city);
         txtViewGender.setText(customer.isGender() ? "Male" : "Female");
         txtViewPhone.setText(customer.getPhone());
         txtViewEmail.setText(account.getEmail());
+        txtViewAddress.setText(customer.getAddress());
         if (account.isEmail()){
             new DownloadImageTask(imgAvatar)
                     .execute(customer.getAvatar());
+        }else{
+            imgAvatar.setImageBitmap(BitmapConvert.StringToBitMap(customer.getAvatar()));
         }
 
 
@@ -71,9 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentNext = new Intent(getApplicationContext(), AccountActivity.class);
-                intentNext.putExtra("customer", customer);
-                startActivity(intentNext);
+                finish();
             }
         });
 

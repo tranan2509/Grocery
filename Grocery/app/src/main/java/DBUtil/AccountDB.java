@@ -25,7 +25,7 @@ public class AccountDB extends DatabaseHandler{
         super(context);
     }
 
-    public void addAccount(Account account){
+    public void add(Account account){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_ID, account.getId());
@@ -42,6 +42,19 @@ public class AccountDB extends DatabaseHandler{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_ACCOUNT, new String[]{ KEY_ID, KEY_EMAIL, KEY_PASSWORD, KEY_IS_EMAIL, KEY_ROLE, KEY_STATE },
                 KEY_ID + "=?", new String[]{ id }, null, null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0)
+            cursor.moveToFirst();
+        else
+            return null;
+        Account account = new Account(cursor);
+        return account;
+    }
+
+    public Account getAccountByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_ACCOUNT, new String[]{ KEY_ID, KEY_EMAIL, KEY_PASSWORD, KEY_IS_EMAIL, KEY_ROLE, KEY_STATE },
+                KEY_EMAIL + "=?", new String[]{ email }, null, null, null, null);
 
         if (cursor != null && cursor.getCount() > 0)
             cursor.moveToFirst();
@@ -95,6 +108,15 @@ public class AccountDB extends DatabaseHandler{
         Cursor cursor = db.rawQuery(query, null);
         cursor.close();
         return cursor.getCount();
+    }
+
+    public Account accountLogged(String email, String password){
+        Account account = getAccountByEmail(email);
+        if (account == null)
+            return null;
+        if (account.getPassword().equals(password) && !password.equals(""))
+            return account;
+        return null;
     }
 
 }

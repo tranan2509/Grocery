@@ -18,6 +18,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.UUID;
+
+import DBUtil.AccountDB;
+import DBUtil.CustomerDB;
+import Model.Account;
+import Model.Customer;
+import Provider.BitmapConvert;
 import Provider.CircleImage;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -29,6 +36,11 @@ public class SignUpActivity extends AppCompatActivity {
     CheckBox ckbPolicy;
     CircleImage imgAvatar;
 
+    AccountDB accountDB;
+    CustomerDB customerDB;
+    Account account;
+    Customer customer;
+    String avatarStr;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
@@ -36,6 +48,11 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        accountDB = new AccountDB(this);
+        customerDB = new CustomerDB(this);
+
+        avatarStr = "";
 
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
         txtViewSignIn = (TextView)findViewById(R.id.btnSignIn);
@@ -54,7 +71,37 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (verify()){
+                    String name = txtName.getText().toString();
+                    String email = txtEmail.getText().toString();
+                    String phone = txtPhone.getText().toString();
+                    String dob = txtDob.getText().toString();
+                    String address = txtAddress.getText().toString();
+                    boolean gender = rdoMale.isChecked();
+                    String password = txtPassword.getText().toString();
+                    String confirmPassword = txtConfirmPassword.getText().toString();
 
+                    if (password.equals(confirmPassword)){
+                        UUID uuid = UUID.randomUUID();
+                        while (accountDB.getAccount(uuid.toString()) != null){
+                            uuid = UUID.randomUUID();
+                        }
+                        account = new Account(uuid.toString(), email, password, false, 1, true);
+                        customer = new Customer(uuid.toString(), uuid.toString(), name, avatarStr, phone, address, dob, gender);
+                        try{
+                            accountDB.add(account);
+                            customerDB.add(customer);
+
+                            Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                            intent.putExtra("customer", customer);
+                            startActivity(intent);
+                        }catch (Exception x){
+                            accountDB.delete(uuid.toString());
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Confirmation password does not match", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
@@ -110,35 +157,41 @@ public class SignUpActivity extends AppCompatActivity {
             int x = Integer.valueOf((photo.getWidth() - width)/2 );
             int y = Integer.valueOf((photo.getHeight() - width)/2 );
             Bitmap avatar = Bitmap.createBitmap(photo, x, y, width, width);
+            avatarStr = BitmapConvert.BitMapToString(avatar);
             imgAvatar.setImageBitmap(avatar);
         }
     }
 
-    public boolean isInvalid(){
-        if (txtName.getText().toString() != "")
-            if (txtPhone.getText().toString() != ""){
-                if (txtEmail.getText().toString() != ""){
-                    if (txtPassword.getText().toString()!= ""){
-                        if (txtConfirmPassword.getText().toString() != ""){
-                            if (ckbPolicy.isChecked()){
-                                return true;
+    public boolean verify(){
+        if (!avatarStr.equals("")){
+            if (!txtName.getText().toString().equals(""))
+                if (!txtPhone.getText().toString().equals("")){
+                    if (!txtEmail.getText().toString().equals("")){
+                        if (!txtPassword.getText().toString().equals("")){
+                            if (!txtConfirmPassword.getText().toString().equals("")){
+                                if (ckbPolicy.isChecked()){
+                                    return true;
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "Please accept the policy", Toast.LENGTH_LONG).show();
+                                }
                             }else{
-                                Toast.makeText(getApplicationContext(), "Vui lòng chấp nhận chính sách", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Please confirm password", Toast.LENGTH_LONG).show();
                             }
                         }else{
-                            Toast.makeText(getApplicationContext(), "Vui lòng xác nhận mật khẩu", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Please enter a password", Toast.LENGTH_LONG).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Vui lòng nhập mật khẩu", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please enter a email", Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(), "Vui lòng nhập địa chỉ email", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Please enter a phone number", Toast.LENGTH_LONG).show();
+            }else{
+                    Toast.makeText(getApplicationContext(), "Please enter your name", Toast.LENGTH_LONG).show();
                 }
-            }else{
-                Toast.makeText(getApplicationContext(), "Vui lòng nhập số điện thoại", Toast.LENGTH_LONG).show();
-            }else{
-            Toast.makeText(getApplicationContext(), "Vui lòng nhập tên", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Please capture your face", Toast.LENGTH_LONG).show();
         }
+
         return false;
     }
 

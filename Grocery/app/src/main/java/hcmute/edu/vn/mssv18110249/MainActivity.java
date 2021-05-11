@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements
     Button btnSignIn;
     ImageButton imgBtnShow;
     TextView btnSignUp, txtViewForgotPassword;
-    EditText txtPassword;
+    EditText txtPassword, txtEmail;
     private boolean isShow;
     CustomerDB customerDB;
     AccountDB accountDB;
@@ -68,13 +68,25 @@ public class MainActivity extends AppCompatActivity implements
         txtPassword = (EditText)findViewById(R.id.txtPassword);
         imgBtnShow = (ImageButton)findViewById(R.id.btnShow);
         txtViewForgotPassword = (TextView)findViewById(R.id.textViewForgotPassword);
+        txtEmail = (EditText)findViewById(R.id.txtEmail);
         isShow = false;
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-                startActivity(intent);
+                if (verify()){
+                    String email = txtEmail.getText().toString();
+                    String password = txtPassword.getText().toString();
+                    Account accountLogin= accountDB.accountLogged(email, password);
+                    if (accountLogin != null){
+                        Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                        Customer customer = customerDB.getCustomer(accountLogin.getId(), true);
+                        intent.putExtra("customer", customer);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
@@ -190,9 +202,9 @@ public class MainActivity extends AppCompatActivity implements
 
             if (account == null){
                 account = new Account(acct.getId(), acct.getEmail(), "", true, 1, true);
-                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", "2000/09/25", true);
-                accountDB.addAccount(account);
-                customerDB.addCustomer(customer);
+                Customer customer = new Customer(acct.getId(), acct.getId(), acct.getDisplayName(), acct.getPhotoUrl().toString(),"", "", "", true);
+                accountDB.add(account);
+                customerDB.add(customer);
             }
             Customer customer = customerDB.getCustomer(acct.getId());
             intent.putExtra("customer", customer);
@@ -266,4 +278,18 @@ public class MainActivity extends AppCompatActivity implements
                 break;
         }
     }
+
+    public boolean verify(){
+        if (!txtEmail.getText().toString().equals("")){
+            if (!txtPassword.getText().toString().equals("")){
+                return true;
+            }else{
+                Toast.makeText(getApplicationContext(), "Please enter a password", Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Please enter a email", Toast.LENGTH_LONG).show();
+        }
+        return false;
+    }
+
 }
