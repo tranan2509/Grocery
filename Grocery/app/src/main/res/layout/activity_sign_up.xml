@@ -78,27 +78,28 @@
 
             <EditText
                 android:id="@+id/txtName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewName"
                 app:layout_constraintStart_toStartOf="@id/textViewName"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="4dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your name"
                 android:inputType="text"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
             <TextView
                 android:id="@+id/textViewEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/txtName"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Email"
                 android:textSize="20sp"
@@ -108,17 +109,17 @@
 
             <EditText
                 android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewEmail"
                 app:layout_constraintStart_toStartOf="@id/textViewEmail"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="4dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your email"
                 android:inputType="textEmailAddress"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -138,7 +139,7 @@
 
             <EditText
                 android:id="@+id/txtPhone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewPhone"
                 app:layout_constraintStart_toStartOf="@id/textViewPhone"
@@ -146,9 +147,9 @@
                 android:inputType="phone"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your phone no."
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -168,7 +169,7 @@
 
             <EditText
                 android:id="@+id/txtDob"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewDob"
                 app:layout_constraintStart_toStartOf="@id/textViewDob"
@@ -176,9 +177,9 @@
                 android:inputType="date"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="dd/mm/yyyy"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -198,7 +199,7 @@
 
             <EditText
                 android:id="@+id/txtAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewAddress"
                 app:layout_constraintStart_toStartOf="@id/textViewAddress"
@@ -206,9 +207,9 @@
                 android:inputType="text"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your address"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -228,7 +229,7 @@
 
             <RadioGroup
                 android:id="@+id/txtGender"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewGender"
                 app:layout_constraintStart_toStartOf="@id/textViewGender"
@@ -236,6 +237,7 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -262,10 +264,11 @@
 
             <TextView
                 android:id="@+id/textViewPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/txtGender"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="24dp"
                 android:layout_marginLeft="24dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Password"
@@ -276,7 +279,7 @@
 
             <EditText
                 android:id="@+id/txtPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewPassword"
                 app:layout_constraintStart_toStartOf="@id/textViewPassword"
@@ -284,9 +287,9 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your password"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -306,7 +309,7 @@
 
             <EditText
                 android:id="@+id/txtConfirmPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewConfirmPassword"
                 app:layout_constraintStart_toStartOf="@id/textViewConfirmPassword"
@@ -314,21 +317,23 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Confirm your password"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
 
             <CheckBox
                 android:id="@+id/ckbPolicy"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Agree with us policy"
                 app:layout_constraintTop_toBottomOf="@id/txtConfirmPassword"
-                app:layout_constraintStart_toStartOf="@id/txtConfirmPassword"
+                app:layout_constraintLeft_toLeftOf="@id/txtConfirmPassword"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:textColor="#5d5d5d"
                 android:textSize="16sp"/>
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingRight="12dp"
+    android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/imgGender"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:padding="5dp"
+        android:src="@drawable/male"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtViewGender"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
+        android:text="Male"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:letterSpacing="0.06"/>
+
+</LinearLayout>

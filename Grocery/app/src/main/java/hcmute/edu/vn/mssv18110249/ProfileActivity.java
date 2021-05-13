@@ -27,6 +27,7 @@ import DBUtil.CustomerDB;
 import Model.Account;
 import Model.Customer;
 import Provider.BitmapConvert;
+import Provider.DownloadImageTask;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView imgAvatar;
     ImageButton btnBack;
     TextView txtViewName, txtViewLiving, txtViewDob, txtViewGender, txtViewEmail, txtViewPhone, txtViewAddress;
+    TextView txtViewEditIntroduce;
 
     Intent intent, intentNext;
     Customer customer;
@@ -61,16 +63,12 @@ public class ProfileActivity extends AppCompatActivity {
         txtViewAddress = (TextView)findViewById(R.id.txtViewAddress);
         imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
 
+        txtViewEditIntroduce = (TextView)findViewById(R.id.txtViewEditIntroduce);
+
         txtViewName.setText(customer.getName());
-        txtViewDob.setText(customer.getDob());
-        List<String> partAddresses = new ArrayList<String>();
-        partAddresses = Arrays.asList(customer.getAddress().split(","));
-        String city = partAddresses.size() > 0 ? partAddresses.get(partAddresses.size() - 1) : "";
-        txtViewLiving.setText(city);
-        txtViewGender.setText(customer.isGender() ? "Male" : "Female");
-        txtViewPhone.setText(customer.getPhone());
-        txtViewEmail.setText(account.getEmail());
-        txtViewAddress.setText(customer.getAddress());
+        setIntroduce();
+        setContactInfo();
+
         if (account.isEmail()){
             new DownloadImageTask(imgAvatar)
                     .execute(customer.getAvatar());
@@ -79,38 +77,48 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentBack = new Intent(getApplicationContext(), ProfileActivity.class);
+                intentBack.putExtra("customer", customer);
+                setResult(RESULT_OK, intentBack);
                 finish();
             }
         });
 
+        txtViewEditIntroduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentNext = new Intent(getApplicationContext(), IntroduceYourselfActivity.class);
+                intentNext.putExtra("customer", customer);
+                startActivityForResult(intentNext, 1);
+            }
+        });
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            customer = (Customer) data.getExtras().getSerializable("customer");
+            setIntroduce();
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
+    }
 
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
+    public void setIntroduce(){
+        txtViewDob.setText(customer.getDob());
+        txtViewGender.setText(customer.isGender() ? "Male" : "Female");
+    }
+
+    public void setContactInfo(){
+        txtViewPhone.setText(customer.getPhone());
+        txtViewEmail.setText(account.getEmail());
+        txtViewAddress.setText(customer.getAddress());
+        List<String> partAddresses = new ArrayList<String>();
+        partAddresses = Arrays.asList(customer.getAddress().split(","));
+        String city = partAddresses.size() > 0 ? partAddresses.get(partAddresses.size() - 1) : "";
+        txtViewLiving.setText(city);
     }
 }

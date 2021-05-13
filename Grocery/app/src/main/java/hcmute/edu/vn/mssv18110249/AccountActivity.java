@@ -31,6 +31,7 @@ import java.io.InputStream;
 import DBUtil.AccountDB;
 import Model.*;
 import Provider.BitmapConvert;
+import Provider.DownloadImageTask;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -64,7 +65,7 @@ public class AccountActivity extends AppCompatActivity {
 
         accountModel = accountDB.getAccount(customer.getAccountId());
         if (accountModel.isEmail()){
-            new AccountActivity.DownloadImageTask(imgAvatar)
+            new DownloadImageTask(imgAvatar)
                     .execute(customer.getAvatar());
         }else{
             imgAvatar.setImageBitmap(BitmapConvert.StringToBitMap(customer.getAvatar()));
@@ -86,7 +87,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
                 intentNext.putExtra("customer", customer);
-                startActivity(intentNext);
+                startActivityForResult(intentNext, 1);
             }
         });
 
@@ -139,31 +140,14 @@ public class AccountActivity extends AppCompatActivity {
                         });
             }
         });
-
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            customer = (Customer) data.getExtras().getSerializable("customer");
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
     }
 }

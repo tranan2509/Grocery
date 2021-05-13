@@ -75,17 +75,17 @@
 
             <EditText
                 android:id="@+id/txtEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewEmail"
                 app:layout_constraintStart_toStartOf="@id/textViewEmail"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your email"
                 android:inputType="textEmailAddress"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
@@ -105,31 +105,31 @@
 
             <EditText
                 android:id="@+id/txtPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/textViewPassword"
                 app:layout_constraintStart_toStartOf="@id/textViewPassword"
                 app:layout_constraintRight_toRightOf="parent"
                 android:inputType="textPassword"
                 android:layout_marginTop="4dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:paddingBottom="12dp"
                 android:hint="Your password"
-                android:ems="18"
                 android:textSize="16sp"
                 android:letterSpacing="0.06"/>
 
             <ImageButton
                 android:id="@+id/btnShow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_remove_red_eye_24"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="32dp"
                 android:background="#ffffff"
-                app:layout_constraintTop_toTopOf="@id/txtPassword"
+                android:letterSpacing="0.06"
+                android:src="@drawable/ic_baseline_remove_red_eye_24"
                 app:layout_constraintBottom_toBottomOf="@id/txtPassword"
-                app:layout_constraintEnd_toEndOf="@id/txtPassword"
-                android:layout_margin="8dp"
-                android:letterSpacing="0.06"/>
+                app:layout_constraintRight_toRightOf="@id/txtPassword"
+                app:layout_constraintTop_toTopOf="@id/txtPassword" />
 
             <TextView
                 android:id="@+id/textViewForgotPassword"
@@ -139,6 +139,7 @@
                 app:layout_constraintTop_toBottomOf="@id/txtPassword"
                 app:layout_constraintEnd_toEndOf="@id/txtPassword"
                 android:layout_marginTop="2dp"
+                android:layout_marginRight="24dp"
                 android:textColor="#5d5d5d"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
