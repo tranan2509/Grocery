@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "186485858401-3mrgub9s00k6le8b48orm7fgkuj9ve9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hcmute.edu.vn.mssv18110249",
+            "certificate_hash": "e3c7ecffdae7591178f16862854271b1971cacb0"
+          }
+        },
+        {
           "client_id": "186485858401-e9ni6argluil3vaggk6mu3j6mrlsu22e.apps.googleusercontent.com",
           "client_type": 3
         }
