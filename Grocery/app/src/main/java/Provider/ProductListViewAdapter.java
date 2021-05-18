@@ -6,7 +6,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import Model.Product;
@@ -48,11 +52,17 @@ public class ProductListViewAdapter extends BaseAdapter {
         TextView txtViewName = (TextView)viewProduct.findViewById(R.id.txtViewName);
         TextView txtViewDescription = (TextView)viewProduct.findViewById(R.id.txtViewDescription);
         TextView txtViewRate = (TextView)viewProduct.findViewById(R.id.txtViewRate);
+        TextView txtViewPrice = (TextView)viewProduct.findViewById(R.id.txtViewPrice);
+
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMaximumFractionDigits(0);
+        format.setCurrency(Currency.getInstance("VND"));
 
         imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
         txtViewName.setText(product.getName());
         txtViewDescription.setText(product.getDescription());
         txtViewRate.setText(product.getRate() + " of " + product.getReviewers());
+        txtViewPrice.setText(format.format(product.getPrice()));
 
         return viewProduct;
     }

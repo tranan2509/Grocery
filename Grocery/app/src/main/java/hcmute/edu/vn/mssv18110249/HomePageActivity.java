@@ -21,7 +21,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit;
+    ImageButton btnFruit, btnCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +31,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         intent = getIntent();
         customer = (Customer) intent.getExtras().getSerializable("customer");
 
-        btnFruit = (ImageButton)findViewById(R.id.btnFruit);
+        getViews();
+        setOnclickViews();
 
-        btnFruit.setOnClickListener(this);
-
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,12 +59,29 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    public void getViews(){
+        btnFruit = (ImageButton)findViewById(R.id.btnFruit);
+        btnCart = (ImageButton)findViewById(R.id.btnCart);
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
+    }
+
+    public void setOnclickViews(){
+        btnFruit.setOnClickListener(this);
+        btnCart.setOnClickListener(this);
+    }
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btnFruit:
                 intentNext = new Intent(this, ListProductActivity.class);
                 intentNext.putExtra("customer", customer);
                 startActivity(intentNext);
+                break;
+            case R.id.btnCart:
+                intentNext = new Intent(this, CartActivity.class);
+                intentNext.putExtra("customer", customer);
+                startActivity(intentNext);
+                break;
         }
     }
 }

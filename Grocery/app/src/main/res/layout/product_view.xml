@@ -32,18 +32,32 @@
         android:layout_marginBottom="20dp"
         android:text="Name Product"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:letterSpacing="0.03"/>
 
     <TextView
         android:id="@+id/txtViewDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/txtViewName"
         app:layout_constraintLeft_toLeftOf="@id/txtViewName"
+        android:layout_marginLeft="108dp"
+        app:layout_constraintRight_toRightOf="parent"
         android:text="Description of Product"
         android:textColor="@color/black"
+        android:textSize="14sp"
+        android:letterSpacing="0.03"/>
+
+    <TextView
+        android:id="@+id/txtViewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtViewRate"
+        app:layout_constraintBottom_toBottomOf="@id/txtViewRate"
+        android:text="20.000đ"
+        android:textColor="#000000"
         android:textSize="16sp"
         android:letterSpacing="0.03"/>
 
@@ -59,14 +73,14 @@
         android:letterSpacing="0.03"
         android:text="4.1 of (104)"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/cardViewImage"
         app:layout_constraintLeft_toRightOf="@id/cardViewImage"/>
 
     <View
         android:id="@+id/viewFooter"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="#eeeeee"
         app:layout_constraintTop_toBottomOf="@id/cardViewImage"
         android:layout_marginTop="8dp"/>

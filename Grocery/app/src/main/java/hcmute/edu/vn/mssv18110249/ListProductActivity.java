@@ -69,7 +69,7 @@ public class ListProductActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product product = (Product) productListViewAdapter.getItem(position);
-                Toast.makeText(ListProductActivity.this, product.getId(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ListProductActivity.this, product.getName(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -48,7 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "importPrice REAL, " +
                 "price REAL, " +
                 "discount INTEGER, " +
-                "amount INTEGER, " +
+                "quantity INTEGER, " +
                 "description TEXT, " +
                 "rate REAL," +
                 "reviewers INTEGER )";

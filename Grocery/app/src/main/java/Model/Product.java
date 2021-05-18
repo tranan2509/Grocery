@@ -13,7 +13,7 @@ public class Product implements Serializable {
     private float importPrice;
     private float price;
     private int discount;
-    private int amount;
+    private int quantity;
     private String description;
     private double rate;
     private int reviewers;
@@ -21,7 +21,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(final int categoryId, final String name, final String image, final String importDate, final float importPrice, final float price, final int discount, final int amount, final String description, final double rate, final int reviewers) {
+    public Product(final int categoryId, final String name, final String image, final String importDate, final float importPrice, final float price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
         this.categoryId = categoryId;
         this.name = name;
         this.image = image;
@@ -29,13 +29,13 @@ public class Product implements Serializable {
         this.importPrice = importPrice;
         this.price = price;
         this.discount = discount;
-        this.amount = amount;
+        this.quantity = quantity;
         this.description = description;
         this.rate = rate;
         this.reviewers = reviewers;
     }
 
-    public Product(final int id, final int categoryId, final String name, final String image, final String importDate, final float importPrice, final float price, final int discount, final int amount, final String description, final double rate, final int reviewers) {
+    public Product(final int id, final int categoryId, final String name, final String image, final String importDate, final float importPrice, final float price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -44,7 +44,7 @@ public class Product implements Serializable {
         this.importPrice = importPrice;
         this.price = price;
         this.discount = discount;
-        this.amount = amount;
+        this.quantity = quantity;
         this.description = description;
         this.rate = rate;
         this.reviewers = reviewers;
@@ -59,7 +59,7 @@ public class Product implements Serializable {
         this.importPrice = cursor.getFloat(cursor.getColumnIndex("importPrice"));
         this.price = cursor.getFloat(cursor.getColumnIndex("price"));
         this.discount = cursor.getInt(cursor.getColumnIndex("discount"));
-        this.amount = cursor.getInt(cursor.getColumnIndex("amount"));
+        this.quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
         this.description = cursor.getString(cursor.getColumnIndex("description"));
         this.rate = cursor.getFloat(cursor.getColumnIndex("rate"));
         this.reviewers = cursor.getInt(cursor.getColumnIndex("reviewers"));
@@ -129,12 +129,12 @@ public class Product implements Serializable {
         this.discount = discount;
     }
 
-    public int getAmount() {
-        return this.amount;
+    public int getQuantity() {
+        return this.quantity;
     }
 
-    public void setAmount(final int amount) {
-        this.amount = amount;
+    public void setQuantity(final int quantity) {
+        this.quantity = quantity;
     }
 
     public String getDescription() {

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartActivity"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/txtViewCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="@id/txtViewCart"
+            app:layout_constraintBottom_toBottomOf="@id/txtViewCart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/ic_baseline_arrow_back_black"
+            android:background="@color/white"
+            android:layout_marginLeft="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"/>
+
+    <ScrollView
+        android:id="@+id/scrollViewBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/viewHeader"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/viewFooter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"
+        app:layout_constraintTop_toBottomOf="@id/scrollViewBody"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/txtVoucher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:drawableLeft="@drawable/icons8_voucher_64"
+            android:drawablePadding="8dp"
+            android:background="@drawable/bg_edit_text_normal"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="8dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="120dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingRight="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:hint="Voucher"/>
+
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:layout_constraintTop_toTopOf="@id/txtVoucher"
+            app:layout_constraintBottom_toBottomOf="@id/txtVoucher"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="12dp"
+            android:text="Apply"
+            android:background="@drawable/bg_btn_nomal_blue"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:gravity="center"/>
+
+        <View
+            android:id="@+id/viewFooter01"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#eeeeee"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/btnApply"/>
+
+        <CheckBox
+            android:id="@+id/ckbAllProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/btnPurchase"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btnPurchase"
+            android:layout_marginLeft="6dp"
+            android:text="All"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount"
+            app:layout_constraintTop_toTopOf="@id/txtViewAmount"
+            app:layout_constraintBottom_toBottomOf="@id/txtViewAmount"
+            app:layout_constraintRight_toLeftOf="@id/txtViewAmount"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtViewAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="đ36.000"
+            android:textColor="@color/green_main"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="@id/btnPurchase"
+            app:layout_constraintBottom_toBottomOf="@id/btnPurchase"
+            app:layout_constraintRight_toLeftOf="@id/btnPurchase"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:id="@+id/btnPurchase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewFooter01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/green_main"
+            android:text="Purchase"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
