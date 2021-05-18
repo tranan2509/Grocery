@@ -33,12 +33,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "dob NUMERIC, " +
                 "gender NUMERIC )";
         db.execSQL(CREATE_CUSTOMER_TABLE);
+
+        String CREATE_CATEGORY_TABLE = "CREATE TABLE CATEGORY (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT )";
+        db.execSQL(CREATE_CATEGORY_TABLE);
+
+        String CREATE_PRODUCT_TABLE = "CREATE TABLE PRODUCT(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "categoryId INTEGER, " +
+                "name TEXT, " +
+                "image TEXT, " +
+                "importDate TEXT, " +
+                "importPrice REAL, " +
+                "price REAL, " +
+                "discount INTEGER, " +
+                "amount INTEGER, " +
+                "description TEXT, " +
+                "rate REAL," +
+                "reviewers INTEGER )";
+        db.execSQL(CREATE_PRODUCT_TABLE);
     }
 
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS ACCOUNT");
         db.execSQL("DROP TABLE IF EXISTS CUSTOMER");
+        db.execSQL("DROP TABLE IF EXISTS CATEGORY");
+        db.execSQL("DROP TABLE IF EXISTS PRODUCT");
         onCreate(db);
     }
 }
