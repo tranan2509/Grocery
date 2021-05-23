@@ -28,6 +28,7 @@ import Model.Account;
 import Model.Customer;
 import Provider.BitmapConvert;
 import Provider.DownloadImageTask;
+import Provider.SharedPreferenceProvider;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         accountDB = new AccountDB(this);
 
         intent = getIntent();
-        customer = (Customer)intent.getExtras().getSerializable("customer");
+        customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
         account = accountDB.getAccount(customer.getAccountId());
 
         btnBack = (ImageButton)findViewById(R.id.btnBack);
@@ -80,10 +81,8 @@ public class ProfileActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentBack = new Intent(getApplicationContext(), ProfileActivity.class);
-                intentBack.putExtra("customer", customer);
-                setResult(RESULT_OK, intentBack);
-                finish();
+                Intent intentBack = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(intentBack);
             }
         });
 
@@ -91,20 +90,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), IntroduceYourselfActivity.class);
-                intentNext.putExtra("customer", customer);
-                startActivityForResult(intentNext, 1);
+                startActivity(intentNext);
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            customer = (Customer) data.getExtras().getSerializable("customer");
-            setIntroduce();
-        }
-
     }
 
     public void setIntroduce(){

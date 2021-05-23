@@ -19,6 +19,7 @@ import Model.*;
 import Provider.BitmapConvert;
 import Provider.DownloadImageTask;
 import Provider.ProductListViewAdapter;
+import Provider.SharedPreferenceProvider;
 
 public class ListProductActivity extends AppCompatActivity {
 
@@ -44,8 +45,7 @@ public class ListProductActivity extends AppCompatActivity {
         productDB = new ProductDB(this);
         accountDB = new AccountDB(this);
 
-        customer = (Customer)getIntent().getSerializableExtra("customer");
-        System.out.println(customer.getAccountId());
+        customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
         account = accountDB.getAccount(customer.getAccountId());
 
         products = new ArrayList<Product>();

@@ -2,6 +2,7 @@ package hcmute.edu.vn.mssv18110249;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -25,6 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -35,11 +37,11 @@ import java.util.Date;
 
 import DBUtil.*;
 import Model.*;
+import Provider.SharedPreferenceProvider;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
-
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
@@ -211,7 +213,10 @@ public class MainActivity extends AppCompatActivity implements
                 }
             }
             Customer customer = customerDB.getCustomer(acct.getId());
-            intent.putExtra("customer", customer);
+//            intent.putExtra("customer", customer);
+
+            SharedPreferenceProvider.getInstance(this).set("customer", customer);
+
             if (customer != null)
                 startActivity(intent);
             else

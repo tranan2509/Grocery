@@ -28,9 +28,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        intent = getIntent();
-        customer = (Customer) intent.getExtras().getSerializable("customer");
-
         getViews();
         setOnclickViews();
 
@@ -43,13 +40,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                         return true;
                     case R.id.account:
                         intentNext = new Intent(getApplicationContext(), AccountActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.history:
                         intentNext = new Intent(getApplicationContext(), HistoryActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;

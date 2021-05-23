@@ -24,7 +24,6 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         intent = getIntent();
-        customer = (Customer)intent.getExtras().getSerializable("customer");
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.history);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,13 +34,11 @@ public class HistoryActivity extends AppCompatActivity {
                         return true;
                     case R.id.account:
                         intentNext = new Intent(getApplicationContext(), AccountActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.home:
                         intentNext = new Intent(getApplicationContext(), HomePageActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;

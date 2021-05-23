@@ -114,5 +114,4 @@ public class CustomerDB extends DatabaseHandler{
         Cursor cursor = db.rawQuery(query, null);
         return cursor.getCount();
     }
-
 }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import DBUtil.CustomerDB;
 import Model.Account;
 import Model.Customer;
+import Provider.SharedPreferenceProvider;
 import Provider.SpinnerAdapter;
 
 public class IntroduceYourselfActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class IntroduceYourselfActivity extends AppCompatActivity {
         customerDB = new CustomerDB(this);
 
         Intent intent = getIntent();
-        customer = (Customer)intent.getExtras().getSerializable("customer");
+        customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
 
 //        Get parameter
         Spinner spnGender = (Spinner) findViewById(R.id.spnGender);
@@ -53,7 +54,7 @@ public class IntroduceYourselfActivity extends AppCompatActivity {
         spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(IntroduceYourselfActivity.this, "You Select Position: " + position + " " + gender[position], Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -80,9 +81,8 @@ public class IntroduceYourselfActivity extends AppCompatActivity {
                 if (customerDB.update(customer) > 0){
                     btnSave.setTextColor(Color.parseColor("#aaffff"));
                     Intent backIntent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    backIntent.putExtra("customer", customer);
-                    setResult(RESULT_OK, backIntent);
-                    finish();
+                    SharedPreferenceProvider.getInstance(IntroduceYourselfActivity.this).set("customer", customer);
+                    startActivity(backIntent);
                 }else{
                     Toast.makeText(IntroduceYourselfActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
                 }

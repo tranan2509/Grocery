@@ -1,6 +1,7 @@
 package hcmute.edu.vn.mssv18110249;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +34,7 @@ import DBUtil.AccountDB;
 import Model.*;
 import Provider.BitmapConvert;
 import Provider.DownloadImageTask;
+import Provider.SharedPreferenceProvider;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -55,7 +58,9 @@ public class AccountActivity extends AppCompatActivity {
         accountDB = new AccountDB(this);
 
         intent = getIntent();
-        customer = (Customer) intent.getExtras().getSerializable("customer");
+
+        customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
+        
         account = accountDB.getAccount(customer.getAccountId());
 
         txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
@@ -77,7 +82,6 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), SettingActivity.class);
-                intentNext.putExtra("customer", customer);
                 startActivity(intentNext);
             }
         });
@@ -86,8 +90,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
-                intentNext.putExtra("customer", customer);
-                startActivityForResult(intentNext, 1);
+                startActivity(intentNext);
             }
         });
 
@@ -102,13 +105,11 @@ public class AccountActivity extends AppCompatActivity {
                         return true;
                     case R.id.home:
                         intentNext = new Intent(getApplicationContext(), HomePageActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.history:
                         intentNext = new Intent(getApplicationContext(), HistoryActivity.class);
-                        intentNext.putExtra("customer", customer);
                         startActivity(intentNext);
                         overridePendingTransition(0, 0);
                         return true;
@@ -140,14 +141,5 @@ public class AccountActivity extends AppCompatActivity {
                         });
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            customer = (Customer) data.getExtras().getSerializable("customer");
-        }
-
     }
 }
