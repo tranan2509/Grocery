@@ -47,12 +47,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "importDate TEXT, " +
                 "importPrice REAL, " +
                 "price REAL, " +
+                "unit TEXT, " +
                 "discount INTEGER, " +
                 "quantity INTEGER, " +
                 "description TEXT, " +
                 "rate REAL," +
                 "reviewers INTEGER )";
         db.execSQL(CREATE_PRODUCT_TABLE);
+
+        String CREATE_CART_TABLE = "CREATE TABLE CART(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "customerId TEXT, " +
+                "productId INTEGER, " +
+                "quantity INTEGER, " +
+                "amount REAL, " +
+                "state NUMERIC)";
+        db.execSQL(CREATE_CART_TABLE);
     }
 
     @Override
@@ -61,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS CUSTOMER");
         db.execSQL("DROP TABLE IF EXISTS CATEGORY");
         db.execSQL("DROP TABLE IF EXISTS PRODUCT");
+        db.execSQL("DROP TABLE IF EXISTS CART");
         onCreate(db);
     }
 }

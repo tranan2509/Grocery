@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DBUtil.AccountDB;
+import DBUtil.CartDB;
 import DBUtil.CategoryDB;
 import DBUtil.CustomerDB;
 import DBUtil.ProductDB;
@@ -31,6 +32,7 @@ public class ListProductActivity extends AppCompatActivity {
 
     CustomerDB customerDB;
     CategoryDB categoryDB;
+    CartDB cartDB;
     AccountDB accountDB;
     ProductDB productDB;
     Customer customer;
@@ -44,11 +46,10 @@ public class ListProductActivity extends AppCompatActivity {
         categoryDB = new CategoryDB(this);
         productDB = new ProductDB(this);
         accountDB = new AccountDB(this);
+        cartDB = new CartDB(this);
 
         customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
         account = accountDB.getAccount(customer.getAccountId());
-
-        products = new ArrayList<Product>();
 
         lvProduct = (ListView)findViewById(R.id.lvProduct);
 
@@ -69,7 +70,14 @@ public class ListProductActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product product = (Product) productListViewAdapter.getItem(position);
-                Toast.makeText(ListProductActivity.this, product.getName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(ListProductActivity.this, product.getName(), Toast.LENGTH_LONG).show();
+                Cart cartCheck = cartDB.get(customer.getAccountId(), product.getId());
+                if (cartCheck == null) {
+                    Cart cart = new Cart(customer.getId(), product.getId(), 1, product.getPrice() * (1 - product.getDiscount() / 100), true);
+                }else{
+                    cartCheck.setQuantity(cartCheck.getQuantity() + 1);
+                    cartDB.update(cartCheck);
+                }
             }
         });
     }

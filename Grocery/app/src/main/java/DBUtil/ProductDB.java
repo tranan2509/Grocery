@@ -19,6 +19,7 @@ public class ProductDB extends DatabaseHandler{
     private static final String KEY_IMPORT_DATE = "importDate";
     private static final String KEY_IMPORT_PRICE = "importPrice";
     private static final String KEY_PRICE = "price";
+    private static final String KEY_UNIT = "unit";
     private static final String KEY_DISCOUNT = "discount";
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_DESCRIPTION = "description";
@@ -38,6 +39,7 @@ public class ProductDB extends DatabaseHandler{
         values.put(KEY_IMPORT_DATE, product.getImportDate());
         values.put(KEY_IMPORT_PRICE, product.getImportPrice());
         values.put(KEY_PRICE, product.getPrice());
+        values.put(KEY_UNIT, product.getUnit());
         values.put(KEY_DISCOUNT, product.getDiscount());
         values.put(KEY_QUANTITY, product.getQuantity());
         values.put(KEY_DESCRIPTION, product.getDescription());
@@ -49,7 +51,7 @@ public class ProductDB extends DatabaseHandler{
 
     public Product get(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_DISCOUNT,
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
                         KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS},
                 KEY_ID + "=?", new String[]{ String.valueOf(id) }, null, null, null, null);
 
@@ -67,12 +69,13 @@ public class ProductDB extends DatabaseHandler{
         Cursor cursor = db.rawQuery(query, null);
 //        if (cursor == null || cursor.getCount() < 1)
 //            return null;
-        if (cursor.moveToFirst()){
-            do{
-                Product product = new Product(cursor);
-                products.add(product);
-            }while (cursor.moveToNext());
+        if (!cursor.moveToFirst()) {
+            return products;
         }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
         return products;
     }
 
@@ -85,6 +88,7 @@ public class ProductDB extends DatabaseHandler{
         values.put(KEY_IMPORT_DATE, product.getImportDate());
         values.put(KEY_IMPORT_PRICE, product.getImportPrice());
         values.put(KEY_PRICE, product.getPrice());
+        values.put(KEY_UNIT, product.getUnit());
         values.put(KEY_DISCOUNT, product.getDiscount());
         values.put(KEY_QUANTITY, product.getQuantity());
         values.put(KEY_DESCRIPTION, product.getDescription());

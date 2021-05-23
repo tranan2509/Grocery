@@ -3,11 +3,8 @@ package hcmute.edu.vn.mssv18110249;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorStateListDrawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,10 +13,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import DBUtil.CustomerDB;
-import Model.Account;
 import Model.Customer;
 import Provider.SharedPreferenceProvider;
-import Provider.SpinnerAdapter;
+import Provider.GenderSpinnerAdapter;
 
 public class IntroduceYourselfActivity extends AppCompatActivity {
 
@@ -64,7 +60,7 @@ public class IntroduceYourselfActivity extends AppCompatActivity {
         });
 
 //        Set gender spinner
-        SpinnerAdapter genderAdapter = new SpinnerAdapter(getApplicationContext(),images,gender);
+        GenderSpinnerAdapter genderAdapter = new GenderSpinnerAdapter(getApplicationContext(),images,gender);
         spnGender.setAdapter(genderAdapter);
 //        0: Male - 1: Female
         spnGender.setSelection(customer.isGender() ? 0 : 1);

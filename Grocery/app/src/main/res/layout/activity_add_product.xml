@@ -34,7 +34,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginRight="12dp">
         <ImageButton
-            android:id="@+id/btnSelect"
+            android:id="@+id/btnChoose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/add_a_photo_green"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:hint="Import date"
+                android:hint="dd/mm/yyyy"
                 android:textSize="20sp"
                 android:letterSpacing="0.06"/>
 
@@ -189,7 +189,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:inputType="number"
+                android:inputType="numberDecimal|numberSigned"
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="120dp"
@@ -246,7 +246,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:inputType="number"
+                android:inputType="numberDecimal|numberSigned"
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
@@ -286,6 +286,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:hint="Discount"
+                android:text="0"
                 android:textSize="20sp"
                 android:letterSpacing="0.06"/>
 
@@ -379,7 +380,7 @@
                 android:letterSpacing="0.03"/>
 
             <Button
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnSave"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/txtDescription"

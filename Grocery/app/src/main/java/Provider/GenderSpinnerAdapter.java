@@ -12,13 +12,13 @@ import org.w3c.dom.Text;
 
 import hcmute.edu.vn.mssv18110249.R;
 
-public class SpinnerAdapter extends BaseAdapter {
+public class GenderSpinnerAdapter extends BaseAdapter {
     Context context;
     int images[];
     String[] gender;
     LayoutInflater inflater;
 
-    public SpinnerAdapter(Context applicationContext, int[] flags, String[] gender){
+    public GenderSpinnerAdapter(Context applicationContext, int[] flags, String[] gender){
         this.context = applicationContext;
         this.images = flags;
         this.gender = gender;
