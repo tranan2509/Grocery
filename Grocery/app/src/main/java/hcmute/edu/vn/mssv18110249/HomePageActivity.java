@@ -21,7 +21,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit, btnCart;
+    ImageButton btnFruit, btnCart, btnOrganic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,26 +55,30 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void getViews(){
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         btnFruit = (ImageButton)findViewById(R.id.btnFruit);
         btnCart = (ImageButton)findViewById(R.id.btnCart);
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
+        btnOrganic = (ImageButton)findViewById(R.id.btnOrganic);
     }
 
     public void setOnclickViews(){
         btnFruit.setOnClickListener(this);
         btnCart.setOnClickListener(this);
+        btnOrganic.setOnClickListener(this);
     }
 
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btnFruit:
                 intentNext = new Intent(this, ListProductActivity.class);
-                intentNext.putExtra("customer", customer);
                 startActivity(intentNext);
                 break;
             case R.id.btnCart:
                 intentNext = new Intent(this, CartActivity.class);
-                intentNext.putExtra("customer", customer);
+                startActivity(intentNext);
+                break;
+            case R.id.btnOrganic:
+                intentNext = new Intent(this, AddProductActivity.class);
                 startActivity(intentNext);
                 break;
         }
