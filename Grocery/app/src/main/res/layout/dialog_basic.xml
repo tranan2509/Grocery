@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txtViewContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You want to remove the product from the cart?"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/gray"
+        android:textSize="16sp"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:letterSpacing="0.03"/>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtViewContent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnOk"
+        android:background="@drawable/bg_btn_normal"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:letterSpacing="0.03"/>
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtViewContent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btnCancel"
+        android:background="@drawable/bg_btn_normal"
+        android:text="OK"
+        android:textAllCaps="false"
+        android:textColor="@color/green_main"
+        android:textSize="18sp"
+        android:letterSpacing="0.03"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

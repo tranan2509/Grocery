@@ -87,7 +87,6 @@ public class Product implements Serializable {
 
 
     public Product(Cursor cursor){
-        System.out.println(cursor.getCount() + "=======================");
         this.id = cursor.getInt(cursor.getColumnIndex("id"));
         this.categoryId = cursor.getInt(cursor.getColumnIndex("categoryId"));
         this.name = cursor.getString(cursor.getColumnIndex("name"));

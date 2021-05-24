@@ -1,8 +1,11 @@
 package Model;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import java.io.Serializable;
+
+import DBUtil.CartDB;
 
 public class Cart implements Serializable {
 
@@ -33,7 +36,7 @@ public class Cart implements Serializable {
     }
 
     public Cart(Cursor cursor){
-
+        Log.d("AAAAA", String.valueOf(cursor.getCount()));
         this.id = cursor.getInt(cursor.getColumnIndex("id"));
         this.customerId =  cursor.getString(cursor.getColumnIndex("customerId"));;
         this.productId =  cursor.getInt(cursor.getColumnIndex("productId"));
@@ -89,4 +92,5 @@ public class Cart implements Serializable {
     public void setState(final boolean state) {
         this.state = state;
     }
+
 }

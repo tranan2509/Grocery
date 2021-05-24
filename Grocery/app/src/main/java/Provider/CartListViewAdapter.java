@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,12 +51,12 @@ public class CartListViewAdapter extends BaseAdapter {
 
         View viewProduct;
         if (convertView == null)
-            viewProduct = View.inflate(parent.getContext(), R.layout.product_view, null);
+            viewProduct = View.inflate(parent.getContext(), R.layout.cart_item, null);
         else
             viewProduct = convertView;
 
-        ProductDB productDB = new ProductDB(convertView.getContext()) ;
-        CartDB cartDB = new CartDB(convertView.getContext());
+        CartDB cartDB = new CartDB(viewProduct.getContext());
+        ProductDB productDB = new ProductDB(viewProduct.getContext()) ;
 
         Cart cart = (Cart)getItem(position);
         Product product = productDB.get(cartDB.getProductId(cart.getId()));
@@ -66,27 +68,25 @@ public class CartListViewAdapter extends BaseAdapter {
         TextView txtQuantity = (TextView)viewProduct.findViewById(R.id.txtQuantity);
         Button btnReduction = (Button)viewProduct.findViewById(R.id.btnReduction);
         Button btnIncrease = (Button)viewProduct.findViewById(R.id.btnIncrease);
+        ImageButton btnRemove = (ImageButton)viewProduct.findViewById(R.id.btnRemove);
         CheckBox ckbState = (CheckBox)viewProduct.findViewById(R.id.ckbState);
 
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMaximumFractionDigits(0);
-        format.setCurrency(Currency.getInstance("$"));
+        format.setCurrency(Currency.getInstance("USD"));
 
         imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
         txtViewName.setText(product.getName());
         txtViewPrice.setText(format.format(product.getPrice()));
-        txtViewPriceDiscount.setText(format.format(product.getPrice()*(1 - product.getDiscount()/100)));
-        txtQuantity.setText(cart.getQuantity());
+        txtViewPriceDiscount.setText(format.format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
+        txtQuantity.setText(String.valueOf(cart.getQuantity()));
         ckbState.setChecked(cart.isState());
 
         if (product.getDiscount() != 0) {
             String text = "<strike><font color=\'#757575\'>" + product.getPrice() + "</font></strike>";
             txtViewPrice.setText(Html.fromHtml(text));
         }else {
-            txtViewPrice.setWidth(0);
-            ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, 0, 0, 0);
-            txtViewPriceDiscount.setLayoutParams(lp);
+            txtViewPrice.setWidth(1);
         }
 
         btnReduction.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +96,7 @@ public class CartListViewAdapter extends BaseAdapter {
                 if (quantity > 1){
                     cart.setQuantity(quantity - 1);
                     cartDB.update(cart);
+                    txtQuantity.setText(String.valueOf(cart.getQuantity()));
                 }else{
                     //
 
@@ -111,6 +112,7 @@ public class CartListViewAdapter extends BaseAdapter {
                 if (quantity < product.getQuantity()){
                     cart.setQuantity(quantity + 1);
                     cartDB.update(cart);
+                    txtQuantity.setText(String.valueOf(cart.getQuantity()));
                 }else{
                     //
 
@@ -118,7 +120,23 @@ public class CartListViewAdapter extends BaseAdapter {
             }
         });
 
+        ckbState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                cart.setState(ckbState.isChecked());
+                cartDB.update(cart);
+            }
+        });
+
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return viewProduct;
     }
+
+
 }

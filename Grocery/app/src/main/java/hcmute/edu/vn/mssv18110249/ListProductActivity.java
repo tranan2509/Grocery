@@ -70,14 +70,17 @@ public class ListProductActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product product = (Product) productListViewAdapter.getItem(position);
-//                Toast.makeText(ListProductActivity.this, product.getName(), Toast.LENGTH_LONG).show();
+//                Cart cartCheck = cartDB.get(1);
                 Cart cartCheck = cartDB.get(customer.getAccountId(), product.getId());
                 if (cartCheck == null) {
                     Cart cart = new Cart(customer.getId(), product.getId(), 1, product.getPrice() * (1 - product.getDiscount() / 100), true);
+                    cartDB.add(cart);
                 }else{
                     cartCheck.setQuantity(cartCheck.getQuantity() + 1);
                     cartDB.update(cartCheck);
                 }
+//                                Toast.makeText(ListProductActivity.this, product.getName(), Toast.LENGTH_LONG).show();
+
             }
         });
     }

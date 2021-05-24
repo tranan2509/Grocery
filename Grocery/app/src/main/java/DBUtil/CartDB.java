@@ -24,15 +24,16 @@ public class CartDB extends DatabaseHandler {
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_AMOUNT = "amount";
     private static final String KEY_STATE = "state";
+    private Context mContext;
 
     public CartDB(Context context) {
         super(context);
+        mContext = context;
     }
 
     public void add(Cart cart){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, cart.getId());
         values.put(KEY_CUS_ID, cart.getCustomerId());
         values.put(KEY_PRODUCT_ID, cart.getProductId());
         values.put(KEY_QUANTITY, cart.getQuantity());
@@ -76,21 +77,34 @@ public class CartDB extends DatabaseHandler {
 
     }
 
-    public List<Cart> get(){
-        System.out.println("=====================");
+    public List<Cart> get(String customerId){
         List<Cart> carts = new ArrayList<Cart>();
-        String query = "SELECT * FROM " + TABLE_CART;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor == null || cursor.getCount() < 1)
-//            return null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CART, new String[]{ KEY_ID, KEY_CUS_ID, KEY_PRODUCT_ID, KEY_QUANTITY, KEY_AMOUNT, KEY_STATE},
+                KEY_CUS_ID + "=?", new String[]{ customerId }, null, null, null, null);
         if (!cursor.moveToFirst()) {
             return null;
         }
-        do{
+        do {
             Cart cart = new Cart(cursor);
             carts.add(cart);
-        }while (cursor.moveToNext());
+        } while (cursor.moveToNext());
+        return carts;
+    }
+
+    public List<Cart> get(){
+        List<Cart> carts = new ArrayList<Cart>();
+        String query = "SELECT * FROM " + TABLE_CART;
+        SQLiteDatabase db = this.getWritableDatabase();
+        try (Cursor cursor = db.rawQuery(query, null)) {
+            if (!cursor.moveToFirst()) {
+                return null;
+            }
+            do {
+                Cart cart = new Cart(cursor);
+                carts.add(cart);
+            } while (cursor.moveToNext());
+        }
         return carts;
     }
 
@@ -124,6 +138,19 @@ public class CartDB extends DatabaseHandler {
         Cursor cursor = db.rawQuery(query, null);
         cursor.close();
         return cursor.getCount();
+    }
+
+    public double getAmount(String customerId){
+        ProductDB productDB = new ProductDB(mContext);
+        List<Cart> carts = get(customerId);
+        double sum = 0;
+        for (Cart cart: carts){
+            if (cart.isState()){
+                Product product = productDB.get(cart.getProductId());
+                sum += cart.getQuantity() * (product.getPrice() * (1 - (double)product.getDiscount()/100));
+            }
+        }
+        return sum;
     }
 
 }
