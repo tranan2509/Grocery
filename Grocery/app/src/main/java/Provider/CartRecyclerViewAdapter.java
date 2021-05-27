@@ -1,5 +1,6 @@
 package Provider;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
@@ -33,10 +34,19 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
     private List<Cart> carts;
     private Context context;
+    private Context contextCart;
     private ViewGroup parent;
     private CartDB cartDB;
     private ProductDB productDB;
     private Customer customer;
+
+    public Context getContextCart() {
+        return this.contextCart;
+    }
+
+    public void setContextCart(final Context contextCart) {
+        this.contextCart = contextCart;
+    }
 
     public CartRecyclerViewAdapter(List<Cart> carts){
         this.carts = carts;
@@ -118,6 +128,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
                     cartDB.delete(cart);
                     removeItem(position);
                 }
+                updateAmount(carts);
             }
         });
 
@@ -132,6 +143,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
                 }else{
                     //
                 }
+                updateAmount(carts);
             }
         });
 
@@ -140,13 +152,16 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 cart.setState(holder.ckbState.isChecked());
                 cartDB.update(cart);
+                updateAmount(carts);
             }
         });
 
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cartDB.delete(cart);
                 removeItem(position);
+                updateAmount(carts);
             }
         });
     }
@@ -198,4 +213,19 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         notifyItemRangeChanged(position, carts.size());
     }
 
+    public void updateAmount(List<Cart> carts){
+        TextView txtViewAmount = (TextView)((Activity)contextCart).findViewById(R.id.txtViewAmount);
+        ProductDB productDBAdd = new ProductDB(contextCart);
+        CartDB cartDB = new CartDB(contextCart);
+        Customer customer = (Customer)SharedPreferenceProvider.getInstance(contextCart).get("customer");
+
+//        double amount = 0;
+//        for (Cart cart: carts){
+//            if (cart.isState()) {
+//                Product product = productDBAdd.get(cart.getProductId());
+//                amount += cart.getQuantity() * (product.getPrice() * (1 - (double) product.getDiscount() / 100));
+//            }
+//        }
+        txtViewAmount.setText("$" + cartDB.getAmount(customer.getId()));
+    }
 }

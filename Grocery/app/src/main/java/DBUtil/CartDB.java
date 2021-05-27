@@ -83,7 +83,7 @@ public class CartDB extends DatabaseHandler {
         Cursor cursor = db.query(TABLE_CART, new String[]{ KEY_ID, KEY_CUS_ID, KEY_PRODUCT_ID, KEY_QUANTITY, KEY_AMOUNT, KEY_STATE},
                 KEY_CUS_ID + "=?", new String[]{ customerId }, null, null, null, null);
         if (!cursor.moveToFirst()) {
-            return null;
+            return carts;
         }
         do {
             Cart cart = new Cart(cursor);
@@ -98,7 +98,7 @@ public class CartDB extends DatabaseHandler {
         SQLiteDatabase db = this.getWritableDatabase();
         try (Cursor cursor = db.rawQuery(query, null)) {
             if (!cursor.moveToFirst()) {
-                return null;
+                return carts;
             }
             do {
                 Cart cart = new Cart(cursor);

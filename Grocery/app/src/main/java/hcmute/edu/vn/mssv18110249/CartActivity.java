@@ -49,8 +49,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         getView();
         carts = cartDB.get();
         if (carts != null) {
-
             cartRecyclerViewAdapter = new CartRecyclerViewAdapter(carts);
+            cartRecyclerViewAdapter.setContextCart(this);
             recyclerViewCart.setAdapter(cartRecyclerViewAdapter);
             recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
         }
