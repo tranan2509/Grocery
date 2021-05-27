@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import DBUtil.CategoryDB;
 import Model.Customer;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,11 +23,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     Intent intent, intentNext;
     Customer customer;
     ImageButton btnFruit, btnCart, btnOrganic;
-
+    CategoryDB categoryDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        categoryDB = new CategoryDB(this);
 
         getViews();
         setOnclickViews();
@@ -71,6 +74,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.btnFruit:
                 intentNext = new Intent(this, ListProductActivity.class);
+                intentNext.putExtra("category", categoryDB.get("Fruit"));
                 startActivity(intentNext);
                 break;
             case R.id.btnCart:

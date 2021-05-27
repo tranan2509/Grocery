@@ -54,15 +54,11 @@ public class ProductListViewAdapter extends BaseAdapter {
         TextView txtViewRate = (TextView)viewProduct.findViewById(R.id.txtViewRate);
         TextView txtViewPrice = (TextView)viewProduct.findViewById(R.id.txtViewPrice);
 
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        format.setMaximumFractionDigits(0);
-        format.setCurrency(Currency.getInstance("VND"));
-
         imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
         txtViewName.setText(product.getName());
         txtViewDescription.setText(product.getDescription());
         txtViewRate.setText(product.getRate() + " of " + product.getReviewers());
-        txtViewPrice.setText(format.format(product.getPrice()));
+        txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
 
         return viewProduct;
     }

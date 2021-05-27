@@ -12,9 +12,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.List;
 
 import DBUtil.CartDB;
@@ -23,6 +28,7 @@ import Model.Customer;
 import Provider.CartListViewAdapter;
 import Provider.CartRecyclerViewAdapter;
 import Provider.SharedPreferenceProvider;
+import Provider.UnitFormatProvider;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -38,6 +44,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     TextView txtViewVoucher, txtViewAmount;
     CheckBox ckbAllProduct;
     Button btnApply, btnPurchase;
+    ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +55,32 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         cartDB = new CartDB(CartActivity.this);
         getView();
         carts = cartDB.get();
-        if (carts != null) {
-            cartRecyclerViewAdapter = new CartRecyclerViewAdapter(carts);
-            cartRecyclerViewAdapter.setContextCart(this);
-            recyclerViewCart.setAdapter(cartRecyclerViewAdapter);
-            recyclerViewCart.setLayoutManager(new LinearLayoutManager(this));
-        }
+        load(carts);
 
         getView();
         setOnClick();
-
-        txtViewAmount.setText(String.valueOf(cartDB.getAmount(customer.getId())));
+        txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
+        ckbAllProduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (ckbAllProduct.isChecked()){
+                    for (Cart cart: carts){
+                        if (!cart.isState()) {
+                            cart.setState(true);
+                            cartDB.update(cart);
+                        }
+                    }
+                }else{
+                    for (Cart cart: carts){
+                        if (cart.isState()) {
+                            cart.setState(false);
+                            cartDB.update(cart);
+                        }
+                    }
+                }
+                load(carts);
+            }
+        });
 
     }
 
@@ -69,11 +91,13 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         ckbAllProduct = (CheckBox)findViewById(R.id.ckbAllProduct);
         btnApply = (Button)findViewById(R.id.btnApply);
         btnPurchase = (Button)findViewById(R.id.btnPurchase);
+        btnBack = (ImageButton)findViewById(R.id.btnBack);
     }
 
     public void setOnClick(){
         btnApply.setOnClickListener(this);
         btnPurchase.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
     }
 
     public void onClick(View view){
@@ -82,6 +106,17 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnPurchase:
                 break;
+            case R.id.btnBack:
+                finish();
+        }
+    }
+
+    public void load(List<Cart> carts){
+        if (carts != null) {
+            cartRecyclerViewAdapter = new CartRecyclerViewAdapter(carts);
+            cartRecyclerViewAdapter.setContextCart(CartActivity.this);
+            recyclerViewCart.setAdapter(cartRecyclerViewAdapter);
+            recyclerViewCart.setLayoutManager(new LinearLayoutManager(CartActivity.this));
         }
     }
 

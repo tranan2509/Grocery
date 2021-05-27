@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Customer;
 import Model.Product;
 
 public class ProductDB extends DatabaseHandler{
@@ -67,8 +68,6 @@ public class ProductDB extends DatabaseHandler{
         String query = "SELECT * FROM " + TABLE_PRODUCT;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-//        if (cursor == null || cursor.getCount() < 1)
-//            return null;
         if (!cursor.moveToFirst()) {
             return products;
         }
@@ -115,5 +114,51 @@ public class ProductDB extends DatabaseHandler{
         Cursor cursor = db.rawQuery(query, null);
         cursor.close();
         return cursor.getCount();
+    }
+
+    public List<Product> search(String name){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS}, KEY_NAME + " LIKE '%" + name + "%'", null, null, null, null);
+        if (cursor.moveToFirst()){
+            do {
+                Product product = new Product(cursor);
+                products.add(product);
+            }while (cursor.moveToNext());
+        }
+        return products;
+    }
+
+    public List<Product> search(String name, int categoryId){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS}, KEY_NAME + " LIKE '%" + name + "%' AND " + KEY_CATEGORY_ID + "=?",
+                new String[]{ String.valueOf(categoryId) },
+                null, null, null, null);
+        if (cursor.moveToFirst()){
+            do {
+                Product product = new Product(cursor);
+                products.add(product);
+            }while (cursor.moveToNext());
+        }
+        return products;
+    }
+
+    public List<Product> getByCategoryId(int categoryId){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS}, KEY_CATEGORY_ID + "=?",
+                new String[]{ String.valueOf(categoryId) },
+                null, null, null, null);
+        if (cursor.moveToFirst()){
+            do {
+                Product product = new Product(cursor);
+                products.add(product);
+            }while (cursor.moveToNext());
+        }
+        return products;
     }
 }

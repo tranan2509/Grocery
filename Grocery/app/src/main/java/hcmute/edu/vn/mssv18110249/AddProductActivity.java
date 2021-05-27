@@ -76,11 +76,13 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         txtImportDate.setText(dateFormat.format(cal.getTime()));
 
         units = new ArrayList<String>();
-        units.add("USA");
         units.add("VND");
+        units.add("USA");
 //
-        categoryDB.add(new Category("Fruit"));
-        categoryDB.add(new Category("Fresh Food"));
+        if (categoryDB.get().isEmpty()) {
+            categoryDB.add(new Category("Fruit"));
+            categoryDB.add(new Category("Fresh Food"));
+        }
         categories = categoryDB.get();
 
         setSpinner();
@@ -111,6 +113,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private void setOnclickView() {
         btnChoose.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
     }
 
 
@@ -123,6 +126,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 getImageGallery();
                 break;
             case R.id.btnBack:
+                finish();
                 break;
         }
     }

@@ -71,14 +71,10 @@ public class CartListViewAdapter extends BaseAdapter {
         ImageButton btnRemove = (ImageButton)viewProduct.findViewById(R.id.btnRemove);
         CheckBox ckbState = (CheckBox)viewProduct.findViewById(R.id.ckbState);
 
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        format.setMaximumFractionDigits(0);
-        format.setCurrency(Currency.getInstance("USD"));
-
         imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
         txtViewName.setText(product.getName());
-        txtViewPrice.setText(format.format(product.getPrice()));
-        txtViewPriceDiscount.setText(format.format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
+        txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
+        txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
         txtQuantity.setText(String.valueOf(cart.getQuantity()));
         ckbState.setChecked(cart.isState());
 

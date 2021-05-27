@@ -96,14 +96,10 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
         customer = (Customer)SharedPreferenceProvider.getInstance(context).get("customer");
 
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        format.setMaximumFractionDigits(0);
-        format.setCurrency(Currency.getInstance("USD"));
-
         holder.imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
         holder.txtViewName.setText(product.getName());
-        holder.txtViewPrice.setText(format.format(product.getPrice()));
-        holder.txtViewPriceDiscount.setText(format.format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
+        holder.txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
+        holder.txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
         holder.txtQuantity.setText(String.valueOf(cart.getQuantity()));
         holder.ckbState.setChecked(cart.isState());
 
@@ -219,13 +215,6 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         CartDB cartDB = new CartDB(contextCart);
         Customer customer = (Customer)SharedPreferenceProvider.getInstance(contextCart).get("customer");
 
-//        double amount = 0;
-//        for (Cart cart: carts){
-//            if (cart.isState()) {
-//                Product product = productDBAdd.get(cart.getProductId());
-//                amount += cart.getQuantity() * (product.getPrice() * (1 - (double) product.getDiscount() / 100));
-//            }
-//        }
-        txtViewAmount.setText("$" + cartDB.getAmount(customer.getId()));
+        txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
     }
 }
