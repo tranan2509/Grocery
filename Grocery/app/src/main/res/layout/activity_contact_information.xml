@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroduceYourselfActivity"
+    tools:context=".ContactInformationActivity"
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:id="@+id/txtViewProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Introduce Yourself"
+            android:text="Contact Information"
             android:gravity="center_horizontal"
             android:textSize="24sp"
             android:textColor="@color/black"
@@ -76,7 +76,7 @@
             android:padding="24dp">
 
             <EditText
-                android:id="@+id/txtDob"
+                android:id="@+id/txtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -86,61 +86,97 @@
                 android:paddingRight="16dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:inputType="date"
+                android:inputType="textMultiLine"
                 android:layout_marginTop="4dp"
-                android:hint="dd/mm/yyyy"
+                android:hint="Address"
                 android:textSize="20sp"
-                android:letterSpacing="0.06"/>
+                android:letterSpacing="0.06"
+                android:maxLines="6"
+                android:scrollbars="vertical"
+                android:longClickable="false"/>
 
             <TextView
-                android:id="@+id/textViewDob"
+                android:id="@+id/tvAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/txtDob"
-                app:layout_constraintTop_toTopOf="@id/txtDob"
-                app:layout_constraintBottom_toTopOf="@id/txtDob"
+                app:layout_constraintLeft_toLeftOf="@id/txtAddress"
+                app:layout_constraintTop_toTopOf="@id/txtAddress"
+                app:layout_constraintBottom_toTopOf="@id/txtAddress"
                 android:background="@color/white"
                 android:layout_marginLeft="12dp"
-                android:text="Date of birth"
+                android:text="Address"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:textSize="12sp"
                 android:textColor="#555555"
                 android:letterSpacing="0.03"/>
 
-            <Spinner
-                android:id="@+id/spnGender"
+            <EditText
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:layout_constraintTop_toBottomOf="@id/txtDob"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txtAddress"
                 app:layout_constraintRight_toRightOf="parent"
                 android:background="@drawable/bg_input_text_full_border"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:inputType="textEmailAddress"
                 android:layout_marginTop="24dp"
-                android:letterSpacing="0.03"/>
+                android:hint="Email"
+                android:textSize="20sp"
+                android:letterSpacing="0.06"
+                android:enabled="false"/>
 
             <TextView
-                android:id="@+id/textViewAddress"
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@id/spnGender"
-                app:layout_constraintTop_toTopOf="@id/spnGender"
-                app:layout_constraintBottom_toTopOf="@id/spnGender"
+                app:layout_constraintLeft_toLeftOf="@id/txtEmail"
+                app:layout_constraintTop_toTopOf="@id/txtEmail"
+                app:layout_constraintBottom_toTopOf="@id/txtEmail"
                 android:background="@color/white"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="12dp"
-                android:text="Gender"
+                android:text="Email"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:textSize="12sp"
                 android:textColor="#555555"
+                android:letterSpacing="0.03"/>
+
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txtEmail"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@drawable/bg_input_text_full_border"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:inputType="phone"
+                android:layout_marginTop="24dp"
+                android:hint="Phone"
+                android:textSize="20sp"
                 android:letterSpacing="0.06"/>
 
-            <ImageView
+            <TextView
+                android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_down_drop"
-                app:layout_constraintTop_toTopOf="@id/spnGender"
-                app:layout_constraintBottom_toBottomOf="@id/spnGender"
-                app:layout_constraintRight_toRightOf="@id/spnGender"
-                android:layout_marginRight="12dp"/>
+                app:layout_constraintLeft_toLeftOf="@id/txtPhone"
+                app:layout_constraintTop_toTopOf="@id/txtPhone"
+                app:layout_constraintBottom_toTopOf="@id/txtPhone"
+                android:background="@color/white"
+                android:layout_marginLeft="12dp"
+                android:text="Phone"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textSize="12sp"
+                android:textColor="#555555"
+                android:letterSpacing="0.03"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

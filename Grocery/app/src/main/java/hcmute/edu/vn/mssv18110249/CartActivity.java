@@ -79,6 +79,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 load(carts);
+                txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
             }
         });
 

@@ -74,7 +74,8 @@ public class IntroduceYourselfActivity extends AppCompatActivity implements View
                 save();
                 break;
             case R.id.btnBack:
-                finish();
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
         }
     }
 

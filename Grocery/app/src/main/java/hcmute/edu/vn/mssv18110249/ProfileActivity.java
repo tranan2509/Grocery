@@ -30,7 +30,7 @@ import Provider.BitmapConvert;
 import Provider.DownloadImageTask;
 import Provider.SharedPreferenceProvider;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
     CustomerDB customerDB;
     AccountDB accountDB;
@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView imgAvatar;
     ImageButton btnBack;
     TextView txtViewName, txtViewLiving, txtViewDob, txtViewGender, txtViewEmail, txtViewPhone, txtViewAddress;
-    TextView txtViewEditIntroduce;
+    TextView txtViewEditIntroduce, txtViewEditContactInfo;
 
     Intent intent, intentNext;
     Customer customer;
@@ -54,17 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
         customer = (Customer)SharedPreferenceProvider.getInstance(this).get("customer");
         account = accountDB.getAccount(customer.getAccountId());
 
-        btnBack = (ImageButton)findViewById(R.id.btnBack);
-        txtViewName = (TextView)findViewById(R.id.txtViewName);
-        txtViewLiving = (TextView)findViewById(R.id.txtViewLivingIn);
-        txtViewDob = (TextView)findViewById(R.id.txtViewDob);
-        txtViewGender = (TextView)findViewById(R.id.txtViewGender);
-        txtViewEmail = (TextView)findViewById(R.id.txtViewEmail);
-        txtViewPhone = (TextView)findViewById(R.id.txtViewPhone);
-        txtViewAddress = (TextView)findViewById(R.id.txtViewAddress);
-        imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
-
-        txtViewEditIntroduce = (TextView)findViewById(R.id.txtViewEditIntroduce);
+        getView();
+        setOnClick();
 
         txtViewName.setText(customer.getName());
         setIntroduce();
@@ -77,22 +68,44 @@ public class ProfileActivity extends AppCompatActivity {
             imgAvatar.setImageBitmap(BitmapConvert.StringToBitMap(customer.getAvatar()));
         }
 
+    }
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentBack = new Intent(getApplicationContext(), AccountActivity.class);
-                startActivity(intentBack);
-            }
-        });
+    public void getView(){
+        btnBack = (ImageButton)findViewById(R.id.btnBack);
+        txtViewName = (TextView)findViewById(R.id.txtViewName);
+        txtViewLiving = (TextView)findViewById(R.id.txtViewLivingIn);
+        txtViewDob = (TextView)findViewById(R.id.txtViewDob);
+        txtViewGender = (TextView)findViewById(R.id.txtViewGender);
+        txtViewEmail = (TextView)findViewById(R.id.txtViewEmail);
+        txtViewPhone = (TextView)findViewById(R.id.txtViewPhone);
+        txtViewAddress = (TextView)findViewById(R.id.txtViewAddress);
+        imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
 
-        txtViewEditIntroduce.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        txtViewEditIntroduce = (TextView)findViewById(R.id.txtViewEditIntroduce);
+        txtViewEditContactInfo = (TextView)findViewById(R.id.txtViewEditContactInfo);
+    }
+
+    public void setOnClick(){
+        btnBack.setOnClickListener(this);
+        txtViewEditIntroduce.setOnClickListener(this);
+        txtViewEditContactInfo.setOnClickListener(this);
+    }
+
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.btnBack:
+                Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.txtViewEditIntroduce:
                 intentNext = new Intent(getApplicationContext(), IntroduceYourselfActivity.class);
                 startActivity(intentNext);
-            }
-        });
+                break;
+            case R.id.txtViewEditContactInfo:
+                intentNext = new Intent(getApplicationContext(), ContactInformationActivity.class);
+                startActivity(intentNext);
+                break;
+        }
     }
 
     public void setIntroduce(){

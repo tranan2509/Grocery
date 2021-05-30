@@ -246,14 +246,14 @@
 
             <TextView
                 android:id="@+id/txtViewAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/tvAddress"
                 app:layout_constraintBottom_toBottomOf="@id/tvAddress"
                 app:layout_constraintLeft_toRightOf="@id/tvAddress"
-                android:text="9 Trinh Hoai Duc, Hiep Phu,\nDistrict 9, Ho Chi Minh City"
-                android:layout_marginRight="12dp"
-                android:layout_marginLeft="2dp"
+                android:text="9 Trinh Hoai Duc, Hiep Phu, District 9, Ho Chi Minh City"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="120dp"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/black"
