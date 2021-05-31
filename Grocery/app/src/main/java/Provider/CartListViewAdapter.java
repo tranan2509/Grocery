@@ -71,7 +71,7 @@ public class CartListViewAdapter extends BaseAdapter {
         ImageButton btnRemove = (ImageButton)viewProduct.findViewById(R.id.btnRemove);
         CheckBox ckbState = (CheckBox)viewProduct.findViewById(R.id.ckbState);
 
-        imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
+        imgImage.setImageBitmap(ArrayByteConvert.ConverttoBitmap(product.getImage()));
         txtViewName.setText(product.getName());
         txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
         txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));

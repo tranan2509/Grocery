@@ -43,7 +43,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "categoryId INTEGER, " +
                 "name TEXT, " +
-                "image TEXT, " +
+                "image BLOB, " +
                 "importDate TEXT, " +
                 "importPrice REAL, " +
                 "price REAL, " +
@@ -63,6 +63,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "amount REAL, " +
                 "state NUMERIC)";
         db.execSQL(CREATE_CART_TABLE);
+
+        String CREATE_VOUCHER_TABLE = "CREATE TABLE VOUCHER(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "discount INTEGER, " +
+                "condition INTEGER, " +
+                "startDate NUMERIC, " +
+                "endDate NUMERIC, " +
+                "state NUMERIC)";
+        db.execSQL(CREATE_VOUCHER_TABLE);
+
+        String CREATE_BILL_TABLE = "CREATE TABLE BILL(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "customerId TEXT, " +
+                "payment INTEGER, " +
+                "date TEXT, " +
+                "voucherId INTEGER, " +
+                "amount REAL, " +
+                "state TEXT)";
+        db.execSQL(CREATE_BILL_TABLE);
+
+        String CREATE_BILL_DETAIL_TABLE = "CREATE TABLE BILL_DETAIL(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "billId INTEGER, " +
+                "productId INTEGER, " +
+                "quantity INTEGER, " +
+                "price REAL, " +
+                "amount REAL)";
+        db.execSQL(CREATE_BILL_DETAIL_TABLE);
     }
 
     @Override
@@ -72,6 +101,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS CATEGORY");
         db.execSQL("DROP TABLE IF EXISTS PRODUCT");
         db.execSQL("DROP TABLE IF EXISTS CART");
+        db.execSQL("DROP TABLE IF EXISTS VOUCHER");
+        db.execSQL("DROP TABLE IF EXISTS BILL");
+        db.execSQL("DROP TABLE IF EXISTS BILL_DETAIL");
         onCreate(db);
     }
 }

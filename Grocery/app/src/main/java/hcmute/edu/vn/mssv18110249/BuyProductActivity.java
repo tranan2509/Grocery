@@ -17,6 +17,7 @@ import DBUtil.CartDB;
 import Model.Cart;
 import Model.Customer;
 import Model.Product;
+import Provider.ArrayByteConvert;
 import Provider.BitmapConvert;
 import Provider.SharedPreferenceProvider;
 import Provider.UnitFormatProvider;
@@ -67,7 +68,7 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
     public void setView(){
         txtViewName.setText(product.getName());
         txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice() * (1 - (double)product.getDiscount()/100)));
-        imgProduct.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
+        imgProduct.setImageBitmap(ArrayByteConvert.ConverttoBitmap(product.getImage()));
     }
 
     public void onClick(View view){

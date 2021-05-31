@@ -96,7 +96,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
         customer = (Customer)SharedPreferenceProvider.getInstance(context).get("customer");
 
-        holder.imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
+        holder.imgImage.setImageBitmap(ArrayByteConvert.ConverttoBitmap(product.getImage()));
         holder.txtViewName.setText(product.getName());
         holder.txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
         holder.txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));

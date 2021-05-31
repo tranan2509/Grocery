@@ -37,6 +37,7 @@ import DBUtil.CategoryDB;
 import DBUtil.ProductDB;
 import Model.Category;
 import Model.Product;
+import Provider.ArrayByteConvert;
 import Provider.BitmapConvert;
 import Provider.CategorySpinnerAdapter;
 import Provider.Validator;
@@ -46,7 +47,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private static final int CAMERA_REQUEST = 111;
     private static final int PICK_IMAGE = 222;
 
-    private static String strImgProduct;
+    private static byte[] byteImageProduct;
 
     private List<String> units;
     private List<Category> categories;
@@ -65,7 +66,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        strImgProduct = "";
+        byteImageProduct = new byte[100];
         checkPermissionReadExternalStorage();
         setDBUtil();
         getView();
@@ -152,7 +153,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             int discount = Integer.parseInt(txtDiscount.getText().toString());
             int quantity = Integer.parseInt(txtQuantity.getText().toString());
             String description = txtDescription.getText().toString();
-            Product product = new Product(categoryId, name, strImgProduct, importDate, importPrice, price, unit, discount, quantity, description);
+            Product product = new Product(categoryId, name, byteImageProduct, importDate, importPrice, price, unit, discount, quantity, description);
             productDB.add(product);
             Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             return true;
@@ -169,7 +170,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     public boolean isVerify(){
-        if (!strImgProduct.equals("")){
+        if (!byteImageProduct.toString().equals("")){
             if (!txtName.getText().toString().equals(""))
                 if (!txtImportDate.getText().toString().equals("")){
                     if (!txtImportPrice.getText().toString().equals("")){
@@ -218,7 +219,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             try {
                 Uri imageUri = data.getData();
                 Bitmap photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                strImgProduct = BitmapConvert.BitMapToString(photo);
+                byteImageProduct = ArrayByteConvert.ConverttoArrayByte(photo);
                 imgProduct.setImageBitmap(photo);
             } catch (IOException e) {
 

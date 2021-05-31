@@ -8,7 +8,7 @@ public class Product implements Serializable {
     private int id;
     private int categoryId;
     private String name;
-    private String image;
+    private byte[] image;
     private String importDate;
     private double importPrice;
     private double price;
@@ -22,7 +22,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(final int categoryId, final String name, final String image, final String importDate, final double importPrice, final double price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
+    public Product(final int categoryId, final String name, final byte[] image, final String importDate, final double importPrice, final double price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
         this.categoryId = categoryId;
         this.name = name;
         this.image = image;
@@ -37,7 +37,7 @@ public class Product implements Serializable {
         this.reviewers = reviewers;
     }
 
-    public Product(final int id, final int categoryId, final String name, final String image, final String importDate, final double importPrice, final double price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
+    public Product(final int id, final int categoryId, final String name, final byte[] image, final String importDate, final double importPrice, final double price, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -53,7 +53,7 @@ public class Product implements Serializable {
         this.reviewers = reviewers;
     }
 
-    public Product(final int id, final int categoryId, final String name, final String image, final String importDate, final double importPrice, final double price, final String unit, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
+    public Product(final int id, final int categoryId, final String name, final byte[] image, final String importDate, final double importPrice, final double price, final String unit, final int discount, final int quantity, final String description, final double rate, final int reviewers) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -69,7 +69,7 @@ public class Product implements Serializable {
         this.reviewers = reviewers;
     }
 
-    public Product(final int categoryId, final String name, final String image, final String importDate, final double importPrice, final double price, final String unit, final int discount, final int quantity, final String description) {
+    public Product(final int categoryId, final String name, final byte[] image, final String importDate, final double importPrice, final double price, final String unit, final int discount, final int quantity, final String description) {
         this.categoryId = categoryId;
         this.name = name;
         this.image = image;
@@ -90,7 +90,7 @@ public class Product implements Serializable {
         this.id = cursor.getInt(cursor.getColumnIndex("id"));
         this.categoryId = cursor.getInt(cursor.getColumnIndex("categoryId"));
         this.name = cursor.getString(cursor.getColumnIndex("name"));
-        this.image = cursor.getString(cursor.getColumnIndex("image"));
+        this.image = cursor.getBlob(cursor.getColumnIndex("image"));
         this.importDate = cursor.getString(cursor.getColumnIndex("importDate"));
         this.importPrice = cursor.getDouble(cursor.getColumnIndex("importPrice"));
         this.price = cursor.getDouble(cursor.getColumnIndex("price"));
@@ -134,11 +134,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return this.image;
     }
 
-    public void setImage(final String image) {
+    public void setImage(final byte[] image) {
         this.image = image;
     }
 

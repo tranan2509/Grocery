@@ -54,7 +54,7 @@ public class ProductListViewAdapter extends BaseAdapter {
         TextView txtViewRate = (TextView)viewProduct.findViewById(R.id.txtViewRate);
         TextView txtViewPrice = (TextView)viewProduct.findViewById(R.id.txtViewPrice);
 
-        imgImage.setImageBitmap(BitmapConvert.StringToBitMap(product.getImage()));
+        imgImage.setImageBitmap(ArrayByteConvert.ConverttoBitmap(product.getImage()));
         txtViewName.setText(product.getName());
         txtViewDescription.setText(product.getDescription());
         txtViewRate.setText(product.getRate() + " of " + product.getReviewers());
