@@ -25,6 +25,7 @@ import DBUtil.CartDB;
 import DBUtil.VoucherDB;
 import Model.Bill;
 import Model.BillDetail;
+import Model.Branch;
 import Model.Cart;
 import Model.Customer;
 import Provider.PaymentListViewAdapter;
@@ -35,8 +36,8 @@ import Provider.UnitFormatProvider;
 public class PaymentActivity extends AppCompatActivity implements View.OnClickListener{
 
     Customer customer;
-
-    TextView txtViewName, txtViewPhone, txtViewVoucher, txtViewPaymentMethod, txtViewAmount;
+    Branch branch;
+    TextView txtViewName, txtViewPhone, txtViewVoucher, txtViewPaymentMethod, txtViewAmount, txtViewBranch;
     ListView lvPayment;
     Button btnPayment;
     ImageButton btnBack;
@@ -49,7 +50,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     BillDB billDB;
     BillDetailDB billDetailDB;
     CartDB cartDB;
-
     PaymentListViewAdapter paymentListViewAdapter;
 
     @Override
@@ -66,7 +66,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         setOnClick();
 
         customer = (Customer) SharedPreferenceProvider.getInstance(this).get("customer");
-
+        branch = (Branch)SharedPreferenceProvider.getInstance(this).getBranch("branch");
         intent = getIntent();
         bill = (Bill)intent.getExtras().getSerializable("bill");
 
@@ -94,6 +94,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         lvPayment = findViewById(R.id.lvPayment);
         btnPayment = findViewById(R.id.btnPayment);
         btnBack = findViewById(R.id.btnBack);
+        txtViewBranch = findViewById(R.id.txtViewBranch);
     }
 
     public void loadView(){
@@ -120,12 +121,14 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                 payment();
                 intent = new Intent(getApplicationContext(), BillActivity.class);
                 intent.putExtra("bill", bill);
+                intent.putExtra("previous", "home");
                 startActivity(intent);
                 break;
         }
     }
 
     public void payment(){
+        bill.setBranchId(branch.getId());
         billDB.add(bill);
         int billId = billDB.getMaxID();
         bill.setId(billId);

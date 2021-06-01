@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class Bill implements Serializable {
     private int id;
     private String customerId;
+    private int branchId;
     private int payment;
     private String date;
     private int voucherId;
@@ -25,9 +26,20 @@ public class Bill implements Serializable {
         this.state = state;
     }
 
+    public Bill(final String customerId, final int branchId, final int payment, final String date, final int voucherId, final double amount, final String state) {
+        this.customerId = customerId;
+        this.branchId = branchId;
+        this.payment = payment;
+        this.date = date;
+        this.voucherId = voucherId;
+        this.amount = amount;
+        this.state = state;
+    }
+
     public Bill(Cursor cursor){
         id = cursor.getInt(cursor.getColumnIndex("id"));
         customerId = cursor.getString(cursor.getColumnIndex("customerId"));
+        branchId = cursor.getInt(cursor.getColumnIndex("branchId"));
         payment = cursor.getInt(cursor.getColumnIndex("payment"));
         date = cursor.getString(cursor.getColumnIndex("date"));
         voucherId = cursor.getInt(cursor.getColumnIndex("voucherId"));
@@ -89,5 +101,13 @@ public class Bill implements Serializable {
 
     public void setState(final String state) {
         this.state = state;
+    }
+
+    public int getBranchId() {
+        return this.branchId;
+    }
+
+    public void setBranchId(final int branchId) {
+        this.branchId = branchId;
     }
 }

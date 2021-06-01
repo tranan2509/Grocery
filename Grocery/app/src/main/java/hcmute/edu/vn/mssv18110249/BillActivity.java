@@ -15,10 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import DBUtil.BillDB;
 import DBUtil.BillDetailDB;
 import DBUtil.VoucherDB;
 import Model.Bill;
 import Model.BillDetail;
+import Model.Branch;
 import Model.Customer;
 import Model.Voucher;
 import Provider.BillListViewAdapter;
@@ -28,7 +30,7 @@ import Provider.UnitFormatProvider;
 public class BillActivity extends AppCompatActivity implements View.OnClickListener{
 
     Customer customer;
-
+    Branch branch;
     TextView txtViewBranch, txtViewState, txtViewDate, txtViewName, txtViewPhone, txtViewBill;
     TextView txtViewVoucher, txtViewSubTotal, txtViewDiscount, txtViewAmount;
     ImageView imgLogo;
@@ -40,8 +42,10 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
     Intent intent;
 
     VoucherDB voucherDB;
+    BillDB billDB;
     BillDetailDB billDetailDB;
     BillListViewAdapter billListViewAdapter;
+    String previous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +54,24 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
 
         voucherDB = new VoucherDB(this);
         billDetailDB = new BillDetailDB(this);
+        billDB = new BillDB(this);
 
         getView();
         setOnClick();
 
         customer = (Customer) SharedPreferenceProvider.getInstance(this).get("customer");
+        branch = (Branch)SharedPreferenceProvider.getInstance(this).getBranch("branch");
         intent = getIntent();
-        bill = (Bill)intent.getExtras().getSerializable("bill");
+        previous = intent.getStringExtra("previous");
+        bill = (Bill) intent.getExtras().getSerializable("bill");
         billDetails = billDetailDB.getByBillId(bill.getId());
-
+        txtViewBranch.setText(branch.getName());
         billListViewAdapter = new BillListViewAdapter(billDetails);
         lvBill.setAdapter(billListViewAdapter);
-
+        if (previous.equals("home")) {
+            bill.setState("Completed");
+            billDB.update(bill);
+        }
         loadView();
     }
 
@@ -89,9 +99,15 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
         txtViewName.setText(customer.getName());
         txtViewPhone.setText(customer.getPhone());
         txtViewAmount.setText(UnitFormatProvider.getInstance().format(bill.getAmount()));
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm dd/MM/yyyy");
-        Calendar cal = Calendar.getInstance();
-        txtViewDate.setText(dateFormat.format(cal.getTime()));
+        if (previous.equals("home")) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Calendar cal = Calendar.getInstance();
+            bill.setDate(dateFormat.format(cal.getTime()));
+            billDB.update(bill);
+            txtViewDate.setText(dateFormat.format(cal.getTime()));
+        }else{
+            txtViewDate.setText(bill.getDate());
+        }
 
         int voucherId = bill.getVoucherId();
         if (voucherId == 0){
@@ -110,8 +126,13 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btnBack:
-                Intent intent = new Intent(this, HomePageActivity.class);
-                startActivity(intent);
+                if (intent.getStringExtra("previous").equals("home")) {
+                    Intent intentNext = new Intent(this, HomePageActivity.class);
+                    startActivity(intentNext);
+                }else{
+                    finish();
+                }
+                break;
         }
     }
 }

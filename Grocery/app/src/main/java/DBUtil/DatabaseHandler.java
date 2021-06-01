@@ -77,6 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_BILL_TABLE = "CREATE TABLE BILL(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "customerId TEXT, " +
+                "branchId INTEGER, " +
                 "payment INTEGER, " +
                 "date TEXT, " +
                 "voucherId INTEGER, " +
@@ -92,6 +93,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "price REAL, " +
                 "amount REAL)";
         db.execSQL(CREATE_BILL_DETAIL_TABLE);
+
+        String CREATE_BRANCH_TABLE = "CREATE TABLE BRANCH(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "address TEXT, " +
+                "state NUMERIC)";
+        db.execSQL(CREATE_BRANCH_TABLE);
     }
 
     @Override

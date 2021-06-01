@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 
 import Model.Account;
+import Model.Branch;
 import Model.Customer;
 
 public class SharedPreferenceProvider {
@@ -33,6 +34,12 @@ public class SharedPreferenceProvider {
         sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
         String json = sharedPreferences.getString(name, "");
         return new Gson().fromJson(json, Customer.class);
+    }
+
+    public Object getBranch(String name){
+        sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString(name, "");
+        return new Gson().fromJson(json, Branch.class);
     }
 
     public void set(String name, Object object){

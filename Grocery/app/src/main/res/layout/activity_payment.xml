@@ -102,19 +102,43 @@
                 app:layout_constraintLeft_toRightOf="@id/tvBulkhead"
                 app:layout_constraintTop_toTopOf="@id/tvBulkhead"
                 app:layout_constraintBottom_toBottomOf="@id/tvBulkhead"/>
+
+            <TextView
+                android:id="@+id/tvBranch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txtViewName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="12dp"
+                android:textSize="16sp"
+                android:text="Branch Information"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/txtViewBranch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvBranch"
+                app:layout_constraintLeft_toLeftOf="@id/tvBranch"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp"
+                android:text="The Grocery - Thu Duc, TP. Ho Chi Minh"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
             <View
                 android:id="@+id/viewCusInfo"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="#eeeeee"
                 android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/txtViewName"/>
+                app:layout_constraintTop_toBottomOf="@id/txtViewBranch"/>
 
             <ListView
                 android:id="@+id/lvPayment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="74dp"
+                android:layout_marginTop="124dp"
                 android:layout_marginBottom="92dp"
                 app:layout_constraintTop_toBottomOf="@id/viewCusInfo"
                 app:layout_constraintBottom_toBottomOf="parent"

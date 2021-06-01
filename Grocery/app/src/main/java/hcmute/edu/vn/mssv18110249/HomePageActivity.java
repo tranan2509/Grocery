@@ -10,12 +10,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
+import DBUtil.BranchDB;
 import DBUtil.CategoryDB;
+import Model.Branch;
 import Model.Customer;
+import Provider.SharedPreferenceProvider;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,15 +30,40 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     Customer customer;
     ImageButton btnFruit, btnCart, btnOrganic;
     CategoryDB categoryDB;
+    BranchDB branchDB;
+    Button btnLocation;
+    List<Branch> branches;
+    Branch branch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
         categoryDB = new CategoryDB(this);
+        branchDB = new BranchDB(this);
 
         getViews();
         setOnclickViews();
+
+        branches = branchDB.getActives();
+        if (branches.size() == 0){
+            Branch branch1 = new Branch("The Grocery - Thu Duc, TP. Ho Chi Minh", "01 Vo Van Ngan, Thu Duc, TP.Ho Chi Minh", true);
+            Branch branch2 = new Branch("The Grocery - Quan 9, TP. Ho Chi Minh", "32 Le Van Viet, Quan 9, TP.Ho Chi Minh", false);
+            Branch branch3 = new Branch("The Grocery - Quan 10, TP. Ho Chi Minh", "34 Le Dinh Phong, Quan 10, TP.Ho Chi Minh", true);
+            branchDB.add(branch1);
+            branchDB.add(branch2);
+            branchDB.add(branch3);
+            branches = branchDB.getActives();
+        }
+
+        try{
+            branch = (Branch)SharedPreferenceProvider.getInstance(this).getBranch("branch");
+            btnLocation.setText(branch.getName());
+        }catch (Exception ex){
+            SharedPreferenceProvider.getInstance(this).set("branch", branches.get(0));
+            btnLocation.setText(branches.get(0).getName());
+        }
+
 
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,12 +93,14 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnFruit = (ImageButton)findViewById(R.id.btnFruit);
         btnCart = (ImageButton)findViewById(R.id.btnCart);
         btnOrganic = (ImageButton)findViewById(R.id.btnOrganic);
+        btnLocation = findViewById(R.id.btnLocation);
     }
 
     public void setOnclickViews(){
         btnFruit.setOnClickListener(this);
         btnCart.setOnClickListener(this);
         btnOrganic.setOnClickListener(this);
+        btnLocation.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -85,6 +118,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 intentNext = new Intent(this, AddProductActivity.class);
                 startActivity(intentNext);
                 break;
+            case R.id.btnLocation:
+                intentNext = new Intent(this, BranchActivity.class);
+                startActivity(intentNext);
         }
     }
 }

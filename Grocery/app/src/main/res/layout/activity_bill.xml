@@ -155,21 +155,26 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@id/txtViewName"/>
 
-            <ListView
-                android:id="@+id/lvBill"
-                app:layout_constraintTop_toBottomOf="@id/viewCustomerIfo"
+            <LinearLayout
+                android:id="@+id/layoutLvBill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:dividerHeight="0.8dp"
-                android:scrollbars="none"
-                android:nestedScrollingEnabled="false"/>
+                app:layout_constraintTop_toBottomOf="@id/viewCustomerIfo">
+                <ListView
+                    android:id="@+id/lvBill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="0.8dp"
+                    android:scrollbars="none"
+                    android:nestedScrollingEnabled="false"/>
+            </LinearLayout>
 
             <View
                 android:id="@+id/view02"
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="#eeeeee"
-                app:layout_constraintTop_toBottomOf="@id/lvBill"/>
+                app:layout_constraintTop_toBottomOf="@id/layoutLvBill"/>
 
             <TextView
                 android:id="@+id/tvVoucher"
