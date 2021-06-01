@@ -126,6 +126,12 @@ public class CartDB extends DatabaseHandler {
         db.close();
     }
 
+    public void delete(String customerId, int productId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CART, KEY_CUS_ID + "=? AND " + KEY_PRODUCT_ID + "=?", new String[]{customerId, String.valueOf(productId)});
+        db.close();
+    }
+
     public void delete(Cart cart){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CART, KEY_ID + "=?", new String[]{String.valueOf(cart.getId())});

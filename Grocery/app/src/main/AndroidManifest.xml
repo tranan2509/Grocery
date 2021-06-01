@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Grocery"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SetPasswordActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".BillActivity" />
+        <activity android:name=".SetPasswordActivity" />
         <activity android:name=".ContactInformationActivity" />
         <activity android:name=".BuyProductActivity" />
         <activity android:name=".AddProductActivity" />

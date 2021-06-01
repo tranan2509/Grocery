@@ -79,7 +79,7 @@ public class CartListViewAdapter extends BaseAdapter {
         ckbState.setChecked(cart.isState());
 
         if (product.getDiscount() != 0) {
-            String text = "<strike><font color=\'#757575\'>" + product.getPrice() + "</font></strike>";
+            String text = "<strike><font color=\'#757575\'>" + UnitFormatProvider.getInstance().format(product.getPrice()) + "</font></strike>";
             txtViewPrice.setText(Html.fromHtml(text));
         }else {
             txtViewPrice.setWidth(1);

@@ -8,7 +8,7 @@ public class Voucher implements Serializable {
     private int id;
     private String name;
     private int discount;
-    private int condition;
+    private double condition;
     private String startDate;
     private String endDate;
     private boolean state;
@@ -16,7 +16,7 @@ public class Voucher implements Serializable {
     public Voucher() {
     }
 
-    public Voucher(final String name, final int discount, final int condition, final String startDate, final String endDate) {
+    public Voucher(final String name, final int discount, final double condition, final String startDate, final String endDate) {
         this.name = name;
         this.discount = discount;
         this.condition = condition;
@@ -24,7 +24,7 @@ public class Voucher implements Serializable {
         this.endDate = endDate;
     }
 
-    public Voucher(final String name, final int discount, final int condition, final String startDate, final String endDate, final boolean state) {
+    public Voucher(final String name, final int discount, final double condition, final String startDate, final String endDate, final boolean state) {
         this.name = name;
         this.discount = discount;
         this.condition = condition;
@@ -37,7 +37,7 @@ public class Voucher implements Serializable {
         id = cursor.getInt(cursor.getColumnIndex("id"));
         name = cursor.getString(cursor.getColumnIndex("name"));
         discount = cursor.getInt(cursor.getColumnIndex("discount"));
-        condition = cursor.getInt(cursor.getColumnIndex("condition"));
+        condition = cursor.getDouble(cursor.getColumnIndex("condition"));
         startDate = cursor.getString(cursor.getColumnIndex("startDate"));
         endDate = cursor.getString(cursor.getColumnIndex("endDate"));
         state = cursor.getString(cursor.getColumnIndex("state")).equals("1");
@@ -67,11 +67,11 @@ public class Voucher implements Serializable {
         this.discount = discount;
     }
 
-    public int getCondition() {
+    public double getCondition() {
         return this.condition;
     }
 
-    public void setCondition(final int condition) {
+    public void setCondition(final double condition) {
         this.condition = condition;
     }
 

@@ -104,7 +104,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.ckbState.setChecked(cart.isState());
 
         if (product.getDiscount() != 0) {
-            String text = "<strike><font color=\'#757575\'>" + product.getPrice() + "</font></strike>";
+            String text = "<strike><font color=\'#757575\'>" + UnitFormatProvider.getInstance().format(product.getPrice()) + "</font></strike>";
             holder.txtViewPrice.setText(Html.fromHtml(text));
         }else {
             holder.txtViewPrice.setWidth(1);

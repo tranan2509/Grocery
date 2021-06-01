@@ -58,7 +58,7 @@ public class ProductListViewAdapter extends BaseAdapter {
         txtViewName.setText(product.getName());
         txtViewDescription.setText(product.getDescription());
         txtViewRate.setText(product.getRate() + " of " + product.getReviewers());
-        txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
+        txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice() * (1 - (double)product.getDiscount()/100)));
 
         return viewProduct;
     }

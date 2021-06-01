@@ -68,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT, " +
                 "discount INTEGER, " +
-                "condition INTEGER, " +
+                "condition REAL, " +
                 "startDate NUMERIC, " +
                 "endDate NUMERIC, " +
                 "state NUMERIC)";

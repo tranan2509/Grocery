@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentActivity"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/txtViewPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="@id/txtViewPayment"
+            app:layout_constraintBottom_toBottomOf="@id/txtViewPayment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/ic_baseline_arrow_back_black"
+            android:background="@color/white"
+            android:layout_marginLeft="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintTop_toBottomOf="@id/viewHeader"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvInfoCustomer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
+                android:textSize="16sp"
+                android:text="Customer Information"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/txtViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvInfoCustomer"
+                app:layout_constraintLeft_toLeftOf="@id/tvInfoCustomer"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp"
+                android:text="Tran Van An"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvBulkhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" | "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/txtViewName"
+                app:layout_constraintTop_toTopOf="@id/txtViewName"
+                app:layout_constraintBottom_toBottomOf="@id/txtViewName"/>
+
+            <TextView
+                android:id="@+id/txtViewPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0392880804"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/tvBulkhead"
+                app:layout_constraintTop_toTopOf="@id/tvBulkhead"
+                app:layout_constraintBottom_toBottomOf="@id/tvBulkhead"/>
+            <View
+                android:id="@+id/viewCusInfo"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="#eeeeee"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/txtViewName"/>
+
+            <ListView
+                android:id="@+id/lvPayment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="74dp"
+                android:layout_marginBottom="92dp"
+                app:layout_constraintTop_toBottomOf="@id/viewCusInfo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:dividerHeight="1dp"/>
+
+            <View
+                android:id="@+id/viewProducts"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="#eeeeee"
+                app:layout_constraintBottom_toTopOf="@id/tvVoucher"/>
+
+            <TextView
+                android:id="@+id/tvVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icons8_voucher_64"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp"
+                android:text="Grocery Voucher"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/viewProducts"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/txtViewVoucher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="@id/tvVoucher"
+                app:layout_constraintTop_toTopOf="@id/tvVoucher"
+                app:layout_constraintBottom_toBottomOf="@id/tvVoucher"
+                android:layout_marginRight="12dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_main"
+                android:text="GROCERY"/>
+
+            <View
+                android:id="@+id/viewVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="#eeeeee"
+                app:layout_constraintTop_toBottomOf="@id/tvVoucher"/>
+
+            <TextView
+                android:id="@+id/tvPaymentMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payment method"
+                android:drawableLeft="@drawable/ic_baseline_payments_24"
+                app:layout_constraintTop_toBottomOf="@id/viewVoucher"
+                android:drawablePadding="8dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/txtViewPaymentMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="@id/tvPaymentMethod"
+                app:layout_constraintTop_toTopOf="@id/tvPaymentMethod"
+                app:layout_constraintBottom_toBottomOf="@id/tvPaymentMethod"
+                android:layout_marginRight="12dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_main"
+                android:text="Cash"/>
+
+            <View
+                android:id="@+id/viewPaymentMethod"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="#eeeeee"
+                app:layout_constraintTop_toBottomOf="@id/tvPaymentMethod"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:id="@+id/viewFooter01"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#eeeeee"
+            app:layout_constraintBottom_toTopOf="@id/btnPayment"/>
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount"
+            app:layout_constraintTop_toTopOf="@id/btnPayment"
+            app:layout_constraintBottom_toTopOf="@id/txtViewAmount"
+            app:layout_constraintRight_toLeftOf="@id/btnPayment"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/gray"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtViewAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="đ36.000"
+            android:textColor="@color/green_main"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnPayment"
+            app:layout_constraintTop_toBottomOf="@id/tvAmount"
+            app:layout_constraintRight_toLeftOf="@id/btnPayment"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewFooter01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/green_main"
+            android:text="Payment"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:letterSpacing="0.03"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
