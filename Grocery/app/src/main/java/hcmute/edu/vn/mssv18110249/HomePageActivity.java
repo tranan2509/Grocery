@@ -28,7 +28,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit, btnCart, btnOrganic;
+    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood;
     CategoryDB categoryDB;
     BranchDB branchDB;
     Button btnLocation;
@@ -94,6 +94,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnCart = (ImageButton)findViewById(R.id.btnCart);
         btnOrganic = (ImageButton)findViewById(R.id.btnOrganic);
         btnLocation = findViewById(R.id.btnLocation);
+        btnFreshFood = findViewById(R.id.btnFreshFood);
     }
 
     public void setOnclickViews(){
@@ -101,6 +102,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnCart.setOnClickListener(this);
         btnOrganic.setOnClickListener(this);
         btnLocation.setOnClickListener(this);
+        btnFreshFood.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -108,6 +110,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnFruit:
                 intentNext = new Intent(this, ListProductActivity.class);
                 intentNext.putExtra("category", categoryDB.get("Fruit"));
+                startActivity(intentNext);
+                break;
+            case R.id.btnFreshFood:
+                intentNext = new Intent(this, ListProductActivity.class);
+                intentNext.putExtra("category", categoryDB.get("Fresh Food"));
                 startActivity(intentNext);
                 break;
             case R.id.btnCart:

@@ -3,6 +3,7 @@ package hcmute.edu.vn.mssv18110249;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import DBUtil.AccountDB;
+import Model.Account;
 import Provider.Validator;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
@@ -30,11 +33,14 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     Button btnSend;
     EditText txtEmail;
     TextView txtViewBack;
-
+    AccountDB accountDB;
+    Account account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+
+        accountDB = new AccountDB(this);
 
         btnSend = (Button)findViewById(R.id.btnSend);
         txtEmail = (EditText)findViewById(R.id.txtEmail);
@@ -57,6 +63,12 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     return;
                 }
                 if (isEmail){
+                    account = accountDB.getAccountByEmail(email);
+                    if (account.isEmail())
+                    {
+                        Toast.makeText(getApplicationContext(), "Login account with email so can't change password", Toast.LENGTH_LONG).show();
+                       // return;
+                    }
 //                    Toast.makeText(getApplicationContext(), "Network: " + isOnline().toString(), Toast.LENGTH_LONG).show();
                     //Check email exists
                     //
@@ -78,8 +90,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             session.setDebug(true);
 
                             Message message = new MimeMessage(session);
-                            message.setSubject("subject");
-                            message.setText("text");
+                            message.setSubject("Forgot password Grocery");
+                            message.setText("Your verification code is " + code);
 
                             Address fromAddress = new InternetAddress(fromEmail);
                             Address toAddress = new InternetAddress(toEmail);
@@ -94,6 +106,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 //                            GMailSender sender = new GMailSender(fromEmail, fromPassword);
 //                            sender.sendMail("This is Subject", "This is Body", fromEmail, toEmail);
                             Toast.makeText(getApplicationContext(), "Email success", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), ConfirmCodePasswordActivity.class);
+                            intent.putExtra("code", code);
+                            intent.putExtra("account", account);
+                            startActivity(intent);
                         }catch (Exception x){
                             Toast.makeText(getApplicationContext(), "Email failed", Toast.LENGTH_LONG).show();
                         }

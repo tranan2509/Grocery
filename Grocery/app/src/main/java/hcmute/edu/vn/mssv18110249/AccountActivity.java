@@ -36,12 +36,12 @@ import Provider.BitmapConvert;
 import Provider.DownloadImageTask;
 import Provider.SharedPreferenceProvider;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity implements View.OnClickListener{
 
     private GoogleApiClient mGoogleApiClient;
 
     BottomNavigationView bottomNavigationView;
-    Button btnLogout, btnSetting;
+    Button btnLogout, btnSetting, btnAppInfo, btnHelp;
     ImageView imgAvatar;
     TextView txtViewInfo, txtViewName;
     Intent intent, intentNext;
@@ -63,10 +63,9 @@ public class AccountActivity extends AppCompatActivity {
         
         account = accountDB.getAccount(customer.getAccountId());
 
-        txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
-        btnSetting = (Button)findViewById(R.id.btnSetting);
-        imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
-        txtViewName = (TextView)findViewById(R.id.txtViewName);
+        getView();
+        setOnClick();
+
 
         accountModel = accountDB.getAccount(customer.getAccountId());
         if (accountModel.isEmail()){
@@ -78,24 +77,6 @@ public class AccountActivity extends AppCompatActivity {
 
         txtViewName.setText(customer.getName());
 
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentNext = new Intent(getApplicationContext(), SettingActivity.class);
-                startActivity(intentNext);
-            }
-        });
-
-        txtViewInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(intentNext);
-            }
-        });
-
-
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.account);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -126,20 +107,58 @@ public class AccountActivity extends AppCompatActivity {
                 .build();
         mGoogleApiClient.connect();
 
+    }
 
-        findViewById(R.id.btnLogout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void getView(){
+
+        txtViewInfo = (TextView)findViewById(R.id.txtViewInfo);
+        btnSetting = (Button)findViewById(R.id.btnSetting);
+        imgAvatar = (ImageView)findViewById(R.id.imgAvatar);
+        txtViewName = (TextView)findViewById(R.id.txtViewName);
+        btnLogout = findViewById(R.id.btnLogout);
+        btnAppInfo = findViewById(R.id.btnAppInfo);
+        btnHelp = findViewById(R.id.btnHelp);
+
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottomNavigation);
+    }
+
+    public void setOnClick(){
+        btnSetting.setOnClickListener(this);
+        txtViewInfo.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
+        btnAppInfo.setOnClickListener(this);
+        btnHelp.setOnClickListener(this);
+    }
+
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.btnSetting:
+                intentNext = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intentNext);
+                break;
+            case R.id.txtViewInfo:
+                intentNext = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intentNext);
+                break;
+            case R.id.btnLogout:
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
-                                // ...
+                                SharedPreferenceProvider.getInstance(AccountActivity.this).set("customer", null);
                                 Intent i =new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(i);
                             }
                         });
-            }
-        });
+                break;
+            case R.id.btnAppInfo:
+                intentNext = new Intent(getApplicationContext(), ApplicationInformationActivity.class);
+                startActivity(intentNext);
+                break;
+            case R.id.btnHelp:
+                intentNext = new Intent(getApplicationContext(), HelpCenterActivity.class);
+                startActivity(intentNext);
+                break;
+        }
     }
 }

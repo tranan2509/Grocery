@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Model.Account;
+
 public class ConfirmCodePasswordActivity extends AppCompatActivity {
 
     EditText txtCode;
@@ -42,8 +44,8 @@ public class ConfirmCodePasswordActivity extends AppCompatActivity {
                     String preCode = intent.getStringExtra("code");
                     if (code.equals(preCode)){
                         Intent intentChangePassword = new Intent(getApplicationContext(), ChangePasswordActivity.class);
-                        String email = intent.getStringExtra("email");
-                        intentChangePassword.putExtra("email", email);
+                        Account account = (Account)intent.getExtras().getSerializable("account");
+                        intentChangePassword.putExtra("account", account);
                         startActivity(intentChangePassword);
                     }else{
                         Toast.makeText(getApplicationContext(), "Verification code does not match", Toast.LENGTH_SHORT).show();

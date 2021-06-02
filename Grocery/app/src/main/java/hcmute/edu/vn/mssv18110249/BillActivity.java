@@ -120,6 +120,7 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
             txtViewSubTotal.setText(UnitFormatProvider.getInstance().format(bill.getAmount() + discount));
             txtViewDiscount.setText(UnitFormatProvider.getInstance().format(discount));
         }
+        txtViewState.setText(bill.getState());
         txtViewBill.setText("Bill #" + bill.getId());
     }
 
