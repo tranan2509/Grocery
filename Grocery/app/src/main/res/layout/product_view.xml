@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/layoutProduct">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewImage"
@@ -15,7 +16,7 @@
         android:layout_marginTop="0dp"
         app:cardCornerRadius="4dp">
         <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/imgImage"
+            android:id="@+id/imgProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/camera"
@@ -49,15 +50,27 @@
         android:textSize="14sp"
         android:letterSpacing="0.03"/>
 
+  <TextView
+      android:id="@+id/txtViewPrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintRight_toLeftOf="@id/txtViewPriceDiscount"
+      app:layout_constraintTop_toTopOf="@id/txtViewPriceDiscount"
+      app:layout_constraintBottom_toBottomOf="@id/txtViewPriceDiscount"
+      android:layout_marginRight="8dp"
+      android:textSize="16sp"
+      android:text="20.000đ"/>
+
     <TextView
-        android:id="@+id/txtViewPrice"
+        android:id="@+id/txtViewPriceDiscount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/txtViewRate"
         app:layout_constraintBottom_toBottomOf="@id/txtViewRate"
         android:text="20.000đ"
-        android:textColor="#000000"
+        android:textColor="@color/green_main"
+        android:textStyle="bold"
         android:textSize="16sp"
         android:letterSpacing="0.03"/>
 

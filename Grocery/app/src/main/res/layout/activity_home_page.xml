@@ -119,7 +119,7 @@
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view02"
-                app:layout_constraintRight_toLeftOf="@id/btnHotDeal"
+                app:layout_constraintRight_toLeftOf="@id/btnPromotion"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
 
@@ -137,39 +137,39 @@
                 android:layout_marginTop="4dp"/>
 
             <ImageButton
-                android:id="@+id/btnHotDeal"
+                android:id="@+id/btnPromotion"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/market"
+                android:src="@drawable/icons8_promotion"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/view02"
                 app:layout_constraintLeft_toRightOf="@id/btnMarket"
-                app:layout_constraintRight_toLeftOf="@id/btnComboDish"
+                app:layout_constraintRight_toLeftOf="@id/btnBestSelling"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hot deal"
-                app:layout_constraintTop_toBottomOf="@id/btnHotDeal"
-                app:layout_constraintLeft_toLeftOf="@id/btnHotDeal"
-                app:layout_constraintRight_toRightOf="@id/btnHotDeal"
+                android:text="Promotion"
+                app:layout_constraintTop_toBottomOf="@id/btnPromotion"
+                app:layout_constraintLeft_toLeftOf="@id/btnPromotion"
+                app:layout_constraintRight_toRightOf="@id/btnPromotion"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="4dp"/>
 
             <ImageButton
-                android:id="@+id/btnComboDish"
+                android:id="@+id/btnBestSelling"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/market"
+                android:src="@drawable/icons8_best_seller_128"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/view02"
-                app:layout_constraintLeft_toRightOf="@id/btnHotDeal"
+                app:layout_constraintLeft_toRightOf="@id/btnPromotion"
                 app:layout_constraintRight_toLeftOf="@id/btnCopperPrice"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
@@ -177,10 +177,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Combo"
-                app:layout_constraintTop_toBottomOf="@id/btnComboDish"
-                app:layout_constraintLeft_toLeftOf="@id/btnComboDish"
-                app:layout_constraintRight_toRightOf="@id/btnComboDish"
+                android:text="Best Selling"
+                app:layout_constraintTop_toBottomOf="@id/btnBestSelling"
+                app:layout_constraintLeft_toLeftOf="@id/btnBestSelling"
+                app:layout_constraintRight_toRightOf="@id/btnBestSelling"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -194,7 +194,7 @@
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/view02"
-                app:layout_constraintLeft_toRightOf="@id/btnComboDish"
+                app:layout_constraintLeft_toRightOf="@id/btnBestSelling"
                 app:layout_constraintRight_toRightOf="parent"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
@@ -228,7 +228,7 @@
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view03"
-                app:layout_constraintRight_toLeftOf="@id/btnHotDeal"
+                app:layout_constraintRight_toLeftOf="@id/btnPromotion"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
 

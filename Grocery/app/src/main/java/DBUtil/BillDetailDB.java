@@ -10,6 +10,7 @@ import java.util.List;
 
 import Model.Bill;
 import Model.BillDetail;
+import Model.Product;
 
 public class BillDetailDB extends DatabaseHandler{
 
@@ -21,8 +22,11 @@ public class BillDetailDB extends DatabaseHandler{
     private static final String KEY_PRICE = "price";
     private static final String KEY_AMOUNT = "amount";
 
+    private Context context;
+
     public BillDetailDB(Context context){
         super(context);
+        this.context = context;
     }
 
     public void add(BillDetail billDetail){
@@ -78,6 +82,53 @@ public class BillDetailDB extends DatabaseHandler{
             billDetails.add(billDetail);
         }while (cursor.moveToNext());
         return billDetails;
+    }
+
+
+    public List<Product> getBestSelling(String date) {
+        ProductDB productDB = new ProductDB(context);
+        List<Product>products = new ArrayList<Product>();
+        String query = "SELECT BILL_DETAIL.productId, SUM(BILL_DETAIL.quantity) as quantity FROM " + TABLE_BILL_DETAIL +
+                " INNER JOIN BILL on BILL.id = BILL_DETAIL.billId" +
+                " WHERE DATE(BILL.date) >= DATE('" + date + "', '-7 days') " +
+                " GROUP BY BILL_DETAIL.productId" +
+                " HAVING quantity > 0" +
+                " ORDER BY quantity DESC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            int productId = cursor.getInt(cursor.getColumnIndex("productId"));
+            Product product = productDB.get(productId);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
+    public List<Product> getBestSelling(String date, String name) {
+        ProductDB productDB = new ProductDB(context);
+        List<Product>products = new ArrayList<Product>();
+        String query = "SELECT BILL_DETAIL.productId, SUM(BILL_DETAIL.quantity) as totalQuantity FROM " + TABLE_BILL_DETAIL +
+                " INNER JOIN BILL on BILL.id = BILL_DETAIL.billId" +
+                " INNER JOIN PRODUCT on PRODUCT.id = BILL_DETAIL.productId" +
+                " WHERE DATE(BILL.date) >= DATE('" + date + "', '-7 days') " +
+                " AND PRODUCT.name LIKE '%" + name + "%'" +
+                " GROUP BY BILL_DETAIL.productId" +
+                " HAVING totalQuantity > 0" +
+                " ORDER BY totalQuantity DESC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            int productId = cursor.getInt(cursor.getColumnIndex("productId"));
+            Product product = productDB.get(productId);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
     }
 
     public int update(BillDetail billDetail){

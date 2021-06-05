@@ -3,6 +3,7 @@ package hcmute.edu.vn.mssv18110249;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -47,6 +48,7 @@ import Provider.CartListViewAdapter;
 import Provider.CartRecyclerViewAdapter;
 import Provider.SharedPreferenceProvider;
 import Provider.UnitFormatProvider;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -184,6 +186,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             cartRecyclerViewAdapter.setContextCart(CartActivity.this);
             recyclerViewCart.setAdapter(cartRecyclerViewAdapter);
             recyclerViewCart.setLayoutManager(new LinearLayoutManager(CartActivity.this));
+            recyclerViewCart.setHasFixedSize(true);
+            recyclerViewCart.setItemAnimator(new SlideInUpAnimator());
         }
     }
 

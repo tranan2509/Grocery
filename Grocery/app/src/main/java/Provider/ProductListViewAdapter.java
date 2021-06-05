@@ -48,7 +48,7 @@ public class ProductListViewAdapter extends BaseAdapter {
             viewProduct = convertView;
 
         Product product = (Product)getItem(position);
-        ImageView imgImage = (ImageView)viewProduct.findViewById(R.id.imgImage);
+        ImageView imgImage = (ImageView)viewProduct.findViewById(R.id.imgProduct);
         TextView txtViewName = (TextView)viewProduct.findViewById(R.id.txtViewName);
         TextView txtViewDescription = (TextView)viewProduct.findViewById(R.id.txtViewDescription);
         TextView txtViewRate = (TextView)viewProduct.findViewById(R.id.txtViewRate);

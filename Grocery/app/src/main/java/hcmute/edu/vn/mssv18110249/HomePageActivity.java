@@ -28,7 +28,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood;
+    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling;
     CategoryDB categoryDB;
     BranchDB branchDB;
     Button btnLocation;
@@ -48,7 +48,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         branches = branchDB.getActives();
         if (branches.size() == 0){
             Branch branch1 = new Branch("The Grocery - Thu Duc, TP. Ho Chi Minh", "01 Vo Van Ngan, Thu Duc, TP.Ho Chi Minh", true);
-            Branch branch2 = new Branch("The Grocery - Quan 9, TP. Ho Chi Minh", "32 Le Van Viet, Quan 9, TP.Ho Chi Minh", false);
+            Branch branch2 = new Branch("The Grocery - Quan 9, TP. Ho Chi Minh", "32 Le Van Viet, Quan 9, TP.Ho Chi Minh", true);
             Branch branch3 = new Branch("The Grocery - Quan 10, TP. Ho Chi Minh", "34 Le Dinh Phong, Quan 10, TP.Ho Chi Minh", true);
             branchDB.add(branch1);
             branchDB.add(branch2);
@@ -95,6 +95,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnOrganic = (ImageButton)findViewById(R.id.btnOrganic);
         btnLocation = findViewById(R.id.btnLocation);
         btnFreshFood = findViewById(R.id.btnFreshFood);
+        btnMarket = findViewById(R.id.btnMarket);
+        btnPromotion = findViewById(R.id.btnPromotion);
+        btnBestSelling = findViewById(R.id.btnBestSelling);
     }
 
     public void setOnclickViews(){
@@ -103,19 +106,27 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnOrganic.setOnClickListener(this);
         btnLocation.setOnClickListener(this);
         btnFreshFood.setOnClickListener(this);
+        btnMarket.setOnClickListener(this);
+        btnPromotion.setOnClickListener(this);
+        btnBestSelling.setOnClickListener(this);
     }
 
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btnFruit:
-                intentNext = new Intent(this, ListProductActivity.class);
-                intentNext.putExtra("category", categoryDB.get("Fruit"));
-                startActivity(intentNext);
+                goListProduct("Fruit", "fruit");
                 break;
             case R.id.btnFreshFood:
-                intentNext = new Intent(this, ListProductActivity.class);
-                intentNext.putExtra("category", categoryDB.get("Fresh Food"));
-                startActivity(intentNext);
+                goListProduct("Fresh Food", "fresh_food");
+                break;
+            case R.id.btnMarket:
+               goListProduct("Marker", "marker");
+                break;
+            case R.id.btnPromotion:
+                goListProduct("Promotion", "promotion");
+                break;
+            case R.id.btnBestSelling:
+                goListProduct("Best Selling", "best_selling");
                 break;
             case R.id.btnCart:
                 intentNext = new Intent(this, CartActivity.class);
@@ -129,5 +140,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 intentNext = new Intent(this, BranchActivity.class);
                 startActivity(intentNext);
         }
+    }
+
+    public void goListProduct(String category, String key){
+        intentNext = new Intent(this, ListProductActivity.class);
+        intentNext.putExtra("category", categoryDB.get(category));
+        intentNext.putExtra("key", key);
+        startActivity(intentNext);
     }
 }

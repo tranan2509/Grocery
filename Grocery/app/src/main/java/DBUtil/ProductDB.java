@@ -78,6 +78,53 @@ public class ProductDB extends DatabaseHandler{
         return products;
     }
 
+    public List<Product> get(String name){
+        List<Product> products = new ArrayList<Product>();
+        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " + KEY_NAME + " LIKE '%" + name + "%'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
+    public List<Product> getPromotion(){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS},
+                KEY_DISCOUNT + ">?", new String[]{ String.valueOf(0) }, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
+    public List<Product> getPromotion(String name){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS},
+                KEY_DISCOUNT + ">? AND " + KEY_NAME + " LIKE '%" + name + "%'", new String[]{ String.valueOf(0) }, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
     public int update(Product product){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -151,6 +198,22 @@ public class ProductDB extends DatabaseHandler{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_PRODUCT, new String[]{KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
                         KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS}, KEY_CATEGORY_ID + "=?",
+                new String[]{ String.valueOf(categoryId) },
+                null, null, null, null);
+        if (cursor.moveToFirst()){
+            do {
+                Product product = new Product(cursor);
+                products.add(product);
+            }while (cursor.moveToNext());
+        }
+        return products;
+    }
+
+    public List<Product> getByCategoryId(int categoryId, boolean isDiscount){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS}, KEY_CATEGORY_ID + "=? AND "+ KEY_DISCOUNT + ">0",
                 new String[]{ String.valueOf(categoryId) },
                 null, null, null, null);
         if (cursor.moveToFirst()){
