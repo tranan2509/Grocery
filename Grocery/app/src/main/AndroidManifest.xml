@@ -24,12 +24,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Grocery"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ImageActivity"></activity>
         <activity android:name=".HelpCenterActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="message/rfc822"/>
+
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="message/rfc822" />
             </intent-filter>
         </activity>
         <activity android:name=".ApplicationInformationActivity" />

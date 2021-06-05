@@ -40,7 +40,7 @@ public class HelpCenterActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnSendMail:
                 sendMail();
-                Toast.makeText(getApplicationContext(), "Report submitted successfully, thank you for your feedback", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Report submitted successfully, thank you for your feedback", Toast.LENGTH_LONG).show();
                 break;
         }
     }

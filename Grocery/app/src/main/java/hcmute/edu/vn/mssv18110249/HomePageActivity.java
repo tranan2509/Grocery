@@ -120,7 +120,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 goListProduct("Fresh Food", "fresh_food");
                 break;
             case R.id.btnMarket:
-               goListProduct("Marker", "marker");
+               goListProduct("Market", "market");
                 break;
             case R.id.btnPromotion:
                 goListProduct("Promotion", "promotion");

@@ -166,22 +166,24 @@ public class ListProductActivity extends AppCompatActivity implements View.OnCli
                 loadProducts(products, isList);
                 break;
             case R.id.btnList:
+                isList = true;
                 SharedPreferences sharedPref = getSharedPreferences("sort", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean("isList", true);
                 editor.commit();
                 btnList.setImageResource(R.drawable.icons8_list_48);
                 btnGrid.setImageResource(R.drawable.icons8_grid_view_black);
-                loadProducts(products, true);
+                loadProducts(products, isList);
                 break;
             case R.id.btnGrid:
+                isList = false;
                 SharedPreferences sharedPrefGrid = getSharedPreferences("sort", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editorGrid = sharedPrefGrid.edit();
                 editorGrid.putBoolean("isList", false);
                 editorGrid.commit();
                 btnList.setImageResource(R.drawable.icons8_list_black);
                 btnGrid.setImageResource(R.drawable.icons8_grid_view_48);
-                loadProducts(products, false);
+                loadProducts(products, isList);
                 break;
         }
     }
@@ -193,7 +195,7 @@ public class ListProductActivity extends AppCompatActivity implements View.OnCli
         }else{
             String key = intent.getStringExtra("key");
             switch (key){
-                case "marker":products = productDB.get();break;
+                case "market":products = productDB.get();break;
                 case "promotion": products = productDB.getPromotion();break;
                 case "best_selling":
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -237,7 +239,7 @@ public class ListProductActivity extends AppCompatActivity implements View.OnCli
         }else{
             String key = intent.getStringExtra("key");
             switch (key){
-                case "marker":products = productDB.get(name);break;
+                case "market":products = productDB.get(name);break;
                 case "promotion": products = productDB.getPromotion(name);break;
                 case "best_selling":
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

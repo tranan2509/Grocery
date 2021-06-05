@@ -107,7 +107,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             String text = "<strike><font color=\'#757575\'>" + UnitFormatProvider.getInstance().format(product.getPrice()) + "</font></strike>";
             holder.txtViewPrice.setText(Html.fromHtml(text));
         }else {
-            holder.txtViewPrice.setWidth(1);
+            holder.txtViewPrice.setVisibility(View.GONE);
         }
 
         holder.btnReduction.setOnClickListener(new View.OnClickListener() {

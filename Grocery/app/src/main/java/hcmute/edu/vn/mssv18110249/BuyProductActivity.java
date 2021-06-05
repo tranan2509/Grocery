@@ -63,6 +63,7 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
         btnIncrease.setOnClickListener(this);
         btnReduction.setOnClickListener(this);
         btnClose.setOnClickListener(this);
+        imgProduct.setOnClickListener(this);
     }
 
     public void setView(){
@@ -93,6 +94,11 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
                     txtViewQuantity.setText(String.valueOf(--quantity));
                     setAmount();
                 }
+                break;
+            case R.id.imgProduct:
+                intent = new Intent(getApplicationContext(), ImageActivity.class);
+                intent.putExtra("product", product);
+                startActivity(intent);
                 break;
         }
     }
