@@ -79,7 +79,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         holder.txtViewName.setText(product.getName());
         holder.txtViewPrice.setText(UnitFormatProvider.getInstance().format(product.getPrice()));
         holder.txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
-        holder.txtViewRate.setText(product.getRate() + " of " + product.getReviewers());
+        holder.txtViewRate.setText(product.getRate() + " of (" + product.getReviewers() + ") reviewers");
         if (isList)
             holder.txtViewDescription.setText(product.getDescription());
         if (isList)

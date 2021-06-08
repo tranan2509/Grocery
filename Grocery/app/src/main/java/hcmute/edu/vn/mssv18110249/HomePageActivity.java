@@ -19,8 +19,11 @@ import java.util.List;
 
 import DBUtil.BranchDB;
 import DBUtil.CategoryDB;
+import DBUtil.VoucherDB;
 import Model.Branch;
+import Model.Category;
 import Model.Customer;
+import Model.Voucher;
 import Provider.SharedPreferenceProvider;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +34,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling, btnHighlyRated;
     CategoryDB categoryDB;
     BranchDB branchDB;
+    VoucherDB voucherDB;
     Button btnLocation, btnSearch;
     List<Branch> branches;
     Branch branch;
@@ -41,28 +45,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         categoryDB = new CategoryDB(this);
         branchDB = new BranchDB(this);
+        voucherDB = new VoucherDB(this);
 
         getViews();
         setOnclickViews();
 
-        branches = branchDB.getActives();
-        if (branches.size() == 0){
-            Branch branch1 = new Branch("The Grocery - Thu Duc, TP. Ho Chi Minh", "01 Vo Van Ngan, Thu Duc, TP.Ho Chi Minh", true);
-            Branch branch2 = new Branch("The Grocery - Quan 9, TP. Ho Chi Minh", "32 Le Van Viet, Quan 9, TP.Ho Chi Minh", true);
-            Branch branch3 = new Branch("The Grocery - Quan 10, TP. Ho Chi Minh", "34 Le Dinh Phong, Quan 10, TP.Ho Chi Minh", true);
-            branchDB.add(branch1);
-            branchDB.add(branch2);
-            branchDB.add(branch3);
-            branches = branchDB.getActives();
-        }
-
-        try{
-            branch = (Branch)SharedPreferenceProvider.getInstance(this).getBranch("branch");
-            btnLocation.setText(branch.getName());
-        }catch (Exception ex){
-            SharedPreferenceProvider.getInstance(this).set("branch", branches.get(0));
-            btnLocation.setText(branches.get(0).getName());
-        }
+        addData();
 
 
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -86,6 +74,50 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 return false;
             }
         });
+    }
+
+    public void addData(){
+        addBranch();
+        addCategory();
+        addVoucher();
+    }
+
+    public void addBranch(){
+        branches = branchDB.getActives();
+        if (branches.size() == 0){
+            Branch branch1 = new Branch("The Grocery - Thu Duc, TP. Ho Chi Minh", "01 Vo Van Ngan, Thu Duc, TP.Ho Chi Minh", true);
+            Branch branch2 = new Branch("The Grocery - Quan 9, TP. Ho Chi Minh", "32 Le Van Viet, Quan 9, TP.Ho Chi Minh", true);
+            Branch branch3 = new Branch("The Grocery - Quan 10, TP. Ho Chi Minh", "34 Le Dinh Phong, Quan 10, TP.Ho Chi Minh", true);
+            branchDB.add(branch1);
+            branchDB.add(branch2);
+            branchDB.add(branch3);
+            branches = branchDB.getActives();
+        }
+
+        try{
+            branch = (Branch)SharedPreferenceProvider.getInstance(this).getBranch("branch");
+            btnLocation.setText(branch.getName());
+        }catch (Exception ex){
+            SharedPreferenceProvider.getInstance(this).set("branch", branches.get(0));
+            btnLocation.setText(branches.get(0).getName());
+        }
+    }
+
+    public void addCategory(){
+        if (categoryDB.get().isEmpty()) {
+            categoryDB.add(new Category("Fruit"));
+            categoryDB.add(new Category("Fresh Food"));
+            categoryDB.add(new Category("Organic"));
+            categoryDB.add(new Category("Import"));
+        }
+    }
+
+    public void addVoucher(){
+        if (voucherDB.get().isEmpty()){
+            voucherDB.add(new Voucher("GIAMGIASOC", 10, 20000, "2021-06-01", "2021-07-01", true));
+            voucherDB.add(new Voucher("KHUYENMAI", 15, 20000, "2021-06-01", "2021-07-01", true));
+            voucherDB.add(new Voucher("K18", 15, 20000, "2021-05-01", "2021-06-01", true));
+        }
     }
 
     public void getViews(){

@@ -116,7 +116,7 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
             txtViewDiscount.setText(UnitFormatProvider.getInstance().format(0));
         }else{
             Voucher voucher = voucherDB.get(voucherId);
-            double discount = bill.getAmount() * voucher.getDiscount() / 100;
+            double discount = bill.getAmount() / ( 1 - (double)voucher.getDiscount() / 100) * voucher.getDiscount() / 100;
             txtViewVoucher.setText(voucher.getName());
             txtViewSubTotal.setText(UnitFormatProvider.getInstance().format(bill.getAmount() + discount));
             txtViewDiscount.setText(UnitFormatProvider.getInstance().format(discount));

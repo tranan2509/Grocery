@@ -80,12 +80,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         units.add("VND");
         units.add("USA");
 //
-        if (categoryDB.get().isEmpty()) {
-            categoryDB.add(new Category("Fruit"));
-            categoryDB.add(new Category("Fresh Food"));
-            categoryDB.add(new Category("Organic"));
-            categoryDB.add(new Category("Import"));
-        }
         categories = categoryDB.get();
 
         setSpinner();

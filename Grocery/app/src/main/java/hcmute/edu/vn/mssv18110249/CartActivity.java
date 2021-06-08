@@ -193,7 +193,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     public void applyVoucher() {
         txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
-        SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter =new SimpleDateFormat("yyyy-MM-dd");
         String voucherName = txtVoucher.getText().toString();
         if (!voucherName.equals("")){
             Voucher voucher = voucherDB.get(voucherName);
@@ -201,7 +201,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     Date startDate = formatter.parse(voucher.getStartDate());
                     Date endDate = formatter.parse(voucher.getEndDate());
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Calendar cal = Calendar.getInstance();
                     Date now = formatter.parse(dateFormat.format(cal.getTime()));
 
@@ -228,6 +228,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 txtVoucher.setText("");
                 Toast.makeText(getApplicationContext(), "Voucher not found" , Toast.LENGTH_SHORT).show();
             }
+        }else{
+            Toast.makeText(getApplicationContext(), "Please enter voucher" , Toast.LENGTH_SHORT).show();
         }
     }
 
