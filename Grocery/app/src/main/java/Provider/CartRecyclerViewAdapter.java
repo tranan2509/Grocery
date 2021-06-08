@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +104,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.txtViewPriceDiscount.setText(UnitFormatProvider.getInstance().format(product.getPrice()*(1 - (double)product.getDiscount()/100)));
         holder.txtQuantity.setText(String.valueOf(cart.getQuantity()));
         holder.ckbState.setChecked(cart.isState());
+        holder.txtQuantity.setEnabled(false);
 
         if (product.getDiscount() != 0) {
             String text = "<strike><font color=\'#757575\'>" + UnitFormatProvider.getInstance().format(product.getPrice()) + "</font></strike>";

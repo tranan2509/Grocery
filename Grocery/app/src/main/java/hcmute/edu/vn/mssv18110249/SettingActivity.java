@@ -26,14 +26,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     public void getView(){
         btnBack = (ImageButton)findViewById(R.id.btnBack);
-        btnManagerLogin = (Button)findViewById(R.id.btnManageLogin);
         btnSetPassword = (Button)findViewById(R.id.btnSetPassword);
         btnLanguage = (Button)findViewById(R.id.btnLanguage);
     }
 
     public void setOnClick(){
         btnBack.setOnClickListener(this);
-        btnManagerLogin.setOnClickListener(this);
         btnSetPassword.setOnClickListener(this);
         btnLanguage.setOnClickListener(this);
     }
@@ -43,8 +41,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btnBack:
                 intent = new Intent(this, AccountActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.btnManageLogin:
                 break;
             case R.id.btnSetPassword:
                 intent = new Intent(this, SetPasswordActivity.class);

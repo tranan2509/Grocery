@@ -26,6 +26,7 @@ import Model.Account;
 import Model.Customer;
 import Provider.BitmapConvert;
 import Provider.CircleImage;
+import Provider.SharedPreferenceProvider;
 import Provider.Validator;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -99,8 +100,8 @@ public class SignUpActivity extends AppCompatActivity {
                             accountDB.add(account);
                             customerDB.add(customer);
 
+                            SharedPreferenceProvider.getInstance(SignUpActivity.this).set("customer", customer);
                             Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-                            intent.putExtra("customer", customer);
                             startActivity(intent);
                         }catch (Exception x){
                             accountDB.delete(uuid.toString());

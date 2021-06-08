@@ -28,10 +28,10 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling;
+    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling, btnHighlyRated;
     CategoryDB categoryDB;
     BranchDB branchDB;
-    Button btnLocation;
+    Button btnLocation, btnSearch;
     List<Branch> branches;
     Branch branch;
     @Override
@@ -98,6 +98,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnMarket = findViewById(R.id.btnMarket);
         btnPromotion = findViewById(R.id.btnPromotion);
         btnBestSelling = findViewById(R.id.btnBestSelling);
+        btnSearch = findViewById(R.id.btnSearch);
+        btnHighlyRated = findViewById(R.id.btnHighlyRated);
     }
 
     public void setOnclickViews(){
@@ -109,6 +111,8 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnMarket.setOnClickListener(this);
         btnPromotion.setOnClickListener(this);
         btnBestSelling.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
+        btnHighlyRated.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -119,7 +123,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnFreshFood:
                 goListProduct("Fresh Food", "fresh_food");
                 break;
-            case R.id.btnMarket:
+            case R.id.btnMarket: case R.id.btnSearch:
                goListProduct("Market", "market");
                 break;
             case R.id.btnPromotion:
@@ -127,6 +131,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnBestSelling:
                 goListProduct("Best Selling", "best_selling");
+                break;
+            case R.id.btnHighlyRated:
+                goListProduct("Highly Rated", "highly_rated");
                 break;
             case R.id.btnCart:
                 intentNext = new Intent(this, CartActivity.class);
@@ -139,6 +146,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnLocation:
                 intentNext = new Intent(this, BranchActivity.class);
                 startActivity(intentNext);
+                break;
         }
     }
 

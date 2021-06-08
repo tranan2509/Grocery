@@ -202,6 +202,7 @@ public class ListProductActivity extends AppCompatActivity implements View.OnCli
                     Calendar cal = Calendar.getInstance();
                     products = billDetailDB.getBestSelling(dateFormat.format(cal.getTime()));
                     break;
+                case "highly_rated": products = productDB.getByRating(4.0); break;
             }
         }
     }
@@ -246,6 +247,7 @@ public class ListProductActivity extends AppCompatActivity implements View.OnCli
                     Calendar cal = Calendar.getInstance();
                     products = billDetailDB.getBestSelling(dateFormat.format(cal.getTime()), name);
                     break;
+                case "highly_rated": products = productDB.getByRating(4.0, name); break;
             }
         }
         loadProducts(products, isList);

@@ -125,6 +125,38 @@ public class ProductDB extends DatabaseHandler{
         return products;
     }
 
+    public List<Product> getByRating(double rate){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS},
+                KEY_RATE + ">=?", new String[]{ String.valueOf(rate) }, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
+    public List<Product> getByRating(double rate, String name){
+        List<Product> products = new ArrayList<Product>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_PRODUCT, new String[]{ KEY_ID, KEY_CATEGORY_ID, KEY_NAME, KEY_IMAGE, KEY_IMPORT_DATE, KEY_IMPORT_PRICE, KEY_PRICE, KEY_UNIT, KEY_DISCOUNT,
+                        KEY_QUANTITY, KEY_DESCRIPTION, KEY_RATE, KEY_REVIEWERS},
+                KEY_RATE + ">=? AND " + KEY_NAME + " LIKE '%" + name + "%'", new String[]{ String.valueOf(rate) }, null, null, null, null);
+        if (!cursor.moveToFirst()) {
+            return products;
+        }
+        do{
+            Product product = new Product(cursor);
+            products.add(product);
+        }while (cursor.moveToNext());
+        return products;
+    }
+
     public int update(Product product){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

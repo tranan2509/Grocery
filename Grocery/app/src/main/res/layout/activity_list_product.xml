@@ -34,6 +34,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="96dp"
             android:background="@drawable/bg_btn_search"
+            android:hint="Search"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:paddingLeft="16dp"

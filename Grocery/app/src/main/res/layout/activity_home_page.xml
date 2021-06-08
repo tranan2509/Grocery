@@ -170,7 +170,7 @@
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/view02"
                 app:layout_constraintLeft_toRightOf="@id/btnPromotion"
-                app:layout_constraintRight_toLeftOf="@id/btnCopperPrice"
+                app:layout_constraintRight_toLeftOf="@id/btnHighlyRated"
                 android:padding="4dp"
                 android:layout_marginTop="8dp"/>
 
@@ -187,10 +187,10 @@
                 android:layout_marginTop="4dp"/>
 
             <ImageButton
-                android:id="@+id/btnCopperPrice"
+                android:id="@+id/btnHighlyRated"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/market"
+                android:src="@drawable/rating"
                 android:scaleType="fitCenter"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/view02"
@@ -202,10 +202,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Copper price"
-                app:layout_constraintTop_toBottomOf="@id/btnCopperPrice"
-                app:layout_constraintLeft_toLeftOf="@id/btnCopperPrice"
-                app:layout_constraintRight_toRightOf="@id/btnCopperPrice"
+                android:text="Highly Rated"
+                app:layout_constraintTop_toBottomOf="@id/btnHighlyRated"
+                app:layout_constraintLeft_toLeftOf="@id/btnHighlyRated"
+                app:layout_constraintRight_toRightOf="@id/btnHighlyRated"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/black"

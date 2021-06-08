@@ -43,27 +43,26 @@
                 android:id="@+id/txtViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="đ20,000"
                 android:layout_marginLeft="8dp"
-                android:textSize="16sp"/>
+                android:text="đ20,000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtViewPriceDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="đ20,000"
                 android:layout_marginLeft="8dp"
+                android:text="đ20,000"
                 android:textColor="@color/green_main"
-                android:textStyle="bold"
                 android:textSize="18sp"
-                android:layout_weight="1"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
         <TextView
             android:id="@+id/txtViewRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_star_24"
+            android:drawableLeft="@drawable/ic_baseline_star_16"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:letterSpacing="0.03"

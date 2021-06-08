@@ -17,28 +17,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/frameLayoutAvatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="24dp">
+                android:layout_marginLeft="24dp"
+                app:cardCornerRadius="1000dp">
 
-                <Provider.CircleImage
+                <ImageView
                     android:id="@+id/imgAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/camera_circle"
                     android:scaleType="centerCrop"/>
 
-                <ImageView
-                    android:src="@drawable/frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-            </FrameLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/txtViewName"
@@ -71,46 +66,17 @@
                 android:textSize="16sp"
                 android:textColor="#3c3c3c"/>
 
-
-            <Button
-                android:id="@+id/btnBalance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/frameLayoutAvatar"
-                android:text="Balance"
-                android:gravity="left|center_vertical"
-                android:drawableLeft="@drawable/ic_baseline_account_balance_wallet_24"
-                android:drawableRight="@drawable/ic_baseline_navigate_next_24"
-                android:drawablePadding="12dp"
-                android:background="@drawable/bg_btn_account"
-                android:layout_marginTop="24dp"
-                android:paddingRight="12dp"
-                android:paddingLeft="12dp"/>
-
-            <TextView
-                android:id="@+id/txtViewBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/btnBalance"
-                app:layout_constraintBottom_toBottomOf="@id/btnBalance"
-                app:layout_constraintRight_toRightOf="@id/btnBalance"
-                android:layout_marginRight="40dp"
-                android:text="32.100đ"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-
             <Button
                 android:id="@+id/btnSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/btnBalance"
+                app:layout_constraintTop_toBottomOf="@id/txtViewInfo"
                 android:text="Settings"
                 android:gravity="left|center_vertical"
                 android:drawableLeft="@drawable/ic_baseline_settings_24"
                 android:drawableRight="@drawable/ic_baseline_navigate_next_24"
                 android:drawablePadding="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="48dp"
                 android:background="@drawable/bg_btn_account"
                 android:paddingRight="12dp"
                 android:paddingLeft="12dp"/>

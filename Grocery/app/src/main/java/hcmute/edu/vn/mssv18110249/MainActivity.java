@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (accountLogin != null){
                         Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
                         Customer customer = customerDB.getCustomer(accountLogin.getId(), true);
-                        intent.putExtra("customer", customer);
+                        SharedPreferenceProvider.getInstance(MainActivity.this).set("customer", customer);
                         startActivity(intent);
                     }else{
                         Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_LONG).show();
