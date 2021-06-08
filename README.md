@@ -9,4 +9,7 @@
 **Mô tả ứng dụng**
   * Ngôn ngữ lập trình: **Java**
   * Cơ sở dữ liệu: **SQLite**
+  * IDE: **Android Studio**
+  * Máy chạy kiểm thử: **Redmi Note 7 (android 10)**
+
   
