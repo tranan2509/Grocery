@@ -89,6 +89,16 @@ public class BillDB extends DatabaseHandler{
         return bills;
     }
 
+    public boolean isBought(String customerId, int productId){
+        String query = "SELECT * FROM " + TABLE_BILL +
+                " INNER JOIN BILL_DETAIL on BILL_DETAIL.billId = BILL.id" +
+                " WHERE " + KEY_CUS_ID + "=? AND BILL_DETAIL.productId =?";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{customerId, String.valueOf(productId)});
+        return cursor.moveToFirst();
+    }
+
     public double totalOfDate(String date, String customerId){
         double amount = 0;
         String startDate =  date + " 00:00";

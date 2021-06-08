@@ -84,7 +84,6 @@ public class BillDetailDB extends DatabaseHandler{
         return billDetails;
     }
 
-
     public List<Product> getBestSelling(String date) {
         ProductDB productDB = new ProductDB(context);
         List<Product>products = new ArrayList<Product>();

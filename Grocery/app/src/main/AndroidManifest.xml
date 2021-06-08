@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Grocery"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ImageActivity"></activity>
+        <activity android:name=".ReviewActivity"></activity>
+        <activity android:name=".ImageActivity" />
         <activity android:name=".HelpCenterActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

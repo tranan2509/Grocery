@@ -28,6 +28,7 @@
                     android:src="@drawable/image_temple"
                     android:scaleType="centerCrop"/>
             </androidx.cardview.widget.CardView>
+
             <View
                 android:id="@+id/view01"
                 android:layout_width="match_parent"
@@ -75,6 +76,18 @@
         android:padding="2dp"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"/>
+
+    <ImageButton
+        android:id="@+id/btnReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/ic_baseline_star_24"
+        android:background="@drawable/bg_close_white"
+        android:padding="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"/>
 
     <View
         android:id="@+id/view02"

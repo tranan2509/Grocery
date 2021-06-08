@@ -26,7 +26,7 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
 
     Button btnAdd, btnIncrease, btnReduction;
     TextView txtViewName, txtViewPrice, txtViewQuantity;
-    ImageButton btnClose;
+    ImageButton btnClose, btnReview;
     ImageView imgProduct;
     CartDB cartDB;
     Customer customer;
@@ -56,6 +56,7 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
         txtViewQuantity = (TextView)findViewById(R.id.txtViewQuantity);
         btnClose = (ImageButton)findViewById(R.id.btnClose);
         imgProduct = (ImageView)findViewById(R.id.imgProduct);
+        btnReview = findViewById(R.id.btnReview);
     }
 
     public void setOnClick(){
@@ -64,6 +65,7 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
         btnReduction.setOnClickListener(this);
         btnClose.setOnClickListener(this);
         imgProduct.setOnClickListener(this);
+        btnReview.setOnClickListener(this);
     }
 
     public void setView(){
@@ -100,6 +102,10 @@ public class BuyProductActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("product", product);
                 startActivity(intent);
                 break;
+            case R.id.btnReview:
+                intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                intent.putExtra("product", product);
+                startActivity(intent);
         }
     }
 

@@ -79,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "customerId TEXT, " +
                 "branchId INTEGER, " +
                 "payment INTEGER, " +
-                "date TEXT, " +
+                "date NUMERIC, " +
                 "voucherId INTEGER, " +
                 "amount REAL, " +
                 "state TEXT)";
@@ -100,6 +100,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "address TEXT, " +
                 "state NUMERIC)";
         db.execSQL(CREATE_BRANCH_TABLE);
+
+        String CREATE_REVIEW_TABLE = "CREATE TABLE REVIEW(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "customerId TEXT, " +
+                "productId INTEGER, " +
+                "rate INTEGER, " +
+                "description TEXT, " +
+                "date NUMERIC, " +
+                "state NUMERIC)";
+        db.execSQL(CREATE_REVIEW_TABLE);
     }
 
     @Override
@@ -112,6 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS VOUCHER");
         db.execSQL("DROP TABLE IF EXISTS BILL");
         db.execSQL("DROP TABLE IF EXISTS BILL_DETAIL");
+        db.execSQL("DROP TABLE IF EXISTS REVIEW");
         onCreate(db);
     }
 }
