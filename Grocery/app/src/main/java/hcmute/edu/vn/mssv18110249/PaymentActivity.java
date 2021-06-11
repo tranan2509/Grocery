@@ -22,6 +22,7 @@ import java.util.List;
 import DBUtil.BillDB;
 import DBUtil.BillDetailDB;
 import DBUtil.CartDB;
+import DBUtil.CustomerDB;
 import DBUtil.VoucherDB;
 import Model.Bill;
 import Model.BillDetail;
@@ -49,6 +50,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     VoucherDB voucherDB;
     BillDB billDB;
     BillDetailDB billDetailDB;
+    CustomerDB customerDB;
     CartDB cartDB;
     PaymentListViewAdapter paymentListViewAdapter;
 
@@ -60,6 +62,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         voucherDB = new VoucherDB(this);
         billDB = new BillDB(this);
         billDetailDB = new BillDetailDB(this);
+        customerDB = new CustomerDB(this);
         cartDB = new CartDB(this);
 
         getView();
@@ -129,6 +132,10 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     public void payment(){
         bill.setBranchId(branch.getId());
+        System.out.println(bill.getCustomerId());
+        customer.setPoint(customer.getPoint() + (int)bill.getAmount() / 200);
+        customerDB.update(customer);
+        SharedPreferenceProvider.getInstance(this).set("customer", customer);
         billDB.add(bill);
         int billId = billDB.getMaxID();
         bill.setId(billId);

@@ -31,7 +31,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "phone TEXT, " +
                 "address TEXT, " +
                 "dob NUMERIC, " +
-                "gender NUMERIC )";
+                "gender NUMERIC, " +
+                "point INTEGER )";
         db.execSQL(CREATE_CUSTOMER_TABLE);
 
         String CREATE_CATEGORY_TABLE = "CREATE TABLE CATEGORY (" +

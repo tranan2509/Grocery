@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -36,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 import DBUtil.CartDB;
+import DBUtil.CustomerDB;
 import DBUtil.ProductDB;
 import DBUtil.VoucherDB;
 import Model.Bill;
@@ -62,15 +64,18 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     CartDB cartDB;
     VoucherDB voucherDB;
     ProductDB productDB;
+    CustomerDB customerDB;
 
     Bill bill;
     List<BillDetail> billDetails;
 
-    TextView txtViewVoucher, txtViewAmount;
-    CheckBox ckbAllProduct;
+    TextView txtViewVoucher, txtViewAmount, txtViewPoint;
+    CheckBox ckbAllProduct, ckbPoint;
     Button btnApply, btnPurchase;
     ImageView btnBack;
     EditText txtVoucher;
+    public static double amount;
+    double newPoint = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +83,21 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_cart);
 
         customer = (Customer) SharedPreferenceProvider.getInstance(this).get("customer");
+//        customer.setPoint(100000);
         cartDB = new CartDB(this);
         voucherDB = new VoucherDB(this);
         productDB = new ProductDB(this);
+        customerDB = new CustomerDB(this);
         getView();
         carts = cartDB.get(customer.getId());
         load(carts);
+//        customerDB.update(customer);
 
         billDetails = new ArrayList<BillDetail>();
 
         getView();
         setOnClick();
+        setView();
         txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
         ckbAllProduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -113,6 +122,35 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        ckbPoint.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String amountS = txtViewAmount.getText().toString().replace("₫" , "").replace("$", "").replace(",", "");
+                amount = Double.parseDouble(amountS);
+                if (isChecked){
+                    if (customer.getPoint() > amount)
+                        newPoint = customer.getPoint() - amount;
+                    amount = amount >= customer.getPoint() ? amount - customer.getPoint() : 0;
+                    txtViewAmount.setText(UnitFormatProvider.getInstance().format(amount));
+                }else{
+                    if (amount > 0) {
+                        amount += customer.getPoint();
+                        txtViewAmount.setText(UnitFormatProvider.getInstance().format(amount));
+                    } else{
+                        if (txtVoucher.getText().toString().equals("")){
+                            amount = cartDB.getAmount(customer.getId());
+                            int usePoint = amount >= customer.getPoint() ? customer.getPoint() : (int)amount;
+                            newPoint = customer.getPoint() - usePoint;
+                            txtViewPoint.setText("Use " + customer.getPoint() + " accumulated points [-"  + usePoint + "]");
+                            txtViewAmount.setText(UnitFormatProvider.getInstance().format(amount));
+                        }else{
+                            applyVoucher();
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     public void getView(){
@@ -124,6 +162,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         btnApply = (Button)findViewById(R.id.btnApply);
         btnPurchase = (Button)findViewById(R.id.btnPurchase);
         btnBack = (ImageButton)findViewById(R.id.btnBack);
+        txtViewPoint = findViewById(R.id.txtViewPoint);
+        ckbPoint = findViewById(R.id.ckbPoint);
     }
 
     public void setOnClick(){
@@ -150,20 +190,28 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnBack:
                 finish();
+                break;
         }
     }
 
+    public void setView(){
+        amount = cartDB.getAmount(customer.getId());
+        int usePoint = amount >= customer.getPoint() ? customer.getPoint() : (int)amount;
+        txtViewPoint.setText("Use " + customer.getPoint() + " accumulated points [-"  + usePoint + "]");
+    }
+
     public void purchase(){
-        double amount = 0;
+//        double amount = 0;
         carts = cartDB.get(customer.getId());
         billDetails = new ArrayList<BillDetail>();
         for (Cart cart : carts){
-            if (cart.isState()){
-            Product product = productDB.get(cart.getProductId());
-            double price = product.getPrice() * (1 - (double)product.getDiscount()/100);
-            amount += price * cart.getQuantity();
-            BillDetail billDetail = new BillDetail(1, cart.getProductId(), cart.getQuantity(), price, price * cart.getQuantity());
-            billDetails.add(billDetail);}
+            if (cart.isState()) {
+                Product product = productDB.get(cart.getProductId());
+                double price = product.getPrice() * (1 - (double) product.getDiscount() / 100);
+//                amount += price * cart.getQuantity();
+                BillDetail billDetail = new BillDetail(1, cart.getProductId(), cart.getQuantity(), price, price * cart.getQuantity());
+                billDetails.add(billDetail);
+            }
         }
         try{
             SimpleDateFormat formatter =new SimpleDateFormat("dd/MM/yyyy");
@@ -172,10 +220,19 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             Date now = formatter.parse(dateFormat.format(cal.getTime()));
             Voucher voucher = voucherDB.get(txtVoucher.getText().toString());
             int voucherId = voucher == null ? 0 : voucher.getId();
-            amount = voucher == null ? amount : amount * (1 - (double)voucher.getDiscount()/100);
+//            amount = voucher == null ? amount : amount * (1 - (double)voucher.getDiscount()/100);
             bill = new Bill(customer.getId(), 1, now.toString(), voucherId, amount, "unpaid");
         }catch (Exception ex){
 
+        }
+        if (ckbPoint.isChecked()){
+            if (amount > 0) {
+                customer.setPoint(0);
+            }else{
+                customer.setPoint((int)newPoint);
+            }
+            customerDB.update(customer);
+            SharedPreferenceProvider.getInstance(this).set("customer", customer);
         }
 
     }
@@ -218,7 +275,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         txtVoucher.setText("");
                         Toast.makeText(getApplicationContext(), "Minimum order value must be over " + voucher.getCondition() , Toast.LENGTH_SHORT).show();
                     } else{
-                        double amount = cartDB.getAmount(customer.getId()) * (1 - (double)voucher.getDiscount()/100);
+                        amount = cartDB.getAmount(customer.getId()) * (1 - (double)voucher.getDiscount()/100);
+                        if (ckbPoint.isChecked()) {
+                            if (customer.getPoint() > amount)
+                                newPoint = customer.getPoint() - amount;
+                            amount = amount >= customer.getPoint() ? amount - customer.getPoint() : 0;
+                        }
+                        int usePoint = amount >= customer.getPoint() ? customer.getPoint() : (int)amount;
+                        txtViewPoint.setText("Use " + customer.getPoint() + " accumulated points [-"  + usePoint + "]");
                         txtViewAmount.setText(UnitFormatProvider.getInstance().format(amount));
                     }
                 }catch (Exception x){

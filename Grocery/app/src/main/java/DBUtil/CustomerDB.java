@@ -23,6 +23,7 @@ public class CustomerDB extends DatabaseHandler{
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_DOB = "dob";
     private static final String KEY_GENDER = "gender";
+    private static final String KEY_POINT = "point";
 
     public CustomerDB(Context context){
         super(context);
@@ -42,6 +43,7 @@ public class CustomerDB extends DatabaseHandler{
         values.put(KEY_ADDRESS, customer.getAddress());
         values.put(KEY_DOB, customer.getDob());
         values.put(KEY_GENDER, customer.isGender());
+        values.put(KEY_POINT, customer.getPoint());
 
         db.insert(TABLE_CUSTOMER, null, values);
         db.close();
@@ -49,7 +51,7 @@ public class CustomerDB extends DatabaseHandler{
 
     public Customer getCustomer(String id, boolean isAccountId){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CUSTOMER, new String[]{KEY_ID, KEY_ACC_ID, KEY_NAME, KEY_AVATAR, KEY_PHONE, KEY_ADDRESS, KEY_DOB, KEY_GENDER},
+        Cursor cursor = db.query(TABLE_CUSTOMER, new String[]{KEY_ID, KEY_ACC_ID, KEY_NAME, KEY_AVATAR, KEY_PHONE, KEY_ADDRESS, KEY_DOB, KEY_GENDER, KEY_POINT},
                 KEY_ACC_ID + "=?", new String[]{id}, null, null, null, null);
         if (cursor != null && cursor.getCount() > 0)
             cursor.moveToFirst();
@@ -60,7 +62,7 @@ public class CustomerDB extends DatabaseHandler{
 
     public Customer getCustomer(String id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CUSTOMER, new String[]{KEY_ID, KEY_ACC_ID, KEY_NAME, KEY_AVATAR, KEY_PHONE, KEY_ADDRESS, KEY_DOB, KEY_GENDER},
+        Cursor cursor = db.query(TABLE_CUSTOMER, new String[]{KEY_ID, KEY_ACC_ID, KEY_NAME, KEY_AVATAR, KEY_PHONE, KEY_ADDRESS, KEY_DOB, KEY_GENDER, KEY_POINT},
                 KEY_ID + "=?", new String[]{id}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -93,6 +95,7 @@ public class CustomerDB extends DatabaseHandler{
         values.put(KEY_ADDRESS, customer.getAddress());
         values.put(KEY_DOB, customer.getDob());
         values.put(KEY_GENDER, customer.isGender());
+        values.put(KEY_POINT, customer.getPoint());
         return db.update(TABLE_CUSTOMER, values, KEY_ID + "=?", new String[]{customer.getId()});
     }
 

@@ -16,6 +16,7 @@ public class Customer implements Serializable {
     private String address;
     private String dob;
     private boolean gender;
+    private int point;
 
     public Customer() {
     }
@@ -29,6 +30,7 @@ public class Customer implements Serializable {
         this.address = address;
         this.dob = dob;
         this.gender = gender;
+        this.point = 0;
     }
 
     public Customer(Cursor cursor){
@@ -41,6 +43,7 @@ public class Customer implements Serializable {
         this.address =  cursor.getString(cursor.getColumnIndex("address"));
         this.dob = cursor.getString(cursor.getColumnIndex("dob"));
         this.gender = cursor.getString(cursor.getColumnIndex("gender")).equals("1");
+        this.point = cursor.getInt(cursor.getColumnIndex("point"));
     }
 
     public String getId() {
@@ -105,5 +108,13 @@ public class Customer implements Serializable {
 
     public void setGender(final boolean gender) {
         this.gender = gender;
+    }
+
+    public int getPoint() {
+        return this.point;
+    }
+
+    public void setPoint(final int point) {
+        this.point = point;
     }
 }

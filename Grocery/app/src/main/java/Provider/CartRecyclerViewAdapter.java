@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
@@ -214,10 +216,14 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
     public void updateAmount(List<Cart> carts){
         TextView txtViewAmount = (TextView)((Activity)contextCart).findViewById(R.id.txtViewAmount);
+        CheckBox ckbPoint = ((Activity)contextCart).findViewById(R.id.ckbPoint);
         ProductDB productDBAdd = new ProductDB(contextCart);
         CartDB cartDB = new CartDB(contextCart);
         Customer customer = (Customer)SharedPreferenceProvider.getInstance(contextCart).get("customer");
-
-        txtViewAmount.setText(UnitFormatProvider.getInstance().format(cartDB.getAmount(customer.getId())));
+        double amount = cartDB.getAmount(customer.getId());
+        if (ckbPoint.isChecked())
+            amount = amount >= customer.getPoint() ? amount - customer.getPoint() : customer.getPoint() - amount;
+        CartActivity.amount = amount;
+        txtViewAmount.setText(UnitFormatProvider.getInstance().format(amount));
     }
 }

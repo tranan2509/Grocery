@@ -19,10 +19,12 @@ import java.util.List;
 
 import DBUtil.BranchDB;
 import DBUtil.CategoryDB;
+import DBUtil.ProductDB;
 import DBUtil.VoucherDB;
 import Model.Branch;
 import Model.Category;
 import Model.Customer;
+import Model.Product;
 import Model.Voucher;
 import Provider.SharedPreferenceProvider;
 
@@ -31,10 +33,11 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     BottomNavigationView bottomNavigationView;
     Intent intent, intentNext;
     Customer customer;
-    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling, btnHighlyRated;
+    ImageButton btnFruit, btnCart, btnOrganic, btnFreshFood, btnMarket, btnPromotion, btnBestSelling, btnHighlyRated, btnImport;
     CategoryDB categoryDB;
     BranchDB branchDB;
     VoucherDB voucherDB;
+    ProductDB productDB;
     Button btnLocation, btnSearch;
     List<Branch> branches;
     Branch branch;
@@ -46,12 +49,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         categoryDB = new CategoryDB(this);
         branchDB = new BranchDB(this);
         voucherDB = new VoucherDB(this);
+        productDB = new ProductDB(this);
 
         getViews();
         setOnclickViews();
 
         addData();
-
 
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -132,6 +135,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnBestSelling = findViewById(R.id.btnBestSelling);
         btnSearch = findViewById(R.id.btnSearch);
         btnHighlyRated = findViewById(R.id.btnHighlyRated);
+        btnImport = findViewById(R.id.btnImport);
     }
 
     public void setOnclickViews(){
@@ -145,6 +149,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         btnBestSelling.setOnClickListener(this);
         btnSearch.setOnClickListener(this);
         btnHighlyRated.setOnClickListener(this);
+        btnImport.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -167,13 +172,17 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnHighlyRated:
                 goListProduct("Highly Rated", "highly_rated");
                 break;
+            case R.id.btnImport:
+                goListProduct("Import", "import");
+                break;
             case R.id.btnCart:
                 intentNext = new Intent(this, CartActivity.class);
                 startActivity(intentNext);
                 break;
             case R.id.btnOrganic:
-                intentNext = new Intent(this, AddProductActivity.class);
-                startActivity(intentNext);
+                goListProduct("Organic", "organic");
+//                intentNext = new Intent(this, AddProductActivity.class);
+//                startActivity(intentNext);
                 break;
             case R.id.btnLocation:
                 intentNext = new Intent(this, BranchActivity.class);
